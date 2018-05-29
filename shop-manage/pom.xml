@@ -12,13 +12,11 @@
 	<name>shop-manage</name>
 	<url>http://maven.apache.org</url>
 
-
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 	</properties>
-
 
 	<dependencies>
 		<dependency>
@@ -200,6 +198,12 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.shop</groupId>
+			<artifactId>shop-domain</artifactId>
+			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
 
