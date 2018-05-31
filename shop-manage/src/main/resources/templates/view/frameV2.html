@@ -1,0 +1,45 @@
+<#import "/master.html" as master />
+<#macro frame csss=[] scripts=[] locations=[]>
+<@master.master csss=csss scripts=scripts>
+<div class="row wrapper border-bottom white-bg" style="padding: 15px 40px;">
+   <ol class="breadcrumb">
+     	<#if locations?exists&&locations?size gt 0>
+     		<#assign msize = locations?size>
+		 	<#list locations as location>
+		 		<#if location_index = (msize-1)>
+		 			<li><strong>${location!}</strong></li>
+		 		<#else>
+		 			<li><a href="javascript:void(0)">${location!}</a></li>
+		 		</#if>
+			 </#list>
+		</#if>
+     </ol>
+ </div>
+ <#nested>
+</@master.master>
+</#macro>
+<#macro script >
+	<!--jquery-->
+	<script src="${basePath}/static/js/jquery.min.js"></script>
+	<!--bootstrap-->
+	<script src="${basePath}/static/js/bootstrap.min.js"></script>
+	<!-- Bootstrap table -->
+	<script src="${basePath}/static/js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+	<script src="${basePath}/static/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js"></script>
+	<script src="${basePath}/static/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+	<!-- Peity -->
+	<script src="${basePath}/static/js/plugins/peity/jquery.peity.min.js"></script>
+	<!-- layer -->
+	<script src="${basePath}/static/js/plugins/layer/layer.min.js"></script>
+	<!-- 自定义js -->
+	<script src="${basePath}/static/js/content.js"></script>
+	<!--jquery validate-->
+	<script src="${basePath}/static/js/plugins/validate/jquery.validate.min.js"></script>
+	<script src="${basePath}/static/js/plugins/validate/messages_zh.min.js"></script>
+	
+	<script src="${basePath}/static/js/plugins/parsley/parsley.min.js"></script>
+	
+	<script src="${basePath}/static/js/plugins/layer/laydate/laydate.js"></script>
+	<#nested>
+</#macro>
+	

@@ -8,12 +8,16 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.request.RequestContextListener;
 
 @SpringBootApplication(exclude = { DataSourceAutoConfiguration.class })
 @Configuration
+@ServletComponentScan
+@ComponentScan(basePackages = { "com.shop" })
 @EnableAutoConfiguration
 public class App extends org.springframework.boot.web.servlet.support.SpringBootServletInitializer {
 
