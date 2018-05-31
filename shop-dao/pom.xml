@@ -19,5 +19,11 @@
       <artifactId>junit</artifactId>
       <scope>test</scope>
     </dependency>
+    
+    	<dependency>
+			<groupId>com.shop</groupId>
+			<artifactId>shop-domain</artifactId>
+			<version>${project.version}</version>
+		</dependency>
   </dependencies>
 </project>
