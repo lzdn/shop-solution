@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shop.manage.dao.DeptDao">
+  <resultMap id="BaseResultMap" type="com.shop.manage.dto.DeptDTO">
+  	<id column="dept_id" jdbcType="INT" property="deptId" />
+  	<result column="parent_dept_id" jdbcType="INT" property="parentDeptId" />
+  	<result column="dept_simple_name" jdbcType="VARCHAR" property="deptSimpleName" />
+  	<result column="dept_full_name" jdbcType="VARCHAR" property="deptFullName" />
+  	<result column="description" jdbcType="VARCHAR" property="description" />
+  	<result column="create_time" jdbcType="DATETIME" property="createTime" />
+  	<result column="update_time" jdbcType="DATETIME" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+   dept_id,parent_dept_id,dept_simple_name,dept_full_name,description,create_time,update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="Map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_dept
+   <where>  
+  	and dept_id = #{deptId,jdbcType=INT}
+  </where>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="Map">
+    delete from t_dept
+    <where>  
+  	and dept_id = #{deptId,jdbcType=INT}
+  </where>
+  </delete>
+  
+  <insert id="insertSelective" parameterType="com.shop.manage.dto.DeptDTO">
+    insert into t_dept
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+	  <if test="deptId != null">
+        dept_id,
+      </if>
+  	  <if test="parentDeptId != null">
+  		parent_dept_id,
+  	  </if>
+  	  <if test="deptSimpleName != null">
+  		dept_simple_name,
+  	  </if>
+  	  <if test="deptFullName != null">
+  		dept_full_name,
+  	  </if>
+  	  <if test="description != null">
+  		description,
+  	  </if>
+  	  <if test="createTime != null">
+  		create_time,
+  	  </if>
+  	  <if test="updateTime != null">
+  		update_time,
+  	  </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+	  <if test="deptId != null">
+		#{deptId,jdbcType=INT},
+      </if>
+	  <if test="parentDeptId != null">
+		#{parentDeptId,jdbcType=INT},
+      </if>
+	  <if test="deptSimpleName != null">
+		#{deptSimpleName,jdbcType=VARCHAR},
+      </if>
+	  <if test="deptFullName != null">
+		#{deptFullName,jdbcType=VARCHAR},
+      </if>
+	  <if test="description != null">
+		#{description,jdbcType=VARCHAR},
+      </if>
+	  <if test="createTime != null">
+		#{createTime,jdbcType=DATETIME},
+      </if>
+	  <if test="updateTime != null">
+		#{updateTime,jdbcType=DATETIME},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.shop.manage.dto.DeptDTO">
+    update t_dept
+    <set>
+	  <if test="parentDeptId != null">
+		parent_dept_id = #{parentDeptId,jdbcType=INT},
+      </if>
+	  <if test="deptSimpleName != null">
+		dept_simple_name = #{deptSimpleName,jdbcType=VARCHAR},
+      </if>
+	  <if test="deptFullName != null">
+		dept_full_name = #{deptFullName,jdbcType=VARCHAR},
+      </if>
+	  <if test="description != null">
+		description = #{description,jdbcType=VARCHAR},
+      </if>
+	  <if test="createTime != null">
+		create_time = #{createTime,jdbcType=DATETIME},
+      </if>
+	  <if test="updateTime != null">
+		update_time = #{updateTime,jdbcType=DATETIME},
+      </if>
+    </set>
+   <where>  
+  	and dept_id = #{deptId,jdbcType=INT}
+  </where>
+  </update>
+  
+  <select id="findSplitPage" parameterType="Map" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" /> from t_dept
+  </select>
+  
+</mapper>
