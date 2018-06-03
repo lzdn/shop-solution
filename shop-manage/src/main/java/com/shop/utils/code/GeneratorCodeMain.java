@@ -3,7 +3,7 @@ package com.shop.utils.code;
 public class GeneratorCodeMain {
 
 	public static void main(String[] args) throws Exception {
-		
+		final String packageLastName = "admin";
 		String[] tables = new String[] {"dept","dict","job_log","module","resource","role","user"};
 		String[] annotation = new String[] {"部门","系统字典","定时任务日志","系统模块","系统资源","角色","用户"};
 		for (int i = 0;i<tables.length;i++) {
@@ -11,7 +11,8 @@ public class GeneratorCodeMain {
 			GenerateDomain domain = new GenerateDomain();
 			domain.setAuthor("张林");
 			domain.setCurrentDate("20180602");
-			domain.setPackageName("com.shop.manage");
+			domain.setPackageName("com.shop");
+			domain.setPackageLastName(packageLastName);
 			domain.setTableAnnotation(annotation[i]);
 			domain.setTableName(tables[i]);
 			domain.setGitHub("https://github.com/lzdn");
@@ -23,7 +24,8 @@ public class GeneratorCodeMain {
 			GenerateDao dao = new GenerateDao();
 			dao.setAuthor("张林");
 			dao.setCurrentDate("20180602");
-			dao.setPackageName("com.shop.manage");
+			dao.setPackageName("com.shop");
+			dao.setPackageLastName(packageLastName);
 			dao.setTableAnnotation(annotation[i]);
 			dao.setTableName(tables[i]);
 			dao.setGitHub("https://github.com/lzdn");
@@ -33,7 +35,8 @@ public class GeneratorCodeMain {
 			GenerateMapper mapper = new GenerateMapper();
 			mapper.setAuthor("张林");
 			mapper.setCurrentDate("20180602");
-			mapper.setPackageName("com.shop.manage");
+			mapper.setPackageName("com.shop");
+			mapper.setPackageLastName(packageLastName);
 			mapper.setTableAnnotation(annotation[i]);
 			mapper.setTableName(tables[i]);
 			mapper.setGitHub("https://github.com/lzdn");
@@ -43,7 +46,8 @@ public class GeneratorCodeMain {
 			GenerateService service = new GenerateService();
 			service.setAuthor("张林");
 			service.setCurrentDate("20180602");
-			service.setPackageName("com.shop.manage");
+			service.setPackageName("com.shop");
+			service.setPackageLastName(packageLastName);
 			service.setTableAnnotation(annotation[i]);
 			service.setTableName(tables[i]);
 			service.setGitHub("https://github.com/lzdn");
@@ -54,7 +58,8 @@ public class GeneratorCodeMain {
 			GenerateServiceImpl serviceImpl = new GenerateServiceImpl();
 			serviceImpl.setAuthor("张林");
 			serviceImpl.setCurrentDate("20180602");
-			serviceImpl.setPackageName("com.shop.manage");
+			serviceImpl.setPackageName("com.shop");
+			serviceImpl.setPackageLastName(packageLastName);
 			serviceImpl.setTableAnnotation(annotation[i]);
 			serviceImpl.setTableName(tables[i]);
 			serviceImpl.setGitHub("https://github.com/lzdn");
@@ -64,7 +69,8 @@ public class GeneratorCodeMain {
 			GenerateAction action = new GenerateAction();
 			action.setAuthor("张林");
 			action.setCurrentDate("20180602");
-			action.setPackageName("com.shop.manage");
+			action.setPackageName("com.shop");
+			action.setPackageLastName(packageLastName);
 			action.setTableAnnotation(annotation[i]);
 			action.setTableName(tables[i]);
 			action.setGitHub("https://github.com/lzdn");

@@ -36,7 +36,7 @@ public class GenerateMapper extends BaseCode {
 			}
 			primarykeysTypes += primaryKeys.getString("COLUMN_NAME") +",";
 			
-			primaryKey.setColumnType(typeName);
+			primaryKey.setColumnType(getColumnJavaType(typeName.toLowerCase()));
 			primaryKey.setColumnName(primaryKeys.getString("COLUMN_NAME"));
 			primaryKey.setChangeColumnName(CodeCommonUtil.lowerFirst(CodeCommonUtil.replaceUnderLineAndUpperCase(primaryKeys.getString("COLUMN_NAME"))));
 			primaryKeysList.add(primaryKey);
@@ -56,7 +56,8 @@ public class GenerateMapper extends BaseCode {
 			if(flag)continue;
 			primarykeysTypes += resultSet.getString("COLUMN_NAME") +",";
 			ColumnClass columnKey = new ColumnClass();
-			columnKey.setColumnType(resultSet.getString("TYPE_NAME"));
+			String typeName = resultSet.getString("TYPE_NAME");
+			columnKey.setColumnType(getColumnJavaType(typeName.toLowerCase()));
 			columnKey.setColumnName(resultSet.getString("COLUMN_NAME"));
 			columnKey.setChangeColumnName(CodeCommonUtil.lowerFirst(CodeCommonUtil.replaceUnderLineAndUpperCase(resultSet.getString("COLUMN_NAME"))));
 			columnKeys.add(columnKey);
@@ -72,10 +73,34 @@ public class GenerateMapper extends BaseCode {
 		dataMap.put("author", this.getAuthor());
 		dataMap.put("date", this.getCurrentDate());
 		dataMap.put("package_name", this.getPackageName());
+		dataMap.put("package_last_name", this.getPackageLastName());
 		dataMap.put("table_annotation", this.getTableAnnotation());
 		dataMap.put("gitHub", this.getGitHub());
 
 		CodeCommonUtil.generateFileByTemplate(this.getTemplateName(), tempFile, dataMap);
 		// 生成DTO
+	}
+	
+	public static String getColumnJavaType(String columnType) {
+
+		if ("int".equals(columnType) || "integer".equals(columnType)) {
+			return "INTEGER";
+		}
+		if ("datetime".equals(columnType) ) {
+			return "TIMESTAMP";
+		}
+		if ("longblob".equals(columnType) || "blob".equals(columnType)) {
+			return "LONGVARBINARY";
+		}
+		if ("float".equals(columnType)) {
+			return "REAL";
+		}
+		if ("enum".equals(columnType)) {
+			return "CHAR";
+		}
+		if ("text".equals(columnType) || "longtext".equals(columnType)) {
+			return "LONGVARCHAR";
+		}
+		return columnType.toUpperCase();
 	}
 }

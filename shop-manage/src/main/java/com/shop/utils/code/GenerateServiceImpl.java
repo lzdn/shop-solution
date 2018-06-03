@@ -58,6 +58,7 @@ public class GenerateServiceImpl extends BaseCode{
 		dataMap.put("author", this.getAuthor());
 		dataMap.put("date", this.getCurrentDate());
 		dataMap.put("package_name", this.getPackageName());
+		dataMap.put("package_last_name", this.getPackageLastName());
 		dataMap.put("table_annotation", this.getTableAnnotation());
 		dataMap.put("gitHub", this.getGitHub());
 

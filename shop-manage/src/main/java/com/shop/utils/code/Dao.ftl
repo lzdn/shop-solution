@@ -1,9 +1,11 @@
-package ${package_name}.dao;
-import com.shop.dao.base.BaseDao;
-import ${package_name}.domain.${table_name};
-import ${package_name}.dto.${table_name}DTO;
-import java.util.List;
+package ${package_name}.dao.${package_last_name};
+
 import java.util.Map;
+import java.util.List;
+import com.shop.dao.BaseDao;
+import ${package_name}.domain.${package_last_name}.${table_name};
+import ${package_name}.dto.${package_last_name}.${table_name}DTO;
+
 
 /**
 * @date ${date}
@@ -19,9 +21,9 @@ public interface ${table_name}Dao extends BaseDao {
 	${table_name}DTO selectByPrimaryKey(${primarykeysTypes!});
 	</#if>
 
-	int insertSelective(${table_name} record);
+	int insertSelective(${table_name} ${table_name?uncap_first});
 
-	int updateByPrimaryKeySelective(${table_name} record);
+	int updateByPrimaryKeySelective(${table_name} ${table_name?uncap_first});
 
 	List<${table_name}DTO> findSplitPage(Map<String, Object> map); 
 	

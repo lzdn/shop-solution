@@ -9,6 +9,7 @@ public class BaseCode {
 	private String packageName;
 	private String tableAnnotation;
 	private String gitHub;
+	private String packageLastName;
 
 	public String getGitHub() {
 		return gitHub;
@@ -64,5 +65,13 @@ public class BaseCode {
 
 	public void setTableAnnotation(String tableAnnotation) {
 		this.tableAnnotation = tableAnnotation;
+	}
+
+	public String getPackageLastName() {
+		return packageLastName;
+	}
+
+	public void setPackageLastName(String packageLastName) {
+		this.packageLastName = packageLastName;
 	}
 }

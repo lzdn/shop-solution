@@ -1,16 +1,18 @@
-package ${package_name}.service.impl;
+package ${package_name}.service.impl.${package_last_name};
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.List;
+import java.util.HashMap;
+import com.github.pagehelper.PageInfo;
 import com.github.pagehelper.PageHelper;
-import  com.github.pagehelper.PageInfo;
-import  ${package_name}.dao.${table_name}Dao;
-import  ${package_name}.dto.${table_name}DTO;
-import  ${package_name}.service.I${table_name}Service;
-import  com.shop.service.base.BaseServiceImpl;
-import  org.springframework.beans.factory.annotation.Autowired;
-import  org.springframework.stereotype.Service;
+import com.shop.service.BaseServiceImpl;
+import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import ${package_name}.dao.${package_last_name}.${table_name}Dao;
+import ${package_name}.dto.${package_last_name}.${table_name}DTO;
+import ${package_name}.service.${package_last_name}.I${table_name}Service;
+
+
 
 /**
 * @date ${date}

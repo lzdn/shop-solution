@@ -2,7 +2,6 @@ package com.shop;
 
 import javax.servlet.MultipartConfigElement;
 
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
@@ -39,10 +38,6 @@ public class App extends org.springframework.boot.web.servlet.support.SpringBoot
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
 		return application.sources(App.class);
-	}
-
-	public static void main(String[] args) throws Exception {
-		SpringApplication.run(App.class, args);
 	}
 
 }

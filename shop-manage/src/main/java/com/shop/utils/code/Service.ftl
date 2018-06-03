@@ -1,8 +1,8 @@
-package ${package_name}.service;
+package ${package_name}.service.${package_last_name};
 
+import com.shop.service.IBaseService;
 import com.github.pagehelper.PageInfo;
-import com.shop.service.base.IBaseService;
-import ${package_name}.dto.${table_name}DTO;
+import ${package_name}.dto.${package_last_name}.${table_name}DTO;
 
 /**
 * @date ${date}

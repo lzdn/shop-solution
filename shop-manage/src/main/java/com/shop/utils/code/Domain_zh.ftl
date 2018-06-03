@@ -1,8 +1,8 @@
-package ${package_name}.domain;
+package ${package_name}.domain.${package_last_name};
 
-import com.shop.domain.base.BaseEntity;
-import java.io.Serializable;
 import java.util.Date;
+import java.io.Serializable;
+import com.shop.domain.BaseEntity;
 
 
 /**

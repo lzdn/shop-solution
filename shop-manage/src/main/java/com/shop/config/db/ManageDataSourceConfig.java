@@ -19,8 +19,8 @@ public class ManageDataSourceConfig {
 
 	private Logger logger = LoggerFactory.getLogger(ManageDataSourceConfig.class);
 
-	static final String MANAGE_PACKAGE = "com.shop.dao.manage";
-	private static final String MANAGE_MAPPER_LOCAL = "classpath:mapper/manage/*.xml";
+	static final String MANAGE_PACKAGE = "com.shop.dao.admin";
+	private static final String MANAGE_MAPPER_LOCAL = "classpath:mapper/admin/*.xml";
 
 	/**
 	 * 配置一个主库

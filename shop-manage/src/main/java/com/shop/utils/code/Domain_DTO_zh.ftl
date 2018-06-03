@@ -1,6 +1,6 @@
-package ${package_name}.dto;
+package ${package_name}.dto.${package_last_name};
 
-import ${package_name}.domain.${table_name};
+import ${package_name}.domain.${package_last_name}.${table_name};
 
 /**
 * @date ${date}
