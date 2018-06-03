@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shop.dao.product.ProductDao">
+  <resultMap id="BaseResultMap" type="com.shop.dto.product.ProductDTO">
+  	<id column="product_id" jdbcType="INTEGER" property="productId" />
+  	<result column="content" jdbcType="LONGVARBINARY" property="content" />
+  	<result column="description" jdbcType="LONGVARBINARY" property="description" />
+  </resultMap>
+  <sql id="Base_Column_List">
+   product_id,content,description
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="Map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_product
+   <where>  
+  	and product_id = #{productId,jdbcType=INTEGER}
+  </where>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="Map">
+    delete from t_product
+    <where>  
+  	and product_id = #{productId,jdbcType=INTEGER}
+  </where>
+  </delete>
+  
+  <insert id="insertSelective" parameterType="com.shop.dto.product.ProductDTO">
+    insert into t_product
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+	  <if test="productId != null">
+        product_id,
+      </if>
+  	  <if test="content != null">
+  		content,
+  	  </if>
+  	  <if test="description != null">
+  		description,
+  	  </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+	  <if test="productId != null">
+		#{productId,jdbcType=INTEGER},
+      </if>
+	  <if test="content != null">
+		#{content,jdbcType=LONGVARBINARY},
+      </if>
+	  <if test="description != null">
+		#{description,jdbcType=LONGVARBINARY},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.shop.dto.product.ProductDTO">
+    update t_product
+    <set>
+	  <if test="content != null">
+		content = #{content,jdbcType=LONGVARBINARY},
+      </if>
+	  <if test="description != null">
+		description = #{description,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+   <where>  
+  	and product_id = #{productId,jdbcType=INTEGER}
+  </where>
+  </update>
+  
+  <select id="findSplitPage" parameterType="Map" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" /> from t_product
+    <where>  
+	  <if test="content != null">
+		and content = #{content,jdbcType=LONGVARBINARY},
+      </if>
+	  <if test="description != null">
+		and description = #{description,jdbcType=LONGVARBINARY},
+      </if>
+	  <if test="productId != null">
+	  	and product_id = #{productId,jdbcType=INTEGER}
+	  </if>
+  </where>
+  </select>
+  
+</mapper>

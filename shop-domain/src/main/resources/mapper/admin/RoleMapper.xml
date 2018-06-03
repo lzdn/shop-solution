@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shop.dao.admin.RoleDao">
+  <resultMap id="BaseResultMap" type="com.shop.dto.admin.RoleDTO">
+  	<id column="role_id" jdbcType="INTEGER" property="roleId" />
+  	<result column="role_key" jdbcType="VARCHAR" property="roleKey" />
+  	<result column="role_name" jdbcType="VARCHAR" property="roleName" />
+  	<result column="description" jdbcType="VARCHAR" property="description" />
+  	<result column="status" jdbcType="INTEGER" property="status" />
+  	<result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  	<result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+   role_id,role_key,role_name,description,status,create_time,update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="Map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_role
+   <where>  
+  	and role_id = #{roleId,jdbcType=INTEGER}
+  </where>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="Map">
+    delete from t_role
+    <where>  
+  	and role_id = #{roleId,jdbcType=INTEGER}
+  </where>
+  </delete>
+  
+  <insert id="insertSelective" parameterType="com.shop.dto.admin.RoleDTO">
+    insert into t_role
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+	  <if test="roleId != null">
+        role_id,
+      </if>
+  	  <if test="roleKey != null">
+  		role_key,
+  	  </if>
+  	  <if test="roleName != null">
+  		role_name,
+  	  </if>
+  	  <if test="description != null">
+  		description,
+  	  </if>
+  	  <if test="status != null">
+  		status,
+  	  </if>
+  	  <if test="createTime != null">
+  		create_time,
+  	  </if>
+  	  <if test="updateTime != null">
+  		update_time,
+  	  </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+	  <if test="roleId != null">
+		#{roleId,jdbcType=INTEGER},
+      </if>
+	  <if test="roleKey != null">
+		#{roleKey,jdbcType=VARCHAR},
+      </if>
+	  <if test="roleName != null">
+		#{roleName,jdbcType=VARCHAR},
+      </if>
+	  <if test="description != null">
+		#{description,jdbcType=VARCHAR},
+      </if>
+	  <if test="status != null">
+		#{status,jdbcType=INTEGER},
+      </if>
+	  <if test="createTime != null">
+		#{createTime,jdbcType=TIMESTAMP},
+      </if>
+	  <if test="updateTime != null">
+		#{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.shop.dto.admin.RoleDTO">
+    update t_role
+    <set>
+	  <if test="roleKey != null">
+		role_key = #{roleKey,jdbcType=VARCHAR},
+      </if>
+	  <if test="roleName != null">
+		role_name = #{roleName,jdbcType=VARCHAR},
+      </if>
+	  <if test="description != null">
+		description = #{description,jdbcType=VARCHAR},
+      </if>
+	  <if test="status != null">
+		status = #{status,jdbcType=INTEGER},
+      </if>
+	  <if test="createTime != null">
+		create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+	  <if test="updateTime != null">
+		update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+   <where>  
+  	and role_id = #{roleId,jdbcType=INTEGER}
+  </where>
+  </update>
+  
+  <select id="findSplitPage" parameterType="Map" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" /> from t_role
+    <where>  
+	  <if test="roleKey != null">
+		and role_key = #{roleKey,jdbcType=VARCHAR},
+      </if>
+	  <if test="roleName != null">
+		and role_name = #{roleName,jdbcType=VARCHAR},
+      </if>
+	  <if test="description != null">
+		and description = #{description,jdbcType=VARCHAR},
+      </if>
+	  <if test="status != null">
+		and status = #{status,jdbcType=INTEGER},
+      </if>
+	  <if test="createTime != null">
+		and create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+	  <if test="updateTime != null">
+		and update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+	  <if test="roleId != null">
+	  	and role_id = #{roleId,jdbcType=INTEGER}
+	  </if>
+  </where>
+  </select>
+  
+  <select id="findRoleList" parameterType="com.shop.dto.admin.RoleDTO" resultMap="BaseResultMap">
+	select <include refid="Base_Column_List" /> from t_role t  ORDER BY t.role_id
+  </select>
+  
+  <resultMap id="RoleResourceResult" type="com.shop.dto.admin.RoleDTO" extends="BaseResultMap">
+		<collection property="resources" ofType="com.shop.domain.admin.Resource">
+			<id column="id" jdbcType="INTEGER" property="id" />
+		    <result column="resource_key" jdbcType="VARCHAR" property="resourceKey" />
+		    <result column="resource_value" jdbcType="VARCHAR" property="resourceValue" />
+		    <result column="url" jdbcType="VARCHAR" property="url" />
+		    <result column="available" jdbcType="BIT" property="available" />
+		    <result column="type" jdbcType="INTEGER" property="type" />
+		</collection>
+  </resultMap>
+  <select id="findRoleResource" parameterType="Map" resultMap="RoleResourceResult">
+   	SELECT 
+   	 	t2.role_id,t2.role_key,t2.role_name, t2.description,t2.status,
+		t.id,t.resource_key,t.resource_value,t.url,t.menu_icon,t.module_id,t.type,t.available  
+		from t_resource t
+		LEFT JOIN t_role_resource_relation t1 on t1.resource_id = t.id
+		LEFT JOIN t_role t2 on t2.role_id = t1.role_id
+		LEFT JOIN t_user_role_relation t3 on t3.role_id = t2.role_id 
+	<where>
+		<if test="userId != null">
+			and t3.user_id = #{userId}
+		</if>
+	</where>
+	order by t2.role_id,t.id 
+  </select>
+  
+  <delete id="deleteRightRoleId" parameterType="Map">
+	delete from t_role_resource_relation where role_id = #{roleId,jdbcType=INTEGER}
+ </delete>
+ 
+ <insert id="insertRightBatch" parameterType="java.util.List">
+	insert into t_role_resource_relation (role_id, resource_id) values
+	<foreach collection="list" item="item" index="index" separator=",">
+		(#{item.roleId,jdbcType=INTEGER}, #{item.resourceId,jdbcType=INTEGER})
+	</foreach>
+</insert>
+</mapper>

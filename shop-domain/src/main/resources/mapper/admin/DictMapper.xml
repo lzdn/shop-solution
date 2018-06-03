@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shop.dao.admin.DictDao">
+  <resultMap id="BaseResultMap" type="com.shop.dto.admin.DictDTO">
+  	<id column="id" jdbcType="INTEGER" property="id" />
+  	<result column="dict_code" jdbcType="VARCHAR" property="dictCode" />
+  	<result column="dict_name" jdbcType="VARCHAR" property="dictName" />
+  	<result column="dict_value" jdbcType="VARCHAR" property="dictValue" />
+  	<result column="description" jdbcType="VARCHAR" property="description" />
+  	<result column="status" jdbcType="INTEGER" property="status" />
+  	<result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  	<result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+   id,dict_code,dict_name,dict_value,description,status,create_time,update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="Map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_dict
+   <where>  
+  	and id = #{id,jdbcType=INTEGER}
+  </where>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="Map">
+    delete from t_dict
+    <where>  
+  	and id = #{id,jdbcType=INTEGER}
+  </where>
+  </delete>
+  
+  <insert id="insertSelective" parameterType="com.shop.dto.admin.DictDTO">
+    insert into t_dict
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+	  <if test="id != null">
+        id,
+      </if>
+  	  <if test="dictCode != null">
+  		dict_code,
+  	  </if>
+  	  <if test="dictName != null">
+  		dict_name,
+  	  </if>
+  	  <if test="dictValue != null">
+  		dict_value,
+  	  </if>
+  	  <if test="description != null">
+  		description,
+  	  </if>
+  	  <if test="status != null">
+  		status,
+  	  </if>
+  	  <if test="createTime != null">
+  		create_time,
+  	  </if>
+  	  <if test="updateTime != null">
+  		update_time,
+  	  </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+	  <if test="id != null">
+		#{id,jdbcType=INTEGER},
+      </if>
+	  <if test="dictCode != null">
+		#{dictCode,jdbcType=VARCHAR},
+      </if>
+	  <if test="dictName != null">
+		#{dictName,jdbcType=VARCHAR},
+      </if>
+	  <if test="dictValue != null">
+		#{dictValue,jdbcType=VARCHAR},
+      </if>
+	  <if test="description != null">
+		#{description,jdbcType=VARCHAR},
+      </if>
+	  <if test="status != null">
+		#{status,jdbcType=INTEGER},
+      </if>
+	  <if test="createTime != null">
+		#{createTime,jdbcType=TIMESTAMP},
+      </if>
+	  <if test="updateTime != null">
+		#{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.shop.dto.admin.DictDTO">
+    update t_dict
+    <set>
+	  <if test="dictCode != null">
+		dict_code = #{dictCode,jdbcType=VARCHAR},
+      </if>
+	  <if test="dictName != null">
+		dict_name = #{dictName,jdbcType=VARCHAR},
+      </if>
+	  <if test="dictValue != null">
+		dict_value = #{dictValue,jdbcType=VARCHAR},
+      </if>
+	  <if test="description != null">
+		description = #{description,jdbcType=VARCHAR},
+      </if>
+	  <if test="status != null">
+		status = #{status,jdbcType=INTEGER},
+      </if>
+	  <if test="createTime != null">
+		create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+	  <if test="updateTime != null">
+		update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+   <where>  
+  	and id = #{id,jdbcType=INTEGER}
+  </where>
+  </update>
+  
+  <select id="findSplitPage" parameterType="Map" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" /> from t_dict
+    <where>  
+	  <if test="dictCode != null">
+		and dict_code = #{dictCode,jdbcType=VARCHAR},
+      </if>
+	  <if test="dictName != null">
+		and dict_name = #{dictName,jdbcType=VARCHAR},
+      </if>
+	  <if test="dictValue != null">
+		and dict_value = #{dictValue,jdbcType=VARCHAR},
+      </if>
+	  <if test="description != null">
+		and description = #{description,jdbcType=VARCHAR},
+      </if>
+	  <if test="status != null">
+		and status = #{status,jdbcType=INTEGER},
+      </if>
+	  <if test="createTime != null">
+		and create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+	  <if test="updateTime != null">
+		and update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+	  <if test="id != null">
+	  	and id = #{id,jdbcType=INTEGER}
+	  </if>
+  </where>
+  </select>
+  
+</mapper>
