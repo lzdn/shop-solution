@@ -2,15 +2,15 @@
 Navicat MySQL Data Transfer
 
 Source Server         : 本地
-Source Server Version : 50716
+Source Server Version : 50718
 Source Host           : localhost:3306
 Source Database       : managedb
 
 Target Server Type    : MYSQL
-Target Server Version : 50716
+Target Server Version : 50718
 File Encoding         : 65001
 
-Date: 2018-06-04 00:53:08
+Date: 2018-06-04 17:27:04
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -64,6 +64,7 @@ CREATE TABLE `qrtz_cron_triggers` (
 -- ----------------------------
 -- Records of qrtz_cron_triggers
 -- ----------------------------
+INSERT INTO `qrtz_cron_triggers` VALUES ('SchedulerFactory', 'com.shop.job.impl.MyJob', 'test', '0 0/1 * * * ?', 'Asia/Shanghai');
 
 -- ----------------------------
 -- Table structure for qrtz_fired_triggers
@@ -111,6 +112,7 @@ CREATE TABLE `qrtz_job_details` (
 -- ----------------------------
 -- Records of qrtz_job_details
 -- ----------------------------
+INSERT INTO `qrtz_job_details` VALUES ('SchedulerFactory', '测试JOB', 'test', null, 'com.shop.job.impl.MyJob', '0', '0', '0', '0', 0xACED0005737200156F72672E71756172747A2E4A6F62446174614D61709FB083E8BFA9B0CB020000787200266F72672E71756172747A2E7574696C732E537472696E674B65794469727479466C61674D61708208E8C3FBC55D280200015A0013616C6C6F77735472616E7369656E74446174617872001D6F72672E71756172747A2E7574696C732E4469727479466C61674D617013E62EAD28760ACE0200025A000564697274794C00036D617074000F4C6A6176612F7574696C2F4D61703B787000737200116A6176612E7574696C2E486173684D61700507DAC1C31660D103000246000A6C6F6164466163746F724900097468726573686F6C6478703F40000000000010770800000010000000007800);
 
 -- ----------------------------
 -- Table structure for qrtz_locks
@@ -231,6 +233,7 @@ CREATE TABLE `qrtz_triggers` (
 -- ----------------------------
 -- Records of qrtz_triggers
 -- ----------------------------
+INSERT INTO `qrtz_triggers` VALUES ('SchedulerFactory', 'com.shop.job.impl.MyJob', 'test', '测试JOB', 'test', null, '1528103640000', '1528103580000', '5', 'WAITING', 'CRON', '1528096103000', '0', null, '0', '');
 
 -- ----------------------------
 -- Table structure for t_dept
@@ -283,11 +286,72 @@ CREATE TABLE `t_job_log` (
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='任务日志表';
+) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8 COMMENT='任务日志表';
 
 -- ----------------------------
 -- Records of t_job_log
 -- ----------------------------
+INSERT INTO `t_job_log` VALUES ('1', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 15:05:00', null, null);
+INSERT INTO `t_job_log` VALUES ('2', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 15:09:00', null, null);
+INSERT INTO `t_job_log` VALUES ('3', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 15:09:31', null, null);
+INSERT INTO `t_job_log` VALUES ('4', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 15:10:00', null, null);
+INSERT INTO `t_job_log` VALUES ('5', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 15:11:00', null, null);
+INSERT INTO `t_job_log` VALUES ('6', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 15:12:00', null, null);
+INSERT INTO `t_job_log` VALUES ('7', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 15:13:00', null, null);
+INSERT INTO `t_job_log` VALUES ('8', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 15:14:00', null, null);
+INSERT INTO `t_job_log` VALUES ('9', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 15:15:00', null, null);
+INSERT INTO `t_job_log` VALUES ('10', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 15:16:00', null, null);
+INSERT INTO `t_job_log` VALUES ('11', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 15:17:00', null, null);
+INSERT INTO `t_job_log` VALUES ('12', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 15:18:00', null, null);
+INSERT INTO `t_job_log` VALUES ('13', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 15:19:00', null, null);
+INSERT INTO `t_job_log` VALUES ('14', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 15:20:00', null, null);
+INSERT INTO `t_job_log` VALUES ('15', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 15:21:52', null, null);
+INSERT INTO `t_job_log` VALUES ('16', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 15:22:00', null, null);
+INSERT INTO `t_job_log` VALUES ('17', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 15:23:00', null, null);
+INSERT INTO `t_job_log` VALUES ('18', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 15:24:00', null, null);
+INSERT INTO `t_job_log` VALUES ('19', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 15:25:00', null, null);
+INSERT INTO `t_job_log` VALUES ('20', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 15:26:00', null, null);
+INSERT INTO `t_job_log` VALUES ('21', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 15:27:00', null, null);
+INSERT INTO `t_job_log` VALUES ('22', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 15:28:00', null, null);
+INSERT INTO `t_job_log` VALUES ('23', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 15:29:00', null, null);
+INSERT INTO `t_job_log` VALUES ('24', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 15:30:00', null, null);
+INSERT INTO `t_job_log` VALUES ('25', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 15:35:37', null, null);
+INSERT INTO `t_job_log` VALUES ('26', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 15:36:00', null, null);
+INSERT INTO `t_job_log` VALUES ('27', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 15:37:00', null, null);
+INSERT INTO `t_job_log` VALUES ('28', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 15:38:00', null, null);
+INSERT INTO `t_job_log` VALUES ('29', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 15:38:27', null, null);
+INSERT INTO `t_job_log` VALUES ('30', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 15:39:00', null, null);
+INSERT INTO `t_job_log` VALUES ('31', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 16:04:58', null, null);
+INSERT INTO `t_job_log` VALUES ('32', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 16:05:42', null, null);
+INSERT INTO `t_job_log` VALUES ('33', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 16:06:00', null, null);
+INSERT INTO `t_job_log` VALUES ('34', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 16:07:00', null, null);
+INSERT INTO `t_job_log` VALUES ('35', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 16:08:00', null, null);
+INSERT INTO `t_job_log` VALUES ('36', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 16:09:00', null, null);
+INSERT INTO `t_job_log` VALUES ('37', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 16:10:00', null, null);
+INSERT INTO `t_job_log` VALUES ('38', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 16:11:00', null, null);
+INSERT INTO `t_job_log` VALUES ('39', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 16:12:00', null, null);
+INSERT INTO `t_job_log` VALUES ('40', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 16:13:00', null, null);
+INSERT INTO `t_job_log` VALUES ('41', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 16:16:52', null, null);
+INSERT INTO `t_job_log` VALUES ('42', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 16:17:00', null, null);
+INSERT INTO `t_job_log` VALUES ('43', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 16:18:00', null, null);
+INSERT INTO `t_job_log` VALUES ('44', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 16:19:00', null, null);
+INSERT INTO `t_job_log` VALUES ('45', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 16:20:00', null, null);
+INSERT INTO `t_job_log` VALUES ('46', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 16:21:00', null, null);
+INSERT INTO `t_job_log` VALUES ('47', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 16:22:00', null, null);
+INSERT INTO `t_job_log` VALUES ('48', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 16:23:00', null, null);
+INSERT INTO `t_job_log` VALUES ('49', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 16:24:00', null, null);
+INSERT INTO `t_job_log` VALUES ('50', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 16:25:00', null, null);
+INSERT INTO `t_job_log` VALUES ('51', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 16:26:00', null, null);
+INSERT INTO `t_job_log` VALUES ('52', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 16:27:00', null, null);
+INSERT INTO `t_job_log` VALUES ('53', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 16:28:00', null, null);
+INSERT INTO `t_job_log` VALUES ('54', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 16:29:00', null, null);
+INSERT INTO `t_job_log` VALUES ('55', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 16:30:00', null, null);
+INSERT INTO `t_job_log` VALUES ('56', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 16:31:00', null, null);
+INSERT INTO `t_job_log` VALUES ('57', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 16:32:00', null, null);
+INSERT INTO `t_job_log` VALUES ('58', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 16:33:00', null, null);
+INSERT INTO `t_job_log` VALUES ('59', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 17:11:05', null, null);
+INSERT INTO `t_job_log` VALUES ('60', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 17:12:00', null, null);
+INSERT INTO `t_job_log` VALUES ('61', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 17:13:00', null, null);
 
 -- ----------------------------
 -- Table structure for t_module
@@ -303,7 +367,7 @@ CREATE TABLE `t_module` (
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`module_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='菜单组表';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='菜单组表';
 
 -- ----------------------------
 -- Records of t_module
@@ -360,7 +424,7 @@ CREATE TABLE `t_role` (
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`role_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='角色表';
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COMMENT='角色表';
 
 -- ----------------------------
 -- Records of t_role
@@ -386,19 +450,16 @@ CREATE TABLE `t_role_resource_relation` (
 INSERT INTO `t_role_resource_relation` VALUES ('1', '1');
 INSERT INTO `t_role_resource_relation` VALUES ('1', '2');
 INSERT INTO `t_role_resource_relation` VALUES ('2', '1');
-INSERT INTO `t_role_resource_relation` VALUES ('2', '2');
 INSERT INTO `t_role_resource_relation` VALUES ('3', '1');
-INSERT INTO `t_role_resource_relation` VALUES ('3', '2');
 INSERT INTO `t_role_resource_relation` VALUES ('4', '1');
 INSERT INTO `t_role_resource_relation` VALUES ('5', '1');
 INSERT INTO `t_role_resource_relation` VALUES ('6', '1');
 INSERT INTO `t_role_resource_relation` VALUES ('7', '1');
-INSERT INTO `t_role_resource_relation` VALUES ('7', '2');
 INSERT INTO `t_role_resource_relation` VALUES ('8', '1');
-INSERT INTO `t_role_resource_relation` VALUES ('8', '2');
 INSERT INTO `t_role_resource_relation` VALUES ('19', '1');
 INSERT INTO `t_role_resource_relation` VALUES ('19', '2');
 INSERT INTO `t_role_resource_relation` VALUES ('20', '1');
+INSERT INTO `t_role_resource_relation` VALUES ('20', '2');
 
 -- ----------------------------
 -- Table structure for t_user
@@ -422,13 +483,18 @@ CREATE TABLE `t_user` (
   `login_time` datetime DEFAULT NULL COMMENT '登录时间',
   `last_login_time` datetime DEFAULT NULL COMMENT '上次登录时间',
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1004 DEFAULT CHARSET=utf8 COMMENT='用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=1009 DEFAULT CHARSET=utf8 COMMENT='用户表';
 
 -- ----------------------------
 -- Records of t_user
 -- ----------------------------
-INSERT INTO `t_user` VALUES ('1000', '1', null, 'admin', '42f6bfd8e35a280d7a212cb76ae76280', '&|^286._', '刘德华', null, null, '415656544@qq.com', null, '1', '2017-10-18 17:42:40', null, null, null);
+INSERT INTO `t_user` VALUES ('1000', '1', null, 'admin', '42f6bfd8e35a280d7a212cb76ae76280', '&|^286._', '刘德华', null, '2', '415656544@qq.com', null, '1', '2017-10-18 17:42:40', null, null, null);
 INSERT INTO `t_user` VALUES ('1003', null, null, 'zhanglin', '42f6bfd8e35a280d7a212cb76ae76280', '@ad902s^$', '张林', '2018-05-23 00:00:00', '1', null, null, '1', '2018-05-25 00:17:54', null, null, null);
+INSERT INTO `t_user` VALUES ('1004', null, null, 'wang', '42f6bfd8e35a280d7a212cb76ae76280', '@ad902s^$', '汪峰', '2018-06-21 00:00:00', '1', null, null, '1', '2018-06-04 14:23:04', null, null, null);
+INSERT INTO `t_user` VALUES ('1005', null, null, 'zhou', '42f6bfd8e35a280d7a212cb76ae76280', '@ad902s^$', '周润发', '2018-06-14 00:00:00', '1', null, null, '1', '2018-06-04 14:27:06', null, null, null);
+INSERT INTO `t_user` VALUES ('1006', null, null, 'liang', '42f6bfd8e35a280d7a212cb76ae76280', '@ad902s^$', '梁朝伟', '2018-06-13 00:00:00', '1', null, null, '1', '2018-06-04 14:27:59', null, null, null);
+INSERT INTO `t_user` VALUES ('1007', null, null, 'fanbb', '42f6bfd8e35a280d7a212cb76ae76280', '@ad902s^$', '范冰冰', '2018-06-08 00:00:00', '2', null, null, '1', '2018-06-04 14:28:56', null, null, null);
+INSERT INTO `t_user` VALUES ('1008', null, null, 'zulan', '42f6bfd8e35a280d7a212cb76ae76280', '@ad902s^$', '王祖蓝', '2018-06-20 00:00:00', '1', null, null, '1', '2018-06-04 14:30:40', null, null, null);
 
 -- ----------------------------
 -- Table structure for t_user_role_relation
@@ -445,6 +511,10 @@ CREATE TABLE `t_user_role_relation` (
 -- ----------------------------
 INSERT INTO `t_user_role_relation` VALUES ('1000', '1');
 INSERT INTO `t_user_role_relation` VALUES ('1003', '2');
+INSERT INTO `t_user_role_relation` VALUES ('1004', '3');
+INSERT INTO `t_user_role_relation` VALUES ('1005', '3');
+INSERT INTO `t_user_role_relation` VALUES ('1006', '4');
+INSERT INTO `t_user_role_relation` VALUES ('1008', '4');
 
 -- ----------------------------
 -- Function structure for queryChildrenRight
