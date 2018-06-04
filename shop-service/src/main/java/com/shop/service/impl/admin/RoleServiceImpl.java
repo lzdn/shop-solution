@@ -44,7 +44,7 @@ public class RoleServiceImpl extends BaseServiceImpl implements IRoleService {
 
 	@Transactional(value = "manageTransactionManager")
 	public void insertRole(RoleDTO roleDTO) throws Exception {
-		int i = 1/0;
+		
 		roleDao.insertSelective(roleDTO);
 	}
 
