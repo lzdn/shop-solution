@@ -160,7 +160,7 @@ function submitFm(){
 				parent.layer.alert("服务器异常！");
 			},
 			success: function(data) {
-				if(JSON.parse(data).success){
+				if(systemshop.toJson(data).success){
 					parent.layer.alert('保存成功！', {icon: 1, skin: 'layer-ext-moon'});
 					window.location.href=window.location.href;
 				} else{
@@ -183,7 +183,7 @@ function runOnce(name,group){
 			parent.layer.alert("服务器异常！");
 		},
 		success: function(data) {
-			if(JSON.parse(data).success){
+			if(systemshop.toJson(data).success){
 				parent.layer.alert('执行成功！', {icon: 1, skin: 'layer-ext-moon'});
 			} else{
 				parent.layer.alert('执行失败！');
@@ -203,7 +203,7 @@ function deleteJob(name,group){
 			parent.layer.alert("服务器异常！");
 		},
 		success: function(data) {
-			if(JSON.parse(data).success){
+			if(systemshop.toJson(data).success){
 				parent.layer.alert('删除成功！', {icon: 1, skin: 'layer-ext-moon'});
 				window.location.href=window.location.href;
 			} else{
@@ -224,7 +224,7 @@ function resume(name,group){
 			parent.layer.alert("服务器异常！");
 		},
 		success: function(data) {
-			if(JSON.parse(data).success){
+			if(systemshop.toJson(data).success){
 				parent.layer.alert('恢复成功！', {icon: 1, skin: 'layer-ext-moon'});
 				window.location.href=window.location.href;
 			} else{
@@ -245,7 +245,7 @@ function pause(name,group){
 			parent.layer.alert("服务器异常！");
 		},
 		success: function(data) {
-			if(JSON.parse(data).success){
+			if(systemshop.toJson(data).success){
 				parent.layer.alert('暂停成功！', {icon: 1, skin: 'layer-ext-moon'});
 				window.location.href=window.location.href;
 			} else{

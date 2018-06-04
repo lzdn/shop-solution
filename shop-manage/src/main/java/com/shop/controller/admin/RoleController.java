@@ -1,8 +1,6 @@
 package com.shop.controller.admin;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,6 +21,7 @@ import com.shop.security.CustomInvocationSecurityMetadataSourceService;
 import com.shop.service.admin.IModuleService;
 import com.shop.service.admin.IRoleService;
 import com.shop.web.BaseController;
+import com.shop.web.Result;
 
 /**
  * @date 20180602
@@ -42,7 +41,7 @@ public class RoleController extends BaseController {
 
 	@Autowired
 	private CustomInvocationSecurityMetadataSourceService customInvocationSecurityMetadataSourceService;
-	
+
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public String main(HttpServletResponse response, Model model, RoleDTO roleDTO) {
 		PageInfo<Role> splitPage = roleService.findSplitPage(roleDTO);
@@ -52,19 +51,14 @@ public class RoleController extends BaseController {
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public @ResponseBody Map<String, Object> add(HttpServletRequest request, RoleDTO roleDTO) throws Exception {
-		Map<String, Object> map = new HashMap<String, Object>();
-		roleService.insertRole(roleDTO);
-		map.put("success", true);
-		return map;
-	}
-
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public @ResponseBody Map<String, Object> list(HttpServletRequest request) throws Exception {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("roles", roleService.findAll(null));
-		map.put("success", true);
-		return map;
+	public @ResponseBody Result add(HttpServletRequest request, RoleDTO roleDTO) throws Exception {
+		Role role = roleService.findRoleOneByRoleKey(roleDTO.getRoleKey());
+		if (role == null) {
+			roleService.insertRole(roleDTO);
+			return new Result("成功", SUCCESS);
+		} else {
+			return new Result("已经存在roleKey为：" + roleDTO.getRoleKey() + "的角色了", FAIL);
+		}
 	}
 
 	@RequestMapping(value = "/grant/{roleId}", method = RequestMethod.GET)
@@ -76,13 +70,12 @@ public class RoleController extends BaseController {
 	}
 
 	@RequestMapping(value = "/grant", method = RequestMethod.POST)
-	public @ResponseBody Map<String, Object> grant(HttpServletResponse response, Integer[] resourceId,Integer roleId) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		if(roleId!=null) {
+	public @ResponseBody Result grant(HttpServletResponse response, Integer[] resourceId, Integer roleId) {
+		if (roleId != null) {
 			roleService.grant(resourceId, roleId);
 			customInvocationSecurityMetadataSourceService.resetResourceRight();
+			return new Result("成功", SUCCESS);
 		}
-		map.put("success", true);
-		return map;
+		return new Result("roleId不能为空", FAIL);
 	}
 }

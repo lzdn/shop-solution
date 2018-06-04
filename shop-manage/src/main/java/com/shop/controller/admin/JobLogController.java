@@ -1,8 +1,5 @@
 package com.shop.controller.admin;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,35 +15,33 @@ import com.shop.domain.admin.JobLog;
 import com.shop.dto.admin.JobLogDTO;
 import com.shop.service.admin.IJobLogService;
 import com.shop.web.BaseController;
+import com.shop.web.Result;
 
 /**
-* @date 20180602
-* @author 张林
-* @description 定时任务日志控制层
-* @gitHub:https://github.com/lzdn
-*/
+ * @date 20180602
+ * @author 张林
+ * @description 定时任务日志控制层
+ * @gitHub:https://github.com/lzdn
+ */
 @Controller
 @RequestMapping(value = "jobLog")
 public class JobLogController extends BaseController {
 
-    @Autowired
-    private IJobLogService jobLogService;
-
+	@Autowired
+	private IJobLogService jobLogService;
 
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
-	public String main(HttpServletResponse response, Model model,JobLogDTO jobLogDTO) {
+	public String main(HttpServletResponse response, Model model, JobLogDTO jobLogDTO) {
 		PageInfo<JobLog> splitPage = jobLogService.findSplitPage(jobLogDTO);
 		model.addAttribute("splitPage", splitPage);
 		model.addAttribute("jobLogDTO", jobLogDTO);
 		return "admin/jobLog/main";
 	}
-	
+
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public @ResponseBody Map<String, Object> add(HttpServletRequest request, JobLogDTO jobLogDTO) throws Exception {
-		Map<String, Object> map = new HashMap<String, Object>();
+	public @ResponseBody Result add(HttpServletRequest request, JobLogDTO jobLogDTO) throws Exception {
 		jobLogService.insertJobLog(jobLogDTO);
-		map.put("success",true);
-		return map;
+		return new Result(SUCCESS);
 	}
 
 }

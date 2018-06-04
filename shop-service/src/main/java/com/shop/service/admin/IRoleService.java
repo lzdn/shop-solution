@@ -73,4 +73,12 @@ public interface IRoleService extends IBaseService {
 	 */
 	Role findRoleOneByUserId(Integer userId);
 
+	/**
+	 * 查询角色
+	 * 
+	 * @param roleKey
+	 * @return
+	 */
+	Role findRoleOneByRoleKey(String roleKey);
+
 }

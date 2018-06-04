@@ -210,5 +210,5 @@
 	order by t2.role_id
 	limit 1
   </select>
-
+ 
 </mapper>

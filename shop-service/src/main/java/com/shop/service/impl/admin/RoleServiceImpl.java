@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,7 +44,7 @@ public class RoleServiceImpl extends BaseServiceImpl implements IRoleService {
 
 	@Transactional(value = "manageTransactionManager")
 	public void insertRole(RoleDTO roleDTO) throws Exception {
-
+		int i = 1/0;
 		roleDao.insertSelective(roleDTO);
 	}
 
@@ -62,6 +63,17 @@ public class RoleServiceImpl extends BaseServiceImpl implements IRoleService {
 	public Role findRoleOneByUserId(Integer userId) {
 
 		return roleDao.findRoleOneByUserId(userId);
+	}
+
+	@Override
+	public Role findRoleOneByRoleKey(String roleKey) {
+		RoleDTO roleDTO = new RoleDTO();
+		roleDTO.setRoleKey(roleKey);
+		List<Role> list = findAll(roleDTO);
+		if (!CollectionUtils.isEmpty(list)) {
+			return list.get(0);
+		}
+		return null;
 	}
 
 	@Override

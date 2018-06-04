@@ -32,7 +32,7 @@ import com.shop.dto.admin.JobDTO;
 import com.shop.job.BaseJob;
 import com.shop.service.admin.IJobService;
 import com.shop.web.BaseController;
- 
+import com.shop.web.Result;
 
 @Controller
 @RequestMapping(value = "job")
@@ -49,19 +49,18 @@ public class JobController extends BaseController {
 	private static Logger log = LoggerFactory.getLogger(JobController.class);
 
 	@PostMapping(value = "/add")
-	public @ResponseBody Map<String, Object> add(@RequestParam(value = "jobName") String jobName,
+	public @ResponseBody Result add(@RequestParam(value = "jobName") String jobName,
 			@RequestParam(value = "jobClassName") String jobClassName,
 			@RequestParam(value = "jobGroupName") String jobGroupName,
 			@RequestParam(value = "cronExpression") String cronExpression) throws Exception {
-		Map<String, Object> map = new HashMap<String, Object>();
 		try {
 			createNewJob(jobName, jobClassName, jobGroupName, cronExpression);
 			log.info("创建Job" + jobClassName);
-			map.put("success", true);
+			return new Result(SUCCESS);
 		} catch (Exception e) {
-			map.put("success", false);
+			return new Result(FAIL);
 		}
-		return map;
+
 	}
 
 	public void createNewJob(String jobName, String jobClassName, String jobGroupName, String cronExpression)
@@ -82,23 +81,20 @@ public class JobController extends BaseController {
 	}
 
 	@PostMapping(value = "/update")
-	public @ResponseBody Map<String, Object> update(@RequestParam(value = "jobName") String jobName,
+	public @ResponseBody Result update(@RequestParam(value = "jobName") String jobName,
 			@RequestParam(value = "jobClassName") String jobClassName,
 			@RequestParam(value = "jobGroupName") String jobGroupName,
 			@RequestParam(value = "cronExpression") String cronExpression) throws Exception {
-		Map<String, Object> map = new HashMap<String, Object>();
 		// 方法一 如果只是修改触发时间可以使用此方法
 		// return modifyTime(jobName, jobGroupName, cronExpression);
 		try {
 			// 方法二 删除掉重新创建
 			deleteJob(jobName, jobGroupName);
 			createNewJob(jobName, jobClassName, jobGroupName, cronExpression);
-			map.put("success", true);
+			return new Result(SUCCESS);
 		} catch (Exception e) {
-			map.put("success", false);
+			return new Result(FAIL);
 		}
-
-		return map;
 
 	}
 
@@ -134,57 +130,49 @@ public class JobController extends BaseController {
 	}
 
 	@RequestMapping(value = { "runonce" }, method = RequestMethod.GET)
-	public @ResponseBody Map<String, Object> runOnce(HttpServletRequest request,
-			@RequestParam(value = "name") String name, @RequestParam(value = "group") String group) {
-		Map<String, Object> map = new HashMap<String, Object>();
+	public @ResponseBody Result runOnce(HttpServletRequest request, @RequestParam(value = "name") String name,
+			@RequestParam(value = "group") String group) {
 		try {
 			scheduler.triggerJob(JobKey.jobKey(name, group));
-			map.put("success", true);
+			return new Result(SUCCESS);
 		} catch (SchedulerException e) {
-			map.put("success", false);
+			return new Result(FAIL);
 		}
-		return map;
 	}
 
 	@RequestMapping(value = { "resume" }, method = RequestMethod.GET)
-	public @ResponseBody Map<String, Object> resume(HttpServletRequest request,
-			@RequestParam(value = "name") String name, @RequestParam(value = "group") String group) {
-		Map<String, Object> map = new HashMap<String, Object>();
+	public @ResponseBody Result resume(HttpServletRequest request, @RequestParam(value = "name") String name,
+			@RequestParam(value = "group") String group) {
 		try {
 			scheduler.resumeJob(JobKey.jobKey(name, group));
-			map.put("success", true);
+			return new Result(SUCCESS);
 		} catch (SchedulerException e) {
-			map.put("success", false);
+			return new Result(FAIL);
 		}
-		return map;
 	}
 
 	@RequestMapping(value = { "pause" }, method = RequestMethod.GET)
-	public @ResponseBody Map<String, Object> pause(HttpServletRequest request,
-			@RequestParam(value = "name") String name, @RequestParam(value = "group") String group) {
-		Map<String, Object> map = new HashMap<String, Object>();
+	public @ResponseBody Result pause(HttpServletRequest request, @RequestParam(value = "name") String name,
+			@RequestParam(value = "group") String group) {
 		try {
 			scheduler.pauseJob(JobKey.jobKey(name, group));
-			map.put("success", true);
+			return new Result(SUCCESS);
 		} catch (SchedulerException e) {
-			map.put("success", false);
+			return new Result(FAIL);
 		}
-		return map;
 	}
 
 	@RequestMapping(value = { "delete" }, method = RequestMethod.GET)
-	public @ResponseBody Map<String, Object> delete(HttpServletRequest request,
-			@RequestParam(value = "name") String jobName, @RequestParam(value = "group") String jobGroupName) {
-		Map<String, Object> map = new HashMap<String, Object>();
+	public @ResponseBody Result delete(HttpServletRequest request, @RequestParam(value = "name") String jobName,
+			@RequestParam(value = "group") String jobGroupName) {
 
 		try {
 			deleteJob(jobName, jobGroupName);
-			map.put("success", true);
+			return new Result(SUCCESS);
 		} catch (SchedulerException e) {
-			map.put("success", false);
+			return new Result(FAIL);
 		}
 
-		return map;
 	}
 
 	public void deleteJob(String jobName, String jobGroupName) throws SchedulerException {

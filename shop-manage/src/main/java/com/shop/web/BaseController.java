@@ -21,6 +21,9 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.shop.security.SecurityUser;
 
 public class BaseController {
+	
+	public static final boolean SUCCESS = true;
+	public static final boolean FAIL = false;
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {// "yyyy-MM-dd HH:mm:ss"

@@ -175,7 +175,7 @@
 				parent.layer.alert("服务器异常！");
 			},
 			success: function(data) {
-				if(JSON.parse(data).success){
+				if(systemshop.toJson(data).success){
 					parent.layer.alert('授权成功！', {icon: 1, skin: 'layer-ext-moon'},function(e){
 						parent.layer.closeAll();
 					});

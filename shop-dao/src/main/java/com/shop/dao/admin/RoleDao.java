@@ -37,4 +37,5 @@ public interface RoleDao extends BaseDao {
 	int insertRightBatch(List<GrantDto> grants);
 	
 	Role findRoleOneByUserId(@Param("userId") Integer userId);
+	
 }

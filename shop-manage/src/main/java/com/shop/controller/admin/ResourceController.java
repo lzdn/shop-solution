@@ -1,8 +1,6 @@
 package com.shop.controller.admin;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +19,7 @@ import com.shop.dto.admin.ResourceDTO;
 import com.shop.service.admin.IModuleService;
 import com.shop.service.admin.IResourceService;
 import com.shop.web.BaseController;
+import com.shop.web.Result;
 
 /**
  * @date 20180602
@@ -50,19 +49,15 @@ public class ResourceController extends BaseController {
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public @ResponseBody Map<String, Object> add(HttpServletRequest request, ResourceDTO resourceDTO) throws Exception {
-		Map<String, Object> map = new HashMap<String, Object>();
+	public @ResponseBody Result add(HttpServletRequest request, ResourceDTO resourceDTO) throws Exception {
 		resourceService.insertResource(resourceDTO);
-		map.put("success", true);
-		return map;
+		return new Result(SUCCESS);
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	public @ResponseBody Map<String, Object> add(HttpServletRequest request, Integer id) throws Exception {
-		Map<String, Object> map = new HashMap<String, Object>();
+	public @ResponseBody Result add(HttpServletRequest request, Integer id) throws Exception {
 		resourceService.deleteByPk(id);
-		map.put("success", true);
-		return map;
+		return new Result(SUCCESS);
 	}
 
 }

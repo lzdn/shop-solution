@@ -1,8 +1,5 @@
 package com.shop.controller.admin;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -21,6 +18,7 @@ import com.shop.service.admin.IRoleService;
 import com.shop.service.admin.IUserService;
 import com.shop.utils.MD5Util;
 import com.shop.web.BaseController;
+import com.shop.web.Result;
 
 /**
  * @date 20180602
@@ -47,18 +45,15 @@ public class UserController extends BaseController {
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public @ResponseBody Map<String, Object> add(HttpServletRequest request, UserDTO userDTO) throws Exception {
-		Map<String, Object> map = new HashMap<String, Object>();
+	public @ResponseBody Result add(HttpServletRequest request, UserDTO userDTO) throws Exception {
 		User account = userService.findByAccount(userDTO.getAccount());
 		if (account != null) {
-			map.put("success", false);
-			return map;
+			return new Result("已经存在账户：" + userDTO.getAccount(), FAIL);
 		}
 		userDTO.setSalt(MD5Util.SALT);
 		userDTO.setPassword(MD5Util.encode(userDTO.getPassword()));
 		userService.insertUser(userDTO);
-		map.put("success", true);
-		return map;
+		return new Result(SUCCESS);
 	}
 
 	@RequestMapping(value = "/grant/{userId}", method = RequestMethod.GET)
@@ -70,11 +65,9 @@ public class UserController extends BaseController {
 	}
 
 	@RequestMapping("/addRole")
-	public @ResponseBody Map<String, Object> addRole(HttpServletRequest httpRequest, Integer userId, Integer roleId)
+	public @ResponseBody Result addRole(HttpServletRequest httpRequest, Integer userId, Integer roleId)
 			throws Exception {
-		Map<String, Object> map = new HashMap<String, Object>();
 		userService.addUserRole(userId, roleId);
-		map.put("success", true);
-		return map;
+		return new Result(SUCCESS);
 	}
 }

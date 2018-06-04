@@ -275,7 +275,7 @@ locations=["资源管理","资源列表"]>
 					parent.layer.alert("服务器异常！");
 				},
 				success : function(data) {
-					if (JSON.parse(data).success) {
+					if (systemshop.toJson(data).success) {
 						parent.layer.alert('保存成功！', {
 							icon : 1,
 							skin : 'layer-ext-moon'
@@ -305,7 +305,7 @@ locations=["资源管理","资源列表"]>
 				parent.layer.alert("服务器异常！");
 			},
 			success : function(data) {
-				if (JSON.parse(data).success) {
+				if (systemshop.toJson(data).success) {
 					parent.layer.alert('删除成功！', {
 						icon : 1,
 						skin : 'layer-ext-moon'
