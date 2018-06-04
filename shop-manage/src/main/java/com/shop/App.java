@@ -20,8 +20,7 @@ import org.springframework.web.context.request.RequestContextListener;
 @EnableAutoConfiguration
 public class App extends org.springframework.boot.web.servlet.support.SpringBootServletInitializer {
 
-	// 增加此代码是因为 com.xuexi.conf.LogAspect
-	// 会用到RequestContextHolder，不然会报空指针。springMVC则是通过配置文件配置
+	// 增加此代码是因为 LogAspect 会用到RequestContextHolder，不然会报空指针。springMVC则是通过配置文件配置
 	@Bean
 	public RequestContextListener requestContextListener() {
 		return new RequestContextListener();

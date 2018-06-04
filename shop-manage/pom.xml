@@ -219,11 +219,6 @@
 		</dependency>
 		<dependency>
 			<groupId>com.shop</groupId>
-			<artifactId>shop-domain</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.shop</groupId>
 			<artifactId>shop-service</artifactId>
 			<version>${project.version}</version>
 		</dependency>
