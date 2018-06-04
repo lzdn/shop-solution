@@ -15,10 +15,6 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-aop</artifactId>
-		</dependency>
 		<!-- 使用外部tomcat 部署 需要servlet的支持 -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -36,11 +32,6 @@
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-configuration-processor</artifactId>
-			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.data</groupId>
@@ -83,15 +74,9 @@
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
 		</dependency>
-		<!-- 爬虫 -->
 		<dependency>
 			<groupId>com.shop</groupId>
 			<artifactId>shop-dao</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.shop</groupId>
-			<artifactId>shop-domain</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
