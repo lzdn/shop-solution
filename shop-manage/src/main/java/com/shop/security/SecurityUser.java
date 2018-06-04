@@ -8,6 +8,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.shop.domain.admin.Role;
+import com.shop.domain.admin.User;
 import com.shop.dto.admin.UserDTO;
  
 
@@ -19,13 +20,13 @@ public class SecurityUser extends UserDTO implements UserDetails {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public SecurityUser(UserDTO userDTO) {
-		if (userDTO != null) {
-			this.setUserId(userDTO.getUserId());
-			this.setUsername(userDTO.getUsername());
-			this.setPassword(userDTO.getPassword());
-			this.setRole(userDTO.getRole());
-			this.setModules(userDTO.getModules());
+	public SecurityUser(User user) {
+		if (user != null) {
+			this.setUserId(user.getUserId());
+			this.setUsername(user.getUsername());
+			this.setPassword(user.getPassword());
+			this.setRole(user.getRole());
+			this.setModules(user.getModules());
 		}
 	}
 

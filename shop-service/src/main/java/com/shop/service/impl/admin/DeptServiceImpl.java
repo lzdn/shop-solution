@@ -1,16 +1,19 @@
 package com.shop.service.impl.admin;
 
-import java.util.Map;
-import java.util.List;
 import java.util.HashMap;
-import com.github.pagehelper.PageInfo;
-import com.github.pagehelper.PageHelper;
-import com.shop.service.BaseServiceImpl;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.shop.dao.admin.DeptDao;
+import com.shop.domain.admin.Dept;
 import com.shop.dto.admin.DeptDTO;
+import com.shop.service.BaseServiceImpl;
 import com.shop.service.admin.IDeptService;
 
 /**
@@ -31,7 +34,7 @@ public class DeptServiceImpl extends BaseServiceImpl implements IDeptService {
 		deptDao.deleteByPrimaryKey(deptId);
 	}
 
-	public DeptDTO findByPk(Integer deptId) {
+    public Dept findByPk(Integer deptId){
 
 		return deptDao.selectByPrimaryKey(deptId);
 	}
@@ -47,14 +50,8 @@ public class DeptServiceImpl extends BaseServiceImpl implements IDeptService {
 
 		deptDao.updateByPrimaryKeySelective(deptDTO);
 	}
-
-	@Override
-	public List<DeptDTO> findDeptList(DeptDTO deptDTO) {
-
-		return deptDao.findDeptList(deptDTO);
-	}
-
-	public PageInfo<DeptDTO> findSplitPage(DeptDTO deptDTO) {
+	
+	public PageInfo<Dept> findSplitPage(DeptDTO deptDTO){
 		Map<String, Object> map = new HashMap<String, Object>();
 		if (deptDTO != null) {
 			if (deptDTO.getDeptId() != null) {
@@ -80,8 +77,37 @@ public class DeptServiceImpl extends BaseServiceImpl implements IDeptService {
 			}
 		}
 		PageHelper.startPage(deptDTO.getPageNo(), deptDTO.getPageSize());
-		List<DeptDTO> list = deptDao.findSplitPage(map);
-		return new PageInfo<DeptDTO>(list);
+		List<Dept> list = deptDao.findSplitPage(map);
+		return new PageInfo<Dept>(list);
 	}
-
+	
+	public List<Dept> findAll(DeptDTO deptDTO){
+		Map<String, Object> map = new HashMap<String, Object>();
+		if(deptDTO!=null){
+			if(deptDTO.getDeptId()!=null){
+				map.put("deptId",deptDTO.getDeptId());
+			}
+			if(deptDTO.getParentDeptId()!=null){
+				map.put("parentDeptId",deptDTO.getParentDeptId());
+			}
+			if(deptDTO.getDeptSimpleName()!=null){
+				map.put("deptSimpleName",deptDTO.getDeptSimpleName());
+			}
+			if(deptDTO.getDeptFullName()!=null){
+				map.put("deptFullName",deptDTO.getDeptFullName());
+			}
+			if(deptDTO.getDescription()!=null){
+				map.put("description",deptDTO.getDescription());
+			}
+			if(deptDTO.getCreateTime()!=null){
+				map.put("createTime",deptDTO.getCreateTime());
+			}
+			if(deptDTO.getUpdateTime()!=null){
+				map.put("updateTime",deptDTO.getUpdateTime());
+			}
+		}
+		List<Dept> list = deptDao.findAll(map);
+		return list;
+	}
+	
 }

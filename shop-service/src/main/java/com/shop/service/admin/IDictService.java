@@ -1,8 +1,11 @@
 package com.shop.service.admin;
 
-import com.shop.service.IBaseService;
+import java.util.List;
+
 import com.github.pagehelper.PageInfo;
+import com.shop.domain.admin.Dict;
 import com.shop.dto.admin.DictDTO;
+import com.shop.service.IBaseService;
 
 /**
 * @date 20180602
@@ -24,7 +27,7 @@ public interface IDictService extends IBaseService {
 	* @author 张林
     * 描述：根据主键查询Dict
     */
-    DictDTO findByPk(Integer id);
+    Dict findByPk(Integer id);
 
 	/**
 	* @date 20180602
@@ -45,5 +48,12 @@ public interface IDictService extends IBaseService {
 	* @author 张林
     * 描述：分页Dict
     */
-	PageInfo<DictDTO> findSplitPage(DictDTO dictDTO);
+	PageInfo<Dict> findSplitPage(DictDTO dictDTO);
+	
+	/**
+	* @date 20180602
+	* @author 张林
+    * 描述：查询全部Dict
+    */
+	List<Dict> findAll(DictDTO dictDTO);
 }

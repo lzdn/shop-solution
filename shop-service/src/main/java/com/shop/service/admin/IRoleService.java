@@ -1,11 +1,11 @@
 package com.shop.service.admin;
 
-import com.shop.service.IBaseService;
-
 import java.util.List;
 
 import com.github.pagehelper.PageInfo;
+import com.shop.domain.admin.Role;
 import com.shop.dto.admin.RoleDTO;
+import com.shop.service.IBaseService;
 
 /**
  * @date 20180602
@@ -25,7 +25,7 @@ public interface IRoleService extends IBaseService {
 	 * @date 20180602
 	 * @author 张林 描述：根据主键查询Role
 	 */
-	RoleDTO findByPk(Integer roleId);
+	Role findByPk(Integer roleId);
 
 	/**
 	 * @date 20180602
@@ -43,19 +43,19 @@ public interface IRoleService extends IBaseService {
 	 * @date 20180602
 	 * @author 张林 描述：分页Role
 	 */
-	PageInfo<RoleDTO> findSplitPage(RoleDTO roleDTO);
+	PageInfo<Role> findSplitPage(RoleDTO roleDTO);
+
+	/**
+	 * @date 20180602
+	 * @author 张林 描述：查询全部Role
+	 */
+	List<Role> findAll(RoleDTO roleDTO);
 
 	/**
 	 * @date 20180602
 	 * @author 张林 描述：根据用户ID 查询角色的权限资源
 	 */
-	List<RoleDTO> findRoleResource(Integer userId);
-
-	/**
-	 * @date 20180602
-	 * @author 张林 描述：
-	 */
-	List<RoleDTO> findRoleList(RoleDTO roleDTO);
+	List<Role> findRoleResource(Integer userId);
 
 	/**
 	 * 授权
@@ -64,5 +64,13 @@ public interface IRoleService extends IBaseService {
 	 * @param roleId
 	 */
 	void grant(Integer[] resouresId, Integer roleId);
+
+	/**
+	 * 查询角色
+	 * 
+	 * @param userId
+	 * @return
+	 */
+	Role findRoleOneByUserId(Integer userId);
 
 }

@@ -10,14 +10,13 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
-import com.shop.dto.admin.ModuleDTO;
-import com.shop.dto.admin.ResourceDTO;
-import com.shop.dto.admin.RoleDTO;
-import com.shop.dto.admin.UserDTO;
+import com.shop.domain.admin.Module;
+import com.shop.domain.admin.Resource;
+import com.shop.domain.admin.Role;
+import com.shop.domain.admin.User;
 import com.shop.service.admin.IModuleService;
 import com.shop.service.admin.IRoleService;
 import com.shop.service.admin.IUserService;
-
 
 @Component
 public class CustomUserDetailsService implements UserDetailsService {
@@ -35,31 +34,31 @@ public class CustomUserDetailsService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String account) throws UsernameNotFoundException {
 		// SysUser对应数据库中的用户表，是最终存储用户和密码的表，可自定义
 		// 本例使用SysUser中的name作为用户名:
-		UserDTO userDTO = userService.findByAccount(account);
-		if (userDTO == null) {
+		User user = userService.findByAccount(account);
+		if (user == null) {
 			throw new UsernameNotFoundException("帐户： " + account + " 不存在");
 		}
-		List<RoleDTO> roles = roleService.findRoleResource(userDTO.getUserId());
+		List<Role> roles = roleService.findRoleResource(user.getUserId());
 		if (!CollectionUtils.isEmpty(roles)) {
-			RoleDTO role = roles.get(0);
-			List<ModuleDTO> modules = moduleService.findModuleRoleResource(role.getRoleId());
-			for (ModuleDTO module : modules) {
-				List<ResourceDTO> resources = module.getResources();
+			Role role = roles.get(0);
+			List<Module> modules = moduleService.findModuleRoleResource(role.getRoleId());
+			for (Module module : modules) {
+				List<Resource> resources = module.getResources();
 				if (!CollectionUtils.isEmpty(resources)) {
 					check(resources);
 				}
 			}
-			userDTO.setModules(modules);
-			userDTO.setRole(role);
+			user.setModules(modules);
+			user.setRole(role);
 		}
-		SecurityUser seu = new SecurityUser(userDTO);
+		SecurityUser seu = new SecurityUser(user);
 		return seu;
 	}
 
-	public void check(List<ResourceDTO> resources) {
-		Iterator<ResourceDTO> it = resources.iterator();
+	public void check(List<Resource> resources) {
+		Iterator<Resource> it = resources.iterator();
 		while (it.hasNext()) {
-			ResourceDTO resource = it.next();
+			Resource resource = it.next();
 			if (resource == null)
 				continue;
 			if (resource.getType() != 1) {

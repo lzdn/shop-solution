@@ -7,7 +7,6 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 import com.shop.dao.BaseDao;
 import com.shop.domain.admin.Module;
-import com.shop.dto.admin.ModuleDTO;
 
 
 /**
@@ -20,15 +19,15 @@ public interface ModuleDao extends BaseDao {
 
 	int deleteByPrimaryKey(Integer moduleId);
 	
-	ModuleDTO selectByPrimaryKey(Integer moduleId);
+	Module selectByPrimaryKey(Integer moduleId);
 
 	int insertSelective(Module module);
 
 	int updateByPrimaryKeySelective(Module module);
 
-	List<ModuleDTO> findSplitPage(Map<String, Object> map); 
+	List<Module> findSplitPage(Map<String, Object> map); 
 	
-	List<ModuleDTO> findModuleRoleResource(@Param("roleId") Integer roleId);
+	List<Module> findAll(Map<String, Object> map);
 	
-	List<ModuleDTO> findModuleList(ModuleDTO moduleDTO);
+	List<Module> findModuleRoleResource(@Param("roleId") Integer roleId);
 }

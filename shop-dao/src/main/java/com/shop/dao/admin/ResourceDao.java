@@ -4,7 +4,6 @@ import java.util.Map;
 import java.util.List;
 import com.shop.dao.BaseDao;
 import com.shop.domain.admin.Resource;
-import com.shop.dto.admin.ResourceDTO;
 
 
 /**
@@ -17,13 +16,13 @@ public interface ResourceDao extends BaseDao {
 
 	int deleteByPrimaryKey(Integer id);
 	
-	ResourceDTO selectByPrimaryKey(Integer id);
+	Resource selectByPrimaryKey(Integer id);
 
 	int insertSelective(Resource resource);
 
 	int updateByPrimaryKeySelective(Resource resource);
 
-	List<ResourceDTO> findSplitPage(Map<String, Object> map); 
+	List<Resource> findSplitPage(Map<String, Object> map); 
 	
-	List<ResourceDTO> findResourceList(ResourceDTO resourceDTO); 
+	List<Resource> findAll(Map<String, Object> map);
 }

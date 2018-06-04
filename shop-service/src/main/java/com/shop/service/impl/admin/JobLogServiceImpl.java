@@ -1,16 +1,19 @@
 package com.shop.service.impl.admin;
 
-import java.util.Map;
-import java.util.List;
 import java.util.HashMap;
-import com.github.pagehelper.PageInfo;
-import com.github.pagehelper.PageHelper;
-import com.shop.service.BaseServiceImpl;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.shop.dao.admin.JobLogDao;
+import com.shop.domain.admin.JobLog;
 import com.shop.dto.admin.JobLogDTO;
+import com.shop.service.BaseServiceImpl;
 import com.shop.service.admin.IJobLogService;
 
 
@@ -33,7 +36,7 @@ public class JobLogServiceImpl extends BaseServiceImpl implements IJobLogService
 		jobLogDao.deleteByPrimaryKey(id);
 	}
 
-    public JobLogDTO findByPk(Integer id){
+    public JobLog findByPk(Integer id){
     
     	return jobLogDao.selectByPrimaryKey(id);
     }
@@ -50,7 +53,7 @@ public class JobLogServiceImpl extends BaseServiceImpl implements IJobLogService
 		jobLogDao.updateByPrimaryKeySelective(jobLogDTO);
 	}
 	
-	public PageInfo<JobLogDTO> findSplitPage(JobLogDTO jobLogDTO){
+	public PageInfo<JobLog> findSplitPage(JobLogDTO jobLogDTO){
 		Map<String, Object> map = new HashMap<String, Object>();
 		if(jobLogDTO!=null){
 			if(jobLogDTO.getId()!=null){
@@ -73,8 +76,34 @@ public class JobLogServiceImpl extends BaseServiceImpl implements IJobLogService
 			}
 		}
 		PageHelper.startPage(jobLogDTO.getPageNo(), jobLogDTO.getPageSize());
-		List<JobLogDTO> list = jobLogDao.findSplitPage(map);
-		return new PageInfo<JobLogDTO>(list);
+		List<JobLog> list = jobLogDao.findSplitPage(map);
+		return new PageInfo<JobLog>(list);
+	}
+	
+	public List<JobLog> findAll(JobLogDTO jobLogDTO){
+		Map<String, Object> map = new HashMap<String, Object>();
+		if(jobLogDTO!=null){
+			if(jobLogDTO.getId()!=null){
+				map.put("id",jobLogDTO.getId());
+			}
+			if(jobLogDTO.getJobName()!=null){
+				map.put("jobName",jobLogDTO.getJobName());
+			}
+			if(jobLogDTO.getDescription()!=null){
+				map.put("description",jobLogDTO.getDescription());
+			}
+			if(jobLogDTO.getExcuteTime()!=null){
+				map.put("excuteTime",jobLogDTO.getExcuteTime());
+			}
+			if(jobLogDTO.getCreateTime()!=null){
+				map.put("createTime",jobLogDTO.getCreateTime());
+			}
+			if(jobLogDTO.getUpdateTime()!=null){
+				map.put("updateTime",jobLogDTO.getUpdateTime());
+			}
+		}
+		List<JobLog> list = jobLogDao.findAll(map);
+		return list;
 	}
 	
 }

@@ -1,8 +1,11 @@
 package com.shop.service.admin;
 
-import com.shop.service.IBaseService;
+import java.util.List;
+
 import com.github.pagehelper.PageInfo;
+import com.shop.domain.admin.User;
 import com.shop.dto.admin.UserDTO;
+import com.shop.service.IBaseService;
 
 /**
 * @date 20180602
@@ -24,7 +27,7 @@ public interface IUserService extends IBaseService {
 	* @author 张林
     * 描述：根据主键查询User
     */
-    UserDTO findByPk(Integer userId);
+    User findByPk(Integer userId);
 
 	/**
 	* @date 20180602
@@ -45,21 +48,28 @@ public interface IUserService extends IBaseService {
 	* @author 张林
     * 描述：分页User
     */
-	PageInfo<UserDTO> findSplitPage(UserDTO userDTO);
+	PageInfo<User> findSplitPage(UserDTO userDTO);
+	
+   /**
+	* @date 20180602
+	* @author 张林
+    * 描述：查询全部User
+    */
+	List<User> findAll(UserDTO userDTO);
 	
 	/**
 	 * 根据账户 查询
 	 * @param account
 	 * @return
 	 */
-	UserDTO findByAccount(String account);
+	User findByAccount(String account);
 	
 	/**
 	 * 根据账户 查询ROle
 	 * @param account
 	 * @return
 	 */
-	UserDTO selectUserRoleByPk(Integer userId);
+	User selectUserRoleByPk(Integer userId);
 	
 	/**
 	 * 给用户赋角色

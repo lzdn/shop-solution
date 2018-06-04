@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.shop.dao.admin.DictDao">
-  <resultMap id="BaseResultMap" type="com.shop.dto.admin.DictDTO">
+  <resultMap id="BaseResultMap" type="com.shop.domain.admin.Dict">
   	<id column="id" jdbcType="INTEGER" property="id" />
   	<result column="dict_code" jdbcType="VARCHAR" property="dictCode" />
   	<result column="dict_name" jdbcType="VARCHAR" property="dictName" />
@@ -29,7 +29,7 @@
   </where>
   </delete>
   
-  <insert id="insertSelective" parameterType="com.shop.dto.admin.DictDTO">
+  <insert id="insertSelective" parameterType="com.shop.domain.admin.Dict">
     insert into t_dict
     <trim prefix="(" suffix=")" suffixOverrides=",">
 	  <if test="id != null">
@@ -85,7 +85,7 @@
     </trim>
   </insert>
   
-  <update id="updateByPrimaryKeySelective" parameterType="com.shop.dto.admin.DictDTO">
+  <update id="updateByPrimaryKeySelective" parameterType="com.shop.domain.admin.Dict">
     update t_dict
     <set>
 	  <if test="dictCode != null">
@@ -138,6 +138,36 @@
       </if>
 	  <if test="updateTime != null">
 		and update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+	  <if test="id != null">
+	  	and id = #{id,jdbcType=INTEGER}
+	  </if>
+  </where>
+  </select>
+  
+  <select id="findAll" parameterType="Map" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" /> from t_dict
+    <where>  
+	  <if test="dictCode != null">
+		and dict_code = #{dictCode,jdbcType=VARCHAR}
+      </if>
+	  <if test="dictName != null">
+		and dict_name = #{dictName,jdbcType=VARCHAR}
+      </if>
+	  <if test="dictValue != null">
+		and dict_value = #{dictValue,jdbcType=VARCHAR}
+      </if>
+	  <if test="description != null">
+		and description = #{description,jdbcType=VARCHAR}
+      </if>
+	  <if test="status != null">
+		and status = #{status,jdbcType=INTEGER}
+      </if>
+	  <if test="createTime != null">
+		and create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+	  <if test="updateTime != null">
+		and update_time = #{updateTime,jdbcType=TIMESTAMP}
       </if>
 	  <if test="id != null">
 	  	and id = #{id,jdbcType=INTEGER}

@@ -35,7 +35,7 @@ public class LogAspect {
 	 * * 任意方法 ~ .. 匹配任意数量的参数.
 	 * 
 	 */
-	@Pointcut("execution(public * com.xuexi.service..*.*(..))")
+	@Pointcut("execution(public * com.shop.service..*.*(..))")
 	//@Pointcut("execution(public * com.xiangqin.service..*.*(..))")
 	public void webLog() {
 	}
@@ -45,20 +45,23 @@ public class LogAspect {
 		// 接收到请求，记录请求内容
 		logger.info("LogAspect.doBefore()");
 		ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-		HttpServletRequest request = attributes.getRequest();
-		// 记录下请求内容
-		logger.info("URL : " + request.getRequestURL().toString());
-		logger.info("HTTP_METHOD : " + request.getMethod());
-		logger.info("IP : " + request.getRemoteAddr());
-		logger.info("CLASS_METHOD : " + joinPoint.getSignature().getDeclaringTypeName() + "."
-				+ joinPoint.getSignature().getName());
-		logger.info("ARGS : " + Arrays.toString(joinPoint.getArgs()));
-		logger.info("打印所有参数：");
-		Enumeration<String> enu = request.getParameterNames();
-		while (enu.hasMoreElements()) {
-			String paraName = (String) enu.nextElement();
-			logger.info(paraName + ": " + request.getParameter(paraName));
+		if(attributes!=null) {
+			HttpServletRequest request = attributes.getRequest();
+			// 记录下请求内容
+			logger.info("URL : " + request.getRequestURL().toString());
+			logger.info("HTTP_METHOD : " + request.getMethod());
+			logger.info("IP : " + request.getRemoteAddr());
+			logger.info("CLASS_METHOD : " + joinPoint.getSignature().getDeclaringTypeName() + "."
+					+ joinPoint.getSignature().getName());
+			logger.info("ARGS : " + Arrays.toString(joinPoint.getArgs()));
+			logger.info("打印所有参数：");
+			Enumeration<String> enu = request.getParameterNames();
+			while (enu.hasMoreElements()) {
+				String paraName = (String) enu.nextElement();
+				logger.info(paraName + ": " + request.getParameter(paraName));
+			}
 		}
+	
 	}
 
 	@Around("webLog()")

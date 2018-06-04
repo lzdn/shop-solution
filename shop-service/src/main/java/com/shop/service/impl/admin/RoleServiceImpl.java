@@ -1,18 +1,21 @@
 package com.shop.service.impl.admin;
 
-import java.util.Map;
-import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
-import com.github.pagehelper.PageInfo;
-import com.github.pagehelper.PageHelper;
-import com.shop.service.BaseServiceImpl;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.shop.dao.admin.RoleDao;
+import com.shop.domain.admin.Role;
 import com.shop.dto.admin.GrantDto;
 import com.shop.dto.admin.RoleDTO;
+import com.shop.service.BaseServiceImpl;
 import com.shop.service.admin.IRoleService;
 
 /**
@@ -33,7 +36,7 @@ public class RoleServiceImpl extends BaseServiceImpl implements IRoleService {
 		roleDao.deleteByPrimaryKey(roleId);
 	}
 
-	public RoleDTO findByPk(Integer roleId) {
+	public Role findByPk(Integer roleId) {
 
 		return roleDao.selectByPrimaryKey(roleId);
 	}
@@ -51,19 +54,20 @@ public class RoleServiceImpl extends BaseServiceImpl implements IRoleService {
 	}
 
 	@Override
-	public List<RoleDTO> findRoleResource(Integer userId) {
+	public List<Role> findRoleResource(Integer userId) {
 		return roleDao.findRoleResource(userId);
 	}
 
 	@Override
-	public List<RoleDTO> findRoleList(RoleDTO roleDTO) {
-		return roleDao.findRoleList(roleDTO);
+	public Role findRoleOneByUserId(Integer userId) {
+
+		return roleDao.findRoleOneByUserId(userId);
 	}
 
 	@Override
 	@Transactional(value = "manageTransactionManager")
 	public void grant(Integer[] resouresId, Integer roleId) {
-		
+
 		roleDao.deleteRightRoleId(roleId);
 		if (resouresId != null && resouresId.length > 0) {
 			List<GrantDto> dtos = new ArrayList<GrantDto>();
@@ -77,7 +81,7 @@ public class RoleServiceImpl extends BaseServiceImpl implements IRoleService {
 		}
 	}
 
-	public PageInfo<RoleDTO> findSplitPage(RoleDTO roleDTO) {
+	public PageInfo<Role> findSplitPage(RoleDTO roleDTO) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		if (roleDTO != null) {
 			if (roleDTO.getRoleId() != null) {
@@ -103,8 +107,37 @@ public class RoleServiceImpl extends BaseServiceImpl implements IRoleService {
 			}
 		}
 		PageHelper.startPage(roleDTO.getPageNo(), roleDTO.getPageSize());
-		List<RoleDTO> list = roleDao.findSplitPage(map);
-		return new PageInfo<RoleDTO>(list);
+		List<Role> list = roleDao.findSplitPage(map);
+		return new PageInfo<Role>(list);
+	}
+
+	public List<Role> findAll(RoleDTO roleDTO) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		if (roleDTO != null) {
+			if (roleDTO.getRoleId() != null) {
+				map.put("roleId", roleDTO.getRoleId());
+			}
+			if (roleDTO.getRoleKey() != null) {
+				map.put("roleKey", roleDTO.getRoleKey());
+			}
+			if (roleDTO.getRoleName() != null) {
+				map.put("roleName", roleDTO.getRoleName());
+			}
+			if (roleDTO.getDescription() != null) {
+				map.put("description", roleDTO.getDescription());
+			}
+			if (roleDTO.getStatus() != null) {
+				map.put("status", roleDTO.getStatus());
+			}
+			if (roleDTO.getCreateTime() != null) {
+				map.put("createTime", roleDTO.getCreateTime());
+			}
+			if (roleDTO.getUpdateTime() != null) {
+				map.put("updateTime", roleDTO.getUpdateTime());
+			}
+		}
+		List<Role> list = roleDao.findAll(map);
+		return list;
 	}
 
 }

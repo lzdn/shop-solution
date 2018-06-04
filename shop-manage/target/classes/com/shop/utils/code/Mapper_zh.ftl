@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="${package_name}.dao.${package_last_name}.${table_name}Dao">
-  <resultMap id="BaseResultMap" type="${package_name}.dto.${package_last_name}.${table_name}DTO">
+  <resultMap id="BaseResultMap" type="${package_name}.domain.${package_last_name}.${table_name}">
   <#if (primaryKeys)??&&primaryKeys?size gt 0>
   <#list primaryKeys as primaryKey >
   	<id column="${primaryKey.columnName}" jdbcType="${primaryKey.columnType}" property="${primaryKey.changeColumnName}" />
@@ -39,7 +39,7 @@
   </where>
   </delete>
   
-  <insert id="insertSelective" parameterType="${package_name}.dto.${package_last_name}.${table_name}DTO">
+  <insert id="insertSelective" parameterType="${package_name}.domain.${package_last_name}.${table_name}">
     insert into ${table_fix}${table_name_small}
     <trim prefix="(" suffix=")" suffixOverrides=",">
 	  <#if (primaryKeys)??&&primaryKeys?size gt 0>
@@ -75,7 +75,7 @@
     </trim>
   </insert>
   
-  <update id="updateByPrimaryKeySelective" parameterType="${package_name}.dto.${package_last_name}.${table_name}DTO">
+  <update id="updateByPrimaryKeySelective" parameterType="${package_name}.domain.${package_last_name}.${table_name}">
     update ${table_fix}${table_name_small}
     <set>
       <#if (columnKeys)??&&columnKeys?size gt 0>
@@ -101,7 +101,27 @@
        <#if (columnKeys)??&&columnKeys?size gt 0>
 	  <#list columnKeys as columnKey >
 	  <if test="${columnKey.changeColumnName} != null">
-		and ${columnKey.columnName} = <#noparse>#</#noparse>{${columnKey.changeColumnName},jdbcType=${columnKey.columnType}},
+		and ${columnKey.columnName} = <#noparse>#</#noparse>{${columnKey.changeColumnName},jdbcType=${columnKey.columnType}}
+      </if>
+	  </#list>
+	  </#if>
+	  <#if (primaryKeys)??&&primaryKeys?size gt 0>
+	  <#list primaryKeys as primaryKey >
+	  <if test="${primaryKey.changeColumnName} != null">
+	  	and ${primaryKey.columnName} = <#noparse>#</#noparse>{${primaryKey.changeColumnName},jdbcType=${primaryKey.columnType}}
+	  </if>
+	  </#list>
+	  </#if>
+  </where>
+  </select>
+  
+  <select id="findAll" parameterType="Map" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" /> from ${table_fix}${table_name_small}
+    <where>  
+       <#if (columnKeys)??&&columnKeys?size gt 0>
+	  <#list columnKeys as columnKey >
+	  <if test="${columnKey.changeColumnName} != null">
+		and ${columnKey.columnName} = <#noparse>#</#noparse>{${columnKey.changeColumnName},jdbcType=${columnKey.columnType}}
       </if>
 	  </#list>
 	  </#if>

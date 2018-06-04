@@ -1,16 +1,19 @@
 package com.shop.service.impl.admin;
 
-import java.util.Map;
-import java.util.List;
 import java.util.HashMap;
-import com.github.pagehelper.PageInfo;
-import com.github.pagehelper.PageHelper;
-import com.shop.service.BaseServiceImpl;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.shop.dao.admin.DictDao;
+import com.shop.domain.admin.Dict;
 import com.shop.dto.admin.DictDTO;
+import com.shop.service.BaseServiceImpl;
 import com.shop.service.admin.IDictService;
 
 /**
@@ -31,14 +34,14 @@ public class DictServiceImpl extends BaseServiceImpl implements IDictService {
 		dictDao.deleteByPrimaryKey(id);
 	}
 
-	public DictDTO findByPk(Integer id) {
-
-		return dictDao.selectByPrimaryKey(id);
-	}
-
-	@Transactional(value = "manageTransactionManager")
-	public void insertDict(DictDTO dictDTO) throws Exception {
-
+    public Dict findByPk(Integer id){
+    
+    	return dictDao.selectByPrimaryKey(id);
+    }
+    
+	
+	public void insertDict(DictDTO dictDTO) throws Exception{
+	
 		dictDao.insertSelective(dictDTO);
 	}
 
@@ -48,7 +51,7 @@ public class DictServiceImpl extends BaseServiceImpl implements IDictService {
 		dictDao.updateByPrimaryKeySelective(dictDTO);
 	}
 
-	public PageInfo<DictDTO> findSplitPage(DictDTO dictDTO) {
+	public PageInfo<Dict> findSplitPage(DictDTO dictDTO){
 		Map<String, Object> map = new HashMap<String, Object>();
 		if (dictDTO != null) {
 			if (dictDTO.getId() != null) {
@@ -77,8 +80,40 @@ public class DictServiceImpl extends BaseServiceImpl implements IDictService {
 			}
 		}
 		PageHelper.startPage(dictDTO.getPageNo(), dictDTO.getPageSize());
-		List<DictDTO> list = dictDao.findSplitPage(map);
-		return new PageInfo<DictDTO>(list);
+		List<Dict> list = dictDao.findSplitPage(map);
+		return new PageInfo<Dict>(list);
 	}
-
+	
+	public List<Dict> findAll(DictDTO dictDTO){
+		Map<String, Object> map = new HashMap<String, Object>();
+		if(dictDTO!=null){
+			if(dictDTO.getId()!=null){
+				map.put("id",dictDTO.getId());
+			}
+			if(dictDTO.getDictCode()!=null){
+				map.put("dictCode",dictDTO.getDictCode());
+			}
+			if(dictDTO.getDictName()!=null){
+				map.put("dictName",dictDTO.getDictName());
+			}
+			if(dictDTO.getDictValue()!=null){
+				map.put("dictValue",dictDTO.getDictValue());
+			}
+			if(dictDTO.getDescription()!=null){
+				map.put("description",dictDTO.getDescription());
+			}
+			if(dictDTO.getStatus()!=null){
+				map.put("status",dictDTO.getStatus());
+			}
+			if(dictDTO.getCreateTime()!=null){
+				map.put("createTime",dictDTO.getCreateTime());
+			}
+			if(dictDTO.getUpdateTime()!=null){
+				map.put("updateTime",dictDTO.getUpdateTime());
+			}
+		}
+		List<Dict> list = dictDao.findAll(map);
+		return list;
+	}
+	
 }

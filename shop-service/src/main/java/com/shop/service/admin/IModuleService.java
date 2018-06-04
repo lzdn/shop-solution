@@ -1,11 +1,11 @@
 package com.shop.service.admin;
 
-import com.shop.service.IBaseService;
-
 import java.util.List;
 
 import com.github.pagehelper.PageInfo;
+import com.shop.domain.admin.Module;
 import com.shop.dto.admin.ModuleDTO;
+import com.shop.service.IBaseService;
 
 /**
 * @date 20180602
@@ -27,7 +27,7 @@ public interface IModuleService extends IBaseService {
 	* @author 张林
     * 描述：根据主键查询Module
     */
-    ModuleDTO findByPk(Integer moduleId);
+    Module findByPk(Integer moduleId);
 
 	/**
 	* @date 20180602
@@ -41,7 +41,7 @@ public interface IModuleService extends IBaseService {
 	* @author 张林
     * 描述：根据角色查询资源权限
     */
-	List<ModuleDTO> findModuleRoleResource(Integer roleId);
+	List<Module> findModuleRoleResource(Integer roleId);
 
 	/**
 	* @date 20180602
@@ -55,12 +55,12 @@ public interface IModuleService extends IBaseService {
 	* @author 张林
     * 描述：分页Module
     */
-	PageInfo<ModuleDTO> findSplitPage(ModuleDTO moduleDTO);
+	PageInfo<Module> findSplitPage(ModuleDTO moduleDTO);
 	
 	/**
 	* @date 20180602
 	* @author 张林
-    * 描述：
+    * 描述：查询全部Module
     */
-	List<ModuleDTO> findModuleList(ModuleDTO moduleDTO);
+	List<Module> findAll(ModuleDTO moduleDTO);
 }

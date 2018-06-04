@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.shop.dao.admin.JobLogDao">
-  <resultMap id="BaseResultMap" type="com.shop.dto.admin.JobLogDTO">
+  <resultMap id="BaseResultMap" type="com.shop.domain.admin.JobLog">
   	<id column="id" jdbcType="INTEGER" property="id" />
   	<result column="job_name" jdbcType="VARCHAR" property="jobName" />
   	<result column="description" jdbcType="VARCHAR" property="description" />
@@ -27,7 +27,7 @@
   </where>
   </delete>
   
-  <insert id="insertSelective" parameterType="com.shop.dto.admin.JobLogDTO">
+  <insert id="insertSelective" parameterType="com.shop.domain.admin.JobLog">
     insert into t_job_log
     <trim prefix="(" suffix=")" suffixOverrides=",">
 	  <if test="id != null">
@@ -71,7 +71,7 @@
     </trim>
   </insert>
   
-  <update id="updateByPrimaryKeySelective" parameterType="com.shop.dto.admin.JobLogDTO">
+  <update id="updateByPrimaryKeySelective" parameterType="com.shop.domain.admin.JobLog">
     update t_job_log
     <set>
 	  <if test="jobName != null">
@@ -99,19 +99,43 @@
     select <include refid="Base_Column_List" /> from t_job_log
     <where>  
 	  <if test="jobName != null">
-		and job_name = #{jobName,jdbcType=VARCHAR},
+		and job_name = #{jobName,jdbcType=VARCHAR}
       </if>
 	  <if test="description != null">
-		and description = #{description,jdbcType=VARCHAR},
+		and description = #{description,jdbcType=VARCHAR}
       </if>
 	  <if test="excuteTime != null">
-		and excute_time = #{excuteTime,jdbcType=TIMESTAMP},
+		and excute_time = #{excuteTime,jdbcType=TIMESTAMP}
       </if>
 	  <if test="createTime != null">
-		and create_time = #{createTime,jdbcType=TIMESTAMP},
+		and create_time = #{createTime,jdbcType=TIMESTAMP}
       </if>
 	  <if test="updateTime != null">
-		and update_time = #{updateTime,jdbcType=TIMESTAMP},
+		and update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+	  <if test="id != null">
+	  	and id = #{id,jdbcType=INTEGER}
+	  </if>
+  </where>
+  </select>
+  
+  <select id="findAll" parameterType="Map" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" /> from t_job_log
+    <where>  
+	  <if test="jobName != null">
+		and job_name = #{jobName,jdbcType=VARCHAR}
+      </if>
+	  <if test="description != null">
+		and description = #{description,jdbcType=VARCHAR}
+      </if>
+	  <if test="excuteTime != null">
+		and excute_time = #{excuteTime,jdbcType=TIMESTAMP}
+      </if>
+	  <if test="createTime != null">
+		and create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+	  <if test="updateTime != null">
+		and update_time = #{updateTime,jdbcType=TIMESTAMP}
       </if>
 	  <if test="id != null">
 	  	and id = #{id,jdbcType=INTEGER}

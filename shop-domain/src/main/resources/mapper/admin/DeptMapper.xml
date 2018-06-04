@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.shop.dao.admin.DeptDao">
-  <resultMap id="BaseResultMap" type="com.shop.dto.admin.DeptDTO">
+  <resultMap id="BaseResultMap" type="com.shop.domain.admin.Dept">
   	<id column="dept_id" jdbcType="INTEGER" property="deptId" />
   	<result column="parent_dept_id" jdbcType="INTEGER" property="parentDeptId" />
   	<result column="dept_simple_name" jdbcType="VARCHAR" property="deptSimpleName" />
@@ -28,7 +28,7 @@
   </where>
   </delete>
   
-  <insert id="insertSelective" parameterType="com.shop.dto.admin.DeptDTO">
+  <insert id="insertSelective" parameterType="com.shop.domain.admin.Dept">
     insert into t_dept
     <trim prefix="(" suffix=")" suffixOverrides=",">
 	  <if test="deptId != null">
@@ -78,7 +78,7 @@
     </trim>
   </insert>
   
-  <update id="updateByPrimaryKeySelective" parameterType="com.shop.dto.admin.DeptDTO">
+  <update id="updateByPrimaryKeySelective" parameterType="com.shop.domain.admin.Dept">
     update t_dept
     <set>
 	  <if test="parentDeptId != null">
@@ -113,22 +113,49 @@
     select <include refid="Base_Column_List" /> from t_dept
     <where>  
 	  <if test="parentDeptId != null">
-		and parent_dept_id = #{parentDeptId,jdbcType=INTEGER},
+		and parent_dept_id = #{parentDeptId,jdbcType=INTEGER}
       </if>
 	  <if test="deptSimpleName != null">
-		and dept_simple_name = #{deptSimpleName,jdbcType=VARCHAR},
+		and dept_simple_name = #{deptSimpleName,jdbcType=VARCHAR}
       </if>
 	  <if test="deptFullName != null">
-		and dept_full_name = #{deptFullName,jdbcType=VARCHAR},
+		and dept_full_name = #{deptFullName,jdbcType=VARCHAR}
       </if>
 	  <if test="description != null">
-		and description = #{description,jdbcType=VARCHAR},
+		and description = #{description,jdbcType=VARCHAR}
       </if>
 	  <if test="createTime != null">
-		and create_time = #{createTime,jdbcType=TIMESTAMP},
+		and create_time = #{createTime,jdbcType=TIMESTAMP}
       </if>
 	  <if test="updateTime != null">
-		and update_time = #{updateTime,jdbcType=TIMESTAMP},
+		and update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+	  <if test="deptId != null">
+	  	and dept_id = #{deptId,jdbcType=INTEGER}
+	  </if>
+  </where>
+  </select>
+  
+  <select id="findAll" parameterType="Map" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" /> from t_dept
+    <where>  
+	  <if test="parentDeptId != null">
+		and parent_dept_id = #{parentDeptId,jdbcType=INTEGER}
+      </if>
+	  <if test="deptSimpleName != null">
+		and dept_simple_name = #{deptSimpleName,jdbcType=VARCHAR}
+      </if>
+	  <if test="deptFullName != null">
+		and dept_full_name = #{deptFullName,jdbcType=VARCHAR}
+      </if>
+	  <if test="description != null">
+		and description = #{description,jdbcType=VARCHAR}
+      </if>
+	  <if test="createTime != null">
+		and create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+	  <if test="updateTime != null">
+		and update_time = #{updateTime,jdbcType=TIMESTAMP}
       </if>
 	  <if test="deptId != null">
 	  	and dept_id = #{deptId,jdbcType=INTEGER}

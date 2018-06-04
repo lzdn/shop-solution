@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.shop.dao.admin.RoleDao">
-  <resultMap id="BaseResultMap" type="com.shop.dto.admin.RoleDTO">
+  <resultMap id="BaseResultMap" type="com.shop.domain.admin.Role">
   	<id column="role_id" jdbcType="INTEGER" property="roleId" />
   	<result column="role_key" jdbcType="VARCHAR" property="roleKey" />
   	<result column="role_name" jdbcType="VARCHAR" property="roleName" />
@@ -28,7 +28,7 @@
   </where>
   </delete>
   
-  <insert id="insertSelective" parameterType="com.shop.dto.admin.RoleDTO">
+  <insert id="insertSelective" parameterType="com.shop.domain.admin.Role">
     insert into t_role
     <trim prefix="(" suffix=")" suffixOverrides=",">
 	  <if test="roleId != null">
@@ -78,7 +78,7 @@
     </trim>
   </insert>
   
-  <update id="updateByPrimaryKeySelective" parameterType="com.shop.dto.admin.RoleDTO">
+  <update id="updateByPrimaryKeySelective" parameterType="com.shop.domain.admin.Role">
     update t_role
     <set>
 	  <if test="roleKey != null">
@@ -109,22 +109,22 @@
     select <include refid="Base_Column_List" /> from t_role
     <where>  
 	  <if test="roleKey != null">
-		and role_key = #{roleKey,jdbcType=VARCHAR},
+		and role_key = #{roleKey,jdbcType=VARCHAR}
       </if>
 	  <if test="roleName != null">
-		and role_name = #{roleName,jdbcType=VARCHAR},
+		and role_name = #{roleName,jdbcType=VARCHAR}
       </if>
 	  <if test="description != null">
-		and description = #{description,jdbcType=VARCHAR},
+		and description = #{description,jdbcType=VARCHAR}
       </if>
 	  <if test="status != null">
-		and status = #{status,jdbcType=INTEGER},
+		and status = #{status,jdbcType=INTEGER}
       </if>
 	  <if test="createTime != null">
-		and create_time = #{createTime,jdbcType=TIMESTAMP},
+		and create_time = #{createTime,jdbcType=TIMESTAMP}
       </if>
 	  <if test="updateTime != null">
-		and update_time = #{updateTime,jdbcType=TIMESTAMP},
+		and update_time = #{updateTime,jdbcType=TIMESTAMP}
       </if>
 	  <if test="roleId != null">
 	  	and role_id = #{roleId,jdbcType=INTEGER}
@@ -132,8 +132,31 @@
   </where>
   </select>
   
-  <select id="findRoleList" parameterType="com.shop.dto.admin.RoleDTO" resultMap="BaseResultMap">
-	select <include refid="Base_Column_List" /> from t_role t  ORDER BY t.role_id
+  <select id="findAll" parameterType="Map" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" /> from t_role
+    <where>  
+	  <if test="roleKey != null">
+		and role_key = #{roleKey,jdbcType=VARCHAR}
+      </if>
+	  <if test="roleName != null">
+		and role_name = #{roleName,jdbcType=VARCHAR}
+      </if>
+	  <if test="description != null">
+		and description = #{description,jdbcType=VARCHAR}
+      </if>
+	  <if test="status != null">
+		and status = #{status,jdbcType=INTEGER}
+      </if>
+	  <if test="createTime != null">
+		and create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+	  <if test="updateTime != null">
+		and update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+	  <if test="roleId != null">
+	  	and role_id = #{roleId,jdbcType=INTEGER}
+	  </if>
+  </where>
   </select>
   
   <resultMap id="RoleResourceResult" type="com.shop.dto.admin.RoleDTO" extends="BaseResultMap">
@@ -146,14 +169,15 @@
 		    <result column="type" jdbcType="INTEGER" property="type" />
 		</collection>
   </resultMap>
+  
   <select id="findRoleResource" parameterType="Map" resultMap="RoleResourceResult">
    	SELECT 
    	 	t2.role_id,t2.role_key,t2.role_name, t2.description,t2.status,
 		t.id,t.resource_key,t.resource_value,t.url,t.menu_icon,t.module_id,t.type,t.available  
-		from t_resource t
-		LEFT JOIN t_role_resource_relation t1 on t1.resource_id = t.id
-		LEFT JOIN t_role t2 on t2.role_id = t1.role_id
+		from  t_role t2 
 		LEFT JOIN t_user_role_relation t3 on t3.role_id = t2.role_id 
+		LEFT JOIN t_role_resource_relation t1 on t1.role_id = t2.role_id
+		LEFT JOIN t_resource t on t1.resource_id = t.id
 	<where>
 		<if test="userId != null">
 			and t3.user_id = #{userId}
@@ -171,5 +195,20 @@
 	<foreach collection="list" item="item" index="index" separator=",">
 		(#{item.roleId,jdbcType=INTEGER}, #{item.resourceId,jdbcType=INTEGER})
 	</foreach>
-</insert>
+ </insert>
+ 
+ <select id="findRoleOneByUserId" parameterType="Map" resultMap="BaseResultMap">
+   	SELECT 
+   	 	t2.role_id,t2.role_key,t2.role_name, t2.description,t2.status 
+		from  t_role t2  
+		LEFT JOIN t_user_role_relation t3 on t3.role_id = t2.role_id 
+	<where>
+		<if test="userId != null">
+			and t3.user_id = #{userId}
+		</if>
+	</where>
+	order by t2.role_id
+	limit 1
+  </select>
+
 </mapper>

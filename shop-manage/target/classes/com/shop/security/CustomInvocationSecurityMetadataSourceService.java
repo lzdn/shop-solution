@@ -22,7 +22,7 @@ import org.springframework.util.CollectionUtils;
 
 import com.shop.dao.admin.RoleDao;
 import com.shop.domain.admin.Resource;
-import com.shop.dto.admin.RoleDTO;
+import com.shop.domain.admin.Role;
 
  
 
@@ -49,8 +49,8 @@ public class CustomInvocationSecurityMetadataSourceService implements FilterInvo
 		 * resourceMap.put("default_error", defaultAtts);
 		 */
 
-		List<RoleDTO> roles = roleDao.findRoleResource(null);// 查询出所有角色和权限集合
-		for (RoleDTO role : roles) {
+		List<Role> roles = roleDao.findRoleResource(null);// 查询出所有角色和权限集合
+		for (Role role : roles) {
 			if (role.getRoleId() != null) {
 				ConfigAttribute ca = new SecurityConfig(role.getRoleName());
 				if (!CollectionUtils.isEmpty(role.getResources())) {
@@ -114,6 +114,12 @@ public class CustomInvocationSecurityMetadataSourceService implements FilterInvo
 
 	public void defaultSecurity() {
 
+	}
+	/**
+	 * 重置权限 以免授权以后要重启系统才生效
+	 */
+	public void resetResourceRight() {
+		resourceMap = null;
 	}
 
 }

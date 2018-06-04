@@ -8,7 +8,6 @@ import java.util.List;
 import com.shop.dao.BaseDao;
 import com.shop.domain.admin.Role;
 import com.shop.dto.admin.GrantDto;
-import com.shop.dto.admin.RoleDTO;
 
 
 /**
@@ -21,19 +20,21 @@ public interface RoleDao extends BaseDao {
 
 	int deleteByPrimaryKey(Integer roleId);
 	
-	RoleDTO selectByPrimaryKey(Integer roleId);
+	Role selectByPrimaryKey(Integer roleId);
 
 	int insertSelective(Role role);
 
 	int updateByPrimaryKeySelective(Role role);
 
-	List<RoleDTO> findSplitPage(Map<String, Object> map); 
+	List<Role> findSplitPage(Map<String, Object> map); 
 	
-	List<RoleDTO> findRoleResource(Integer userId);
+	List<Role> findAll(Map<String, Object> map);
 	
-	List<RoleDTO> findRoleList(RoleDTO roleDTO);
+	List<Role> findRoleResource(@Param("userId") Integer userId);
 	
 	int deleteRightRoleId(@Param("roleId") Integer roleId);
 	    
 	int insertRightBatch(List<GrantDto> grants);
+	
+	Role findRoleOneByUserId(@Param("userId") Integer userId);
 }

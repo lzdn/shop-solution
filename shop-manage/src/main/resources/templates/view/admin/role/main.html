@@ -146,7 +146,7 @@ function submitFm(){
 				parent.layer.alert("服务器异常！");
 			},
 			success: function(data) {
-				if(data.success){
+				if(JSON.parse(data).success){
 					parent.layer.alert('保存成功！', {icon: 1, skin: 'layer-ext-moon'});
 					window.location.href=window.location.href;
 				} else{

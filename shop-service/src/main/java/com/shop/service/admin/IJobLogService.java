@@ -1,8 +1,11 @@
 package com.shop.service.admin;
 
-import com.shop.service.IBaseService;
+import java.util.List;
+
 import com.github.pagehelper.PageInfo;
+import com.shop.domain.admin.JobLog;
 import com.shop.dto.admin.JobLogDTO;
+import com.shop.service.IBaseService;
 
 /**
 * @date 20180602
@@ -24,7 +27,7 @@ public interface IJobLogService extends IBaseService {
 	* @author 张林
     * 描述：根据主键查询JobLog
     */
-    JobLogDTO findByPk(Integer id);
+    JobLog findByPk(Integer id);
 
 	/**
 	* @date 20180602
@@ -45,5 +48,12 @@ public interface IJobLogService extends IBaseService {
 	* @author 张林
     * 描述：分页JobLog
     */
-	PageInfo<JobLogDTO> findSplitPage(JobLogDTO jobLogDTO);
+	PageInfo<JobLog> findSplitPage(JobLogDTO jobLogDTO);
+	
+	/**
+	* @date 20180602
+	* @author 张林
+    * 描述：查询全部JobLog
+    */
+	List<JobLog> findAll(JobLogDTO jobLogDTO);
 }

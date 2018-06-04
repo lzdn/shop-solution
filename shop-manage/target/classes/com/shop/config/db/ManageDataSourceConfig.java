@@ -39,7 +39,7 @@ public class ManageDataSourceConfig {
 	public SqlSessionFactory manageSqlSessionFactory() {
 		final SqlSessionFactoryBean sessionFactoryBean = new SqlSessionFactoryBean();
 		sessionFactoryBean.setDataSource(manageDruidDataSource());
-
+		sessionFactoryBean.setTypeAliasesPackage("com.shop.domain.admin");
 		try {
 			sessionFactoryBean
 					.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(MANAGE_MAPPER_LOCAL));

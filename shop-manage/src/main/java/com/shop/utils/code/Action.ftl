@@ -31,7 +31,7 @@ public class ${table_name}Controller extends BaseController {
 
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public String main(HttpServletResponse response, Model model,${table_name}DTO ${table_name?uncap_first}DTO) {
-		PageInfo<${table_name}DTO> splitPage = ${table_name?uncap_first}Service.findSplitPage(${table_name?uncap_first}DTO);
+		PageInfo<${table_name}> splitPage = ${table_name?uncap_first}Service.findSplitPage(${table_name?uncap_first}DTO);
 		model.addAttribute("splitPage", splitPage);
 		model.addAttribute("${table_name?uncap_first}DTO", ${table_name?uncap_first}DTO);
 		return "admin/${table_name?uncap_first}/main";

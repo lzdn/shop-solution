@@ -4,7 +4,6 @@ import java.util.Map;
 import java.util.List;
 import com.shop.dao.BaseDao;
 import com.shop.domain.admin.JobLog;
-import com.shop.dto.admin.JobLogDTO;
 
 
 /**
@@ -17,12 +16,13 @@ public interface JobLogDao extends BaseDao {
 
 	int deleteByPrimaryKey(Integer id);
 	
-	JobLogDTO selectByPrimaryKey(Integer id);
+	JobLog selectByPrimaryKey(Integer id);
 
 	int insertSelective(JobLog jobLog);
 
 	int updateByPrimaryKeySelective(JobLog jobLog);
 
-	List<JobLogDTO> findSplitPage(Map<String, Object> map); 
+	List<JobLog> findSplitPage(Map<String, Object> map); 
 	
+	List<JobLog> findAll(Map<String, Object> map);
 }

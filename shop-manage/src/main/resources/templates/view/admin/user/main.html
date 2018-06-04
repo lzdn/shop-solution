@@ -49,7 +49,10 @@
 										<td>${user.userId!}</td>
 										<td>${user.account!}</td>
 										<td>${user.username!}</td>
-										<td>${user.sex!}</td>
+										<td> 
+											<#if user.sex == 1><span class="label label-success">男</span></#if>
+											<#if user.sex == 2><span class="label label-success">女 </span></#if>
+										</td>
 										<td><#if (user.birthday)??>${user.birthday?string("yyyy-MM-dd HH:mm:ss")}</#if></td>
 										<td>
 											<#if (user.role)??>${user.role.roleName!}</#if>
@@ -258,7 +261,7 @@ function submitRoleFm(){
 			parent.layer.alert("服务器异常！");
 		},
 		success: function(data) {
-			if(data.success){
+			if(JSON.parse(data).success){
 				parent.layer.alert('保存成功！', {icon: 1, skin: 'layer-ext-moon'});
 				window.location.href=window.location.href;
 			} else{
@@ -280,9 +283,9 @@ function submitFm(){
 				parent.layer.alert("服务器异常！");
 			},
 			success: function(data) {
-				if(data.success){
+				if(JSON.parse(data).success){
 					parent.layer.alert('保存成功！', {icon: 1, skin: 'layer-ext-moon'},function(e){
-						parent.layer.close(e);
+						parent.layer.closeAll();
 						window.location.href=window.location.href;	
 					});
 					
@@ -300,7 +303,7 @@ laydate({
 });
 
 $("#file-1").fileinput({
-    uploadUrl: '${basePath}/common/uploadLocal', // you must set a valid URL here else you will get an error
+    uploadUrl: '${basePath}/file/uploadLocal', // you must set a valid URL here else you will get an error
     allowedFileExtensions : ['jpg', 'png','gif'],
     overwriteInitial: false,
     maxFileSize: 1000,

@@ -33,7 +33,7 @@ public class ${table_name}ServiceImpl extends BaseServiceImpl implements I${tabl
 		${table_name?uncap_first}Dao.deleteByPrimaryKey(${variableKeys!});
 	}
 
-    public ${table_name}DTO findByPk(${primarykeysTypes!}){
+    public ${table_name} findByPk(${primarykeysTypes!}){
     
     	return ${table_name?uncap_first}Dao.selectByPrimaryKey(${variableKeys!});
     }
@@ -50,7 +50,7 @@ public class ${table_name}ServiceImpl extends BaseServiceImpl implements I${tabl
 		${table_name?uncap_first}Dao.updateByPrimaryKeySelective(${table_name?uncap_first}DTO);
 	}
 	
-	public PageInfo<${table_name}DTO> findSplitPage(${table_name}DTO ${table_name?uncap_first}DTO){
+	public PageInfo<${table_name}> findSplitPage(${table_name}DTO ${table_name?uncap_first}DTO){
 		Map<String, Object> map = new HashMap<String, Object>();
 		if(${table_name?uncap_first}DTO!=null){
 		<#if (columnKeys)??&&columnKeys?size gt 0 >
@@ -62,8 +62,23 @@ public class ${table_name}ServiceImpl extends BaseServiceImpl implements I${tabl
 		</#if>
 		}
 		PageHelper.startPage(${table_name?uncap_first}DTO.getPageNo(), ${table_name?uncap_first}DTO.getPageSize());
-		List<${table_name}DTO> list = ${table_name?uncap_first}Dao.findSplitPage(map);
-		return new PageInfo<${table_name}DTO>(list);
+		List<${table_name}> list = ${table_name?uncap_first}Dao.findSplitPage(map);
+		return new PageInfo<${table_name}>(list);
+	}
+	
+	public List<${table_name}> findAll(${table_name}DTO ${table_name?uncap_first}DTO){
+		Map<String, Object> map = new HashMap<String, Object>();
+		if(${table_name?uncap_first}DTO!=null){
+		<#if (columnKeys)??&&columnKeys?size gt 0 >
+		<#list columnKeys as columnKey>
+			if(${table_name?uncap_first}DTO.get${columnKey.changeColumnName}()!=null){
+				map.put("${columnKey.changeColumnName?uncap_first}",${table_name?uncap_first}DTO.get${columnKey.changeColumnName}());
+			}
+		</#list>
+		</#if>
+		}
+		List<${table_name}> list = ${table_name?uncap_first}Dao.findAll(map);
+		return list;
 	}
 	
 }

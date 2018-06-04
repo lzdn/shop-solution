@@ -1,11 +1,11 @@
 package com.shop.service.admin;
 
-import com.shop.service.IBaseService;
-
 import java.util.List;
 
 import com.github.pagehelper.PageInfo;
+import com.shop.domain.admin.Resource;
 import com.shop.dto.admin.ResourceDTO;
+import com.shop.service.IBaseService;
 
 /**
  * @date 20180602
@@ -25,7 +25,7 @@ public interface IResourceService extends IBaseService {
 	 * @date 20180602
 	 * @author 张林 描述：根据主键查询Resource
 	 */
-	ResourceDTO findByPk(Integer id);
+    Resource findByPk(Integer id);
 
 	/**
 	 * @date 20180602
@@ -43,11 +43,11 @@ public interface IResourceService extends IBaseService {
 	 * @date 20180602
 	 * @author 张林 描述：分页Resource
 	 */
-	PageInfo<ResourceDTO> findSplitPage(ResourceDTO resourceDTO);
+	PageInfo<Resource> findSplitPage(ResourceDTO resourceDTO);
 
 	/**
 	 * @date 20180602
 	 * @author 张林 描述：查看全部
 	 */
-	List<ResourceDTO> findResourceList(ResourceDTO resourceDTO);
+	List<Resource> findAll(ResourceDTO resourceDTO);
 }

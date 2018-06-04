@@ -1,7 +1,5 @@
 package com.shop.dto.admin;
 
-import java.util.List;
-
 import com.shop.domain.admin.User;
 
 /**
@@ -13,25 +11,5 @@ import com.shop.domain.admin.User;
 public class UserDTO extends User {
 
 	private static final long serialVersionUID = 1L;
-
-	private RoleDTO role;
-
-	private List<ModuleDTO> modules;
-
-	public RoleDTO getRole() {
-		return role;
-	}
-
-	public void setRole(RoleDTO role) {
-		this.role = role;
-	}
-
-	public List<ModuleDTO> getModules() {
-		return modules;
-	}
-
-	public void setModules(List<ModuleDTO> modules) {
-		this.modules = modules;
-	}
 
 }

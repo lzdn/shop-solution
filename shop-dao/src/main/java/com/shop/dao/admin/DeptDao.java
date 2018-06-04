@@ -4,7 +4,6 @@ import java.util.Map;
 import java.util.List;
 import com.shop.dao.BaseDao;
 import com.shop.domain.admin.Dept;
-import com.shop.dto.admin.DeptDTO;
 
 
 /**
@@ -17,13 +16,13 @@ public interface DeptDao extends BaseDao {
 
 	int deleteByPrimaryKey(Integer deptId);
 	
-	DeptDTO selectByPrimaryKey(Integer deptId);
+	Dept selectByPrimaryKey(Integer deptId);
 
 	int insertSelective(Dept dept);
 
 	int updateByPrimaryKeySelective(Dept dept);
 
-	List<DeptDTO> findSplitPage(Map<String, Object> map); 
+	List<Dept> findSplitPage(Map<String, Object> map); 
 	
-	List<DeptDTO> findDeptList(DeptDTO deptDTO);
+	List<Dept> findAll(Map<String, Object> map);
 }

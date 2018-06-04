@@ -1,5 +1,6 @@
 package ${package_name}.service.${package_last_name};
 
+import java.util.List;
 import com.shop.service.IBaseService;
 import com.github.pagehelper.PageInfo;
 import ${package_name}.dto.${package_last_name}.${table_name}DTO;
@@ -25,7 +26,7 @@ public interface I${table_name}Service extends IBaseService {
 	* @author ${author}
     * 描述：根据主键查询${table_name}
     */
-    ${table_name}DTO findByPk(${primarykeysTypes!});
+    ${table_name} findByPk(${primarykeysTypes!});
 	</#if>
 
 	/**
@@ -47,5 +48,12 @@ public interface I${table_name}Service extends IBaseService {
 	* @author ${author}
     * 描述：分页${table_name}
     */
-	PageInfo<${table_name}DTO> findSplitPage(${table_name}DTO ${table_name?uncap_first}DTO);
+	PageInfo<${table_name}> findSplitPage(${table_name}DTO ${table_name?uncap_first}DTO);
+	
+	/**
+	* @date ${date}
+	* @author ${author}
+    * 描述：查询全部${table_name}
+    */
+	List<${table_name}> findAll(${table_name}DTO ${table_name?uncap_first}DTO);
 }
