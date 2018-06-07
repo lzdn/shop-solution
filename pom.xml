@@ -35,7 +35,6 @@
 		<module>shop-dao</module>
 		<module>shop-domain</module>
 		<module>shop-utils</module>
-
 		<module>shop-data</module>
 		<module>shop-crawler</module>
 	</modules>
