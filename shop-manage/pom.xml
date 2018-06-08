@@ -209,11 +209,6 @@
 			<version>0.9.5.2</version>
 		</dependency>
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
 		  <groupId>org.springframework.boot</groupId>
 		  <artifactId>spring-boot-properties-migrator</artifactId>
 		</dependency>
@@ -221,6 +216,11 @@
 			<groupId>com.shop</groupId>
 			<artifactId>shop-service</artifactId>
 			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 

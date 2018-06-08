@@ -37,5 +37,6 @@
 		<module>shop-utils</module>
 		<module>shop-data</module>
 		<module>shop-crawler</module>
+		<module>shop-plugin</module>
 	</modules>
 </project>
