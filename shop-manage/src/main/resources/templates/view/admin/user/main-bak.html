@@ -1,6 +1,6 @@
 <#import "/frameV2.html" as frame />
 <#import "/splitPage.html" as splitPage />
-<@frame.frame csss=["plugins/pager/pager.css"] scripts=[] locations=["用户管理","用户列表"]>
+<@frame.frame csss=["plugins/pager/pager.css","plugins/upload/fileinput.css"] scripts=[] locations=["用户管理","用户列表"]>
 <div class="wrapper wrapper-content  animated fadeInRight">
 	<div class="row">
 		<div class="col-sm-12">
@@ -162,15 +162,13 @@
                     </div> 
                     <div class="form-group">
                         <label class="col-sm-3 control-label">头像：<span id="avatarError"></span></label>
-                        <div class="col-sm-8" id="uploadcontainer">
+                        <div class="col-sm-8">
                         	 <input type="hidden" name="avatar" id="avatar" />
-                        	 <button class="btn btn-success " type="button" onclick="upload()">
-                        	 <i class="fa fa-upload"></i>&nbsp;&nbsp;<span class="bold">上传</span>
-                        	 </button>
+                         	 <input id="file-1" type="file" name="fileElem" multiple class="file" data-overwrite-initial="false" data-min-file-count="1"  
+                         	  data-parsley-required-message="请选择头像" data-parsley-errors-container="#avatarError" 
+                         	 >
                         </div>
-                        <div class="col-sm-8 text-left" id="uploadcontainerShow"  style="display:none;"></div>
-                    </div> 
-                                       
+                    </div>                        
                 </form>
             </div>
             <div class="modal-footer">
@@ -181,9 +179,43 @@
     </div>
 </div>
 <!-- 新增用户 -->
- 
+
+<!-- 分配权限 -->
+<div class="modal inmodal fade" id="roleModal" tabindex="-2" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h5 class="modal-title" id="toRole">分配角色</h5>
+            </div>
+            <div class="modal-body">
+	           <form class="form-horizontal m-t" id="roleForm">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">角色：</label>
+                        <div class="col-sm-8">
+                           <div class="radio" id="">
+                           	    <#if (roles)?? && (roles)?size gt 0>
+									<#list roles as role>
+										 <label><input type="radio" value="${role.roleId!}"  name="roleId">${role.roleName!}</label>
+									</#list>
+								</#if>
+                           </div>
+                        </div>
+                    </div>
+                    <input type="hidden" name="uid" id="uid" />
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" onclick="submitRoleFm()">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 分配权限 -->
 </@frame.frame> 
 <@frame.script>
+<script src="${basePath}/static/js/plugins/upload/fileinput.js"></script>
 <script>
 
 function doRight(id,name){
@@ -193,7 +225,7 @@ function doRight(id,name){
 	    title: '【'+name+'】分配角色',
 	    shadeClose: true,
 	    shade: 0.8,
-	    maxmin: false, //开启最大化最小化按钮
+	    maxmin: true, //开启最大化最小化按钮
 	    area: ['400px', '35%'],
 	    content: path, //iframe的url
 	   // closeBtn: true,
@@ -202,7 +234,43 @@ function doRight(id,name){
 	    }
 	});
 }
- 
+
+//分配角色
+function doRole(uid,name){
+	$('#uid').val(uid);
+	$('#toRole').html('为['+name+']分配角色');
+	/* $('input[name="roleId"]:checked').attr("checked",false); 
+	if(roleId!='') {
+		$("input[name='roleId'][value='"+roleId+"']").attr("checked",true);
+	} */ 
+	//$("input[name='roleId']").each(function(i,obj){
+	    //i,迭代的下标，从0开始  
+	    //obj,当前的对象(HTMLInputElement),可以使用obj.value格式获取属性值  
+	    //$(this);当前jQuery对象,可以使用$(this).val()获取属性值  
+	//});  
+}
+
+function submitRoleFm(){
+	$.ajax({
+		cache: true,
+		type: "POST",
+		url:"${basePath}/user/addRole",
+		data:$('#roleForm').serialize(),
+		async: true,
+		error: function(request) {
+			parent.layer.alert("服务器异常！");
+		},
+		success: function(data) {
+			if(JSON.parse(data).success){
+				parent.layer.alert('保存成功！', {icon: 1, skin: 'layer-ext-moon'});
+				window.location.href=window.location.href;
+			} else{
+				parent.layer.alert('保存失败！');
+			}
+		}
+	});
+}
+
 function submitFm(){
 	if($('#userForm').parsley().validate()){
 		$.ajax({
@@ -226,6 +294,7 @@ function submitFm(){
 				}
 			}
 		});
+	///	$('#closeModal').click();
 	}
 }
 laydate({
@@ -233,40 +302,34 @@ laydate({
     event: 'focus' 
 });
 
-//${basePath}/file/uploadLocal
- 
-function callbackupload(data){
-	if(data!=undefined&&data[0]!=undefined){
-		 var imgUrl = data[0];
-		 $('#uploadcontainer').hide();
-		 var html ="<img src="+imgUrl+" style=\"height:80px;width:80px\" /><a class=\"btn btn-danger btn-rounded btn-outline\" href=\"javascript:;\" onclick=\"removeAvatar()\">删除</a>";
-		 $('#uploadcontainerShow').html(html);
-		 $('#uploadcontainerShow').show();
-	}
-}
-function removeAvatar(){
-	$('#uploadcontainerShow').html();
-	$('#uploadcontainerShow').hide();
-	$('#uploadcontainer').show();
-}
-function upload(){
-	parent.layer.open({
-	    type: 2,
-	    title: '上传头像',
-	    shadeClose: true,
-	    shade: 0.8,
-	    maxmin: false, //开启最大化最小化按钮
-	    area: ['800px', '52%'],
-	    content: "${basePath}/file/prefile", //iframe的url
-	   // closeBtn: true,
-	    cancel: function(index){
-	     // alert(index)
-	    },
-	    success: function (layero, index) {
-	    	systemshop.initUpload({layFrame:layero});
-        }
-	});
-}
- 
+$("#file-1").fileinput({
+    uploadUrl: '${basePath}/file/uploadLocal', // you must set a valid URL here else you will get an error
+    allowedFileExtensions : ['jpg', 'png','gif'],
+    overwriteInitial: false,
+    maxFileSize: 1000,
+    maxFileCount:1,
+    minFileCount:1,
+    showUpload: false, //是否显示上传按钮
+    showRemove:false,
+    //enctype: 'multipart/form-data',
+  //  msgFilesTooMany: "选择上传的文件数量({n}) 超过允许的最大数值{m}！",
+ //   previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
+    //allowedFileTypes: ['image', 'video', 'flash'],
+    slugCallback: function(filename) {
+        return filename.replace('(', '_').replace(']', '_');
+    }
+});
+$('#file-1').on('fileuploaded', function(event, data, previewId, index) {
+	$("#avatar").val(data.response.msg);
+/* 	$("#file-1").fileinput('refresh', {
+	    initialPreview: [ //预览图片的设置
+	        "<img src='" + data.response.msg + "' class='file-preview-image' alt='图片' title='图片'>",
+	    ]
+	}); */
+}); 
+$('#file-1').on('fileclear', function(event, data, previewId, index) {
+	$("#avatar").val('');
+}); 
+
 </script>
 </@frame.script>

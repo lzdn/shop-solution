@@ -32,8 +32,13 @@
         		return data;
         	}
         }
-  
+        
+        shop.initUpload = function(uploadParams) {
+			//初始化iframeId
+			$($(uploadParams.layFrame).find("iframe")[0].contentWindow.document.getElementById("iframeId")).val(location.pathname);
+		}
     };
+    window.systemshop = new shopframework({});
 })();
 
-window.systemshop = new shopframework({});
+

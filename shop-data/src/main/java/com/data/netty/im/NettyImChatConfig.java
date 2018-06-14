@@ -20,21 +20,21 @@ import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 
 @Configuration
-public class NettyConfig {
+public class NettyImChatConfig {
 
-	@Value("${boss.thread.count}")
+	@Value("${imchat.boss.thread.count}")
 	private int bossCount;
 
-	@Value("${worker.thread.count}")
+	@Value("${imchat.worker.thread.count}")
 	private int workerCount;
 
-	@Value("${tcp.port}")
+	@Value("${imchat.tcp.port}")
 	private int tcpPort;
 
-	@Value("${so.keepalive}")
+	@Value("${imchat.so.keepalive}")
 	private boolean keepAlive;
 
-	@Value("${so.backlog}")
+	@Value("${imchat.so.backlog}")
 	private int backlog;
 
 	@Autowired

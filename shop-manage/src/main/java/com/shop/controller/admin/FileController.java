@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,6 +34,11 @@ public class FileController extends BaseController {
 	private WebProperties webProperties;
 
 	protected final long MAX_SIZE = 5242880L;
+	
+	@RequestMapping(value = "/prefile", method = RequestMethod.GET)
+	public String prefile(HttpServletRequest request, Model model) throws Exception {
+		return "/admin/common/file";
+	}
 
 	@RequestMapping(value = "/uploadFtp", method = RequestMethod.POST)
 	public @ResponseBody Map<String, Object> uploadimage(@RequestParam("fileElem") MultipartFile file,
@@ -96,7 +102,7 @@ public class FileController extends BaseController {
 	}
 
 	@RequestMapping(value = "/uploadLocal", method = RequestMethod.POST)
-	public @ResponseBody Map<String, Object> uploadLocal(@RequestParam("fileElem") MultipartFile file,
+	public @ResponseBody Map<String, Object> uploadLocal(@RequestParam("file") MultipartFile file,
 			HttpServletRequest request, HttpServletResponse response) throws IOException {
 		Map<String, Object> map = new HashMap<>();
 		long size = file.getSize();
@@ -116,12 +122,12 @@ public class FileController extends BaseController {
 			}
 
 			BufferedImage sourceImage = ImageIO.read(file.getInputStream());
-			File localFile = new File(webProperties.getUploadLocalPath());
+			File localFile = new File(System.getProperty("user.dir") + webProperties.getUploadLocalPath());
 			if (!localFile.exists()) {
 				localFile.mkdirs();
 			}
 			String fileName = UUID.randomUUID().toString().replace("-", "") + "." + imgFormat;
-			String createFileUrl = webProperties.getUploadLocalPath() + "/" + fileName;
+			String createFileUrl = System.getProperty("user.dir") + webProperties.getUploadLocalPath() + "/" + fileName;
 			String downloadUrl = webProperties.getDownloadPath() + "/" + fileName;
 			file.transferTo(new File(createFileUrl));
 			if (StringUtils.isNotEmpty(createFileUrl)) {

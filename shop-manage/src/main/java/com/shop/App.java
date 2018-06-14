@@ -16,7 +16,7 @@ import org.springframework.web.context.request.RequestContextListener;
 @SpringBootApplication(exclude = { DataSourceAutoConfiguration.class })
 @Configuration
 @ServletComponentScan
-@ComponentScan(basePackages = { "com.shop" })
+@ComponentScan(basePackages = { "com.shop","com.data" })
 @EnableAutoConfiguration
 public class App extends org.springframework.boot.web.servlet.support.SpringBootServletInitializer {
 
@@ -29,7 +29,7 @@ public class App extends org.springframework.boot.web.servlet.support.SpringBoot
 	@Bean
 	public MultipartConfigElement multipartConfigElement() {
 		MultipartConfigFactory factory = new MultipartConfigFactory();
-		factory.setMaxFileSize(1024L * 20L);
+		factory.setMaxFileSize(1024L * 512);
 		factory.setFileSizeThreshold(0);
 		return factory.createMultipartConfig();
 	}

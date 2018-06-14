@@ -20,7 +20,7 @@ public class ServerHandler extends SimpleChannelInboundHandler<String> {
 
 	@Override
 	public void channelRead0(ChannelHandlerContext ctx, String msg) throws Exception {
-		log.info("client msg:" + String.format("utf-8", msg));
+		log.info("client msg:" +msg );
 		String clientIdToLong = ctx.channel().id().asLongText();
 		log.info("client long id:" + clientIdToLong);
 		String clientIdToShort = ctx.channel().id().asShortText();
