@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shop.dao.product.CategoryDao">
+  <resultMap id="BaseResultMap" type="com.shop.domain.product.Category">
+  	<id column="id" jdbcType="INTEGER" property="id" />
+  	<result column="name" jdbcType="VARCHAR" property="name" />
+  	<result column="pid" jdbcType="INTEGER" property="pid" />
+  	<result column="type_id" jdbcType="INTEGER" property="typeId" />
+  	<result column="keywords" jdbcType="VARCHAR" property="keywords" />
+  	<result column="description" jdbcType="VARCHAR" property="description" />
+  	<result column="grade" jdbcType="LONGVARCHAR" property="grade" />
+  	<result column="status" jdbcType="BIT" property="status" />
+  	<result column="sort" jdbcType="INTEGER" property="sort" />
+  	<result column="icon" jdbcType="VARCHAR" property="icon" />
+  	<result column="link" jdbcType="VARCHAR" property="link" />
+  	<result column="level" jdbcType="INTEGER" property="level" />
+  	<result column="num" jdbcType="SMALLINT" property="num" />
+  	<result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+   id,name,pid,type_id,keywords,description,grade,status,sort,icon,link,level,num,remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="Map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_category
+   <where>  
+  	and id = #{id,jdbcType=INTEGER}
+  </where>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="Map">
+    delete from t_category
+    <where>  
+  	and id = #{id,jdbcType=INTEGER}
+  </where>
+  </delete>
+  
+  <insert id="insertSelective" parameterType="com.shop.domain.product.Category">
+    insert into t_category
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+	  <if test="id != null">
+        id,
+      </if>
+  	  <if test="name != null">
+  		name,
+  	  </if>
+  	  <if test="pid != null">
+  		pid,
+  	  </if>
+  	  <if test="typeId != null">
+  		type_id,
+  	  </if>
+  	  <if test="keywords != null">
+  		keywords,
+  	  </if>
+  	  <if test="description != null">
+  		description,
+  	  </if>
+  	  <if test="grade != null">
+  		grade,
+  	  </if>
+  	  <if test="status != null">
+  		status,
+  	  </if>
+  	  <if test="sort != null">
+  		sort,
+  	  </if>
+  	  <if test="icon != null">
+  		icon,
+  	  </if>
+  	  <if test="link != null">
+  		link,
+  	  </if>
+  	  <if test="level != null">
+  		level,
+  	  </if>
+  	  <if test="num != null">
+  		num,
+  	  </if>
+  	  <if test="remark != null">
+  		remark,
+  	  </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+	  <if test="id != null">
+		#{id,jdbcType=INTEGER},
+      </if>
+	  <if test="name != null">
+		#{name,jdbcType=VARCHAR},
+      </if>
+	  <if test="pid != null">
+		#{pid,jdbcType=INTEGER},
+      </if>
+	  <if test="typeId != null">
+		#{typeId,jdbcType=INTEGER},
+      </if>
+	  <if test="keywords != null">
+		#{keywords,jdbcType=VARCHAR},
+      </if>
+	  <if test="description != null">
+		#{description,jdbcType=VARCHAR},
+      </if>
+	  <if test="grade != null">
+		#{grade,jdbcType=LONGVARCHAR},
+      </if>
+	  <if test="status != null">
+		#{status,jdbcType=BIT},
+      </if>
+	  <if test="sort != null">
+		#{sort,jdbcType=INTEGER},
+      </if>
+	  <if test="icon != null">
+		#{icon,jdbcType=VARCHAR},
+      </if>
+	  <if test="link != null">
+		#{link,jdbcType=VARCHAR},
+      </if>
+	  <if test="level != null">
+		#{level,jdbcType=INTEGER},
+      </if>
+	  <if test="num != null">
+		#{num,jdbcType=SMALLINT},
+      </if>
+	  <if test="remark != null">
+		#{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.shop.domain.product.Category">
+    update t_category
+    <set>
+	  <if test="name != null">
+		name = #{name,jdbcType=VARCHAR},
+      </if>
+	  <if test="pid != null">
+		pid = #{pid,jdbcType=INTEGER},
+      </if>
+	  <if test="typeId != null">
+		type_id = #{typeId,jdbcType=INTEGER},
+      </if>
+	  <if test="keywords != null">
+		keywords = #{keywords,jdbcType=VARCHAR},
+      </if>
+	  <if test="description != null">
+		description = #{description,jdbcType=VARCHAR},
+      </if>
+	  <if test="grade != null">
+		grade = #{grade,jdbcType=LONGVARCHAR},
+      </if>
+	  <if test="status != null">
+		status = #{status,jdbcType=BIT},
+      </if>
+	  <if test="sort != null">
+		sort = #{sort,jdbcType=INTEGER},
+      </if>
+	  <if test="icon != null">
+		icon = #{icon,jdbcType=VARCHAR},
+      </if>
+	  <if test="link != null">
+		link = #{link,jdbcType=VARCHAR},
+      </if>
+	  <if test="level != null">
+		level = #{level,jdbcType=INTEGER},
+      </if>
+	  <if test="num != null">
+		num = #{num,jdbcType=SMALLINT},
+      </if>
+	  <if test="remark != null">
+		remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+   <where>  
+  	and id = #{id,jdbcType=INTEGER}
+  </where>
+  </update>
+  
+  <select id="findSplitPage" parameterType="Map" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" /> from t_category
+    <where>  
+	  <if test="name != null">
+		and name = #{name,jdbcType=VARCHAR}
+      </if>
+	  <if test="pid != null">
+		and pid = #{pid,jdbcType=INTEGER}
+      </if>
+	  <if test="typeId != null">
+		and type_id = #{typeId,jdbcType=INTEGER}
+      </if>
+	  <if test="keywords != null">
+		and keywords = #{keywords,jdbcType=VARCHAR}
+      </if>
+	  <if test="description != null">
+		and description = #{description,jdbcType=VARCHAR}
+      </if>
+	  <if test="grade != null">
+		and grade = #{grade,jdbcType=LONGVARCHAR}
+      </if>
+	  <if test="status != null">
+		and status = #{status,jdbcType=BIT}
+      </if>
+	  <if test="sort != null">
+		and sort = #{sort,jdbcType=INTEGER}
+      </if>
+	  <if test="icon != null">
+		and icon = #{icon,jdbcType=VARCHAR}
+      </if>
+	  <if test="link != null">
+		and link = #{link,jdbcType=VARCHAR}
+      </if>
+	  <if test="level != null">
+		and level = #{level,jdbcType=INTEGER}
+      </if>
+	  <if test="num != null">
+		and num = #{num,jdbcType=SMALLINT}
+      </if>
+	  <if test="remark != null">
+		and remark = #{remark,jdbcType=VARCHAR}
+      </if>
+	  <if test="id != null">
+	  	and id = #{id,jdbcType=INTEGER}
+	  </if>
+  </where>
+  </select>
+  
+  <select id="findAll" parameterType="Map" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" /> from t_category
+    <where>  
+	  <if test="name != null">
+		and name = #{name,jdbcType=VARCHAR}
+      </if>
+	  <if test="pid != null">
+		and pid = #{pid,jdbcType=INTEGER}
+      </if>
+	  <if test="typeId != null">
+		and type_id = #{typeId,jdbcType=INTEGER}
+      </if>
+	  <if test="keywords != null">
+		and keywords = #{keywords,jdbcType=VARCHAR}
+      </if>
+	  <if test="description != null">
+		and description = #{description,jdbcType=VARCHAR}
+      </if>
+	  <if test="grade != null">
+		and grade = #{grade,jdbcType=LONGVARCHAR}
+      </if>
+	  <if test="status != null">
+		and status = #{status,jdbcType=BIT}
+      </if>
+	  <if test="sort != null">
+		and sort = #{sort,jdbcType=INTEGER}
+      </if>
+	  <if test="icon != null">
+		and icon = #{icon,jdbcType=VARCHAR}
+      </if>
+	  <if test="link != null">
+		and link = #{link,jdbcType=VARCHAR}
+      </if>
+	  <if test="level != null">
+		and level = #{level,jdbcType=INTEGER}
+      </if>
+	  <if test="num != null">
+		and num = #{num,jdbcType=SMALLINT}
+      </if>
+	  <if test="remark != null">
+		and remark = #{remark,jdbcType=VARCHAR}
+      </if>
+	  <if test="id != null">
+	  	and id = #{id,jdbcType=INTEGER}
+	  </if>
+  </where>
+  </select>
+  
+</mapper>

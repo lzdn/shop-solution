@@ -33,6 +33,7 @@
 						<thead>
 							<tr>
 								<th>ID</th>
+								<th>头像</th>
 								<th>账户</th>
 								<th>姓名</th>
 								<th>性别</th>
@@ -47,6 +48,7 @@
 								<#list userSplitPages.list as user>
 									<tr>
 										<td>${user.userId!}</td>
+										<td><#if (user.avatar)??><img src="${user.avatar!}" style="width:80px;height:80px;"></#if></td>
 										<td>${user.account!}</td>
 										<td>${user.username!}</td>
 										<td> 
@@ -59,13 +61,14 @@
 										</td>
 										<td><#if (user.createTime)??>${user.createTime?string("yyyy-MM-dd HH:mm:ss")}</#if></td>
 										<td>
+											<a href="#"  class="btn btn-danger" onclick="del('${user.userId!}')">删除</a>
 											<a href="#"  class="btn btn-primary" onclick="doRight('${user.userId!}','${user.username!}')">分配角色</a>
 										</td>
 									</tr>
 								</#list>
 							<#else>
 								<tr>
-									<td colspan="8" align="center">
+									<td colspan="9" align="center">
 										没有数据
 									</td>
 								</tr>
@@ -74,7 +77,7 @@
 						<#if (userSplitPages)?? && (userSplitPages.list)?size gt 0>
 							<tfoot>
 								<tr>
-									<td colspan="8" >
+									<td colspan="9" >
 										<@splitPage.splitPage pageCount=userSplitPages.pages pageNo=userSplitPages.pageNum formId="searchForm" recordCount=userSplitPages.total />
 									</td>
 								</tr>
@@ -203,6 +206,29 @@ function doRight(id,name){
 	});
 }
  
+function del(id){
+	$.ajax({
+		cache: true,
+		type: "POST",
+		url:"${basePath}/user/delete/"+id,
+		data:{},
+		async: true,
+		error: function(request) {
+			parent.layer.alert("服务器异常！");
+		},
+		success: function(data) {
+			if(systemshop.toJson(data).success){
+				parent.layer.alert('删除成功！', {icon: 1, skin: 'layer-ext-moon'},function(e){
+					parent.layer.closeAll();
+					window.location.reload();
+				});
+			} else{
+				parent.layer.alert(systemshop.toJson(data).message);
+			}
+		}
+	});
+}
+
 function submitFm(){
 	if($('#userForm').parsley().validate()){
 		$.ajax({
@@ -218,7 +244,7 @@ function submitFm(){
 				if(systemshop.toJson(data).success){
 					parent.layer.alert('保存成功！', {icon: 1, skin: 'layer-ext-moon'},function(e){
 						parent.layer.closeAll();
-						window.location.href=window.location.href;	
+						window.location.reload();	
 					});
 					
 				} else{
@@ -242,6 +268,7 @@ function callbackupload(data){
 		 var html ="<img src="+imgUrl+" style=\"height:80px;width:80px\" /><a class=\"btn btn-danger btn-rounded btn-outline\" href=\"javascript:;\" onclick=\"removeAvatar()\">删除</a>";
 		 $('#uploadcontainerShow').html(html);
 		 $('#uploadcontainerShow').show();
+		 $('#avatar').val(imgUrl);
 	}
 }
 function removeAvatar(){

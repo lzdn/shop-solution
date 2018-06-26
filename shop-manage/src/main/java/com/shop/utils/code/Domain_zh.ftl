@@ -28,8 +28,11 @@ public class ${table_name} extends BaseEntity implements Serializable {
     <#if (model.columnType = 'int' || model.columnType = 'integer')>
 	private Integer ${model.changeColumnName?uncap_first};
 	</#if>
-	<#if (model.columnType = 'bigint' || model.columnType = 'decimal' || model.columnType = 'bigint')>
+	<#if (model.columnType = 'bigint' )>
 	private Long ${model.changeColumnName?uncap_first};
+	</#if>
+	<#if model.columnType = 'decimal' >
+	private BigDecimal ${model.changeColumnName?uncap_first};
 	</#if>
 	<#if (model.columnType = 'double')>
 	private Double ${model.changeColumnName?uncap_first};
@@ -68,11 +71,19 @@ public class ${table_name} extends BaseEntity implements Serializable {
         this.${model.changeColumnName?uncap_first} = ${model.changeColumnName?uncap_first};
     }
 	</#if>
-	<#if (model.columnType = 'bigint' || model.columnType = 'decimal' || model.columnType = 'bigint')>
+	<#if (model.columnType = 'bigint' )>
 	public Long get${model.changeColumnName}() {
         return this.${model.changeColumnName?uncap_first};
     }
     public void set${model.changeColumnName}(Long ${model.changeColumnName?uncap_first}) {
+        this.${model.changeColumnName?uncap_first} = ${model.changeColumnName?uncap_first};
+    }
+	</#if>
+	<#if model.columnType = 'decimal' >
+	public BigDecimal get${model.changeColumnName}() {
+        return this.${model.changeColumnName?uncap_first};
+    }
+    public void set${model.changeColumnName}(BigDecimal ${model.changeColumnName?uncap_first}) {
         this.${model.changeColumnName?uncap_first} = ${model.changeColumnName?uncap_first};
     }
 	</#if>

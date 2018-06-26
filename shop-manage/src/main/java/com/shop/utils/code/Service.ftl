@@ -3,7 +3,9 @@ package ${package_name}.service.${package_last_name};
 import java.util.List;
 import com.shop.service.IBaseService;
 import com.github.pagehelper.PageInfo;
+import ${package_name}.domain.${package_last_name}.${table_name};
 import ${package_name}.dto.${package_last_name}.${table_name}DTO;
+
 
 /**
 * @date ${date}

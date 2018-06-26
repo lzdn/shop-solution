@@ -55,7 +55,7 @@ public class ResourceController extends BaseController {
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	public @ResponseBody Result add(HttpServletRequest request, Integer id) throws Exception {
+	public @ResponseBody Result delete(HttpServletRequest request, Integer id) throws Exception {
 		resourceService.deleteByPk(id);
 		return new Result(SUCCESS);
 	}

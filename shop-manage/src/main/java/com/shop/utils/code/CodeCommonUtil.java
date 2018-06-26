@@ -17,7 +17,7 @@ import freemarker.template.Template;
 
 public class CodeCommonUtil {
 
-	private static final String URL = "jdbc:mysql://localhost:3306/managedb?useUnicode=true&characterEncoding=utf-8&useSSL=false";
+	private static final String URL = "jdbc:mysql://localhost:3306/productdb?useUnicode=true&characterEncoding=utf-8&useSSL=false";
 	private static final String USER = "root";
 	private static final String PASSWORD = "root123";
 	private static final String DRIVER = "com.mysql.jdbc.Driver";
@@ -174,8 +174,11 @@ public class CodeCommonUtil {
 		if ("int".equals(columnType) || "integer".equals(columnType)) {
 			return "Integer";
 		}
-		if ("bigint".equals(columnType) || "decimal".equals(columnType) || "bigint".equals(columnType)) {
+		if ("bigint".equals(columnType) ) {
 			return "Long";
+		}
+		if( "decimal".equals(columnType)) {
+			return "BigDecimal";
 		}
 		if ("double".equals(columnType)) {
 			return "Double";

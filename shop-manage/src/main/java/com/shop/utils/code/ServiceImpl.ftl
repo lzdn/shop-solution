@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import ${package_name}.dao.${package_last_name}.${table_name}Dao;
 import ${package_name}.dto.${package_last_name}.${table_name}DTO;
+import ${package_name}.domain.${package_last_name}.${table_name};
 import ${package_name}.service.${package_last_name}.I${table_name}Service;
 
 

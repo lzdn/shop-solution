@@ -1,14 +1,14 @@
 package com.shop.dto.product;
 
-import com.shop.domain.product.Product;
+import com.shop.domain.product.Brand;
 
 /**
 * @date 20180602
 * @author 张林
-* @description 部门
+* @description 品牌表
 * @gitHub:https://github.com/lzdn
 */
-public class ProductDTO extends Product{
+public class BrandDTO extends Brand{
 
 	private static final long serialVersionUID = 1L;
 	

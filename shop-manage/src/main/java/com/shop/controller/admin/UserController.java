@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
+import com.shop.domain.admin.Role;
 import com.shop.domain.admin.User;
 import com.shop.dto.admin.UserDTO;
 import com.shop.service.admin.IRoleService;
@@ -53,6 +54,16 @@ public class UserController extends BaseController {
 		userDTO.setSalt(MD5Util.SALT);
 		userDTO.setPassword(MD5Util.encode(userDTO.getPassword()));
 		userService.insertUser(userDTO);
+		return new Result(SUCCESS);
+	}
+	
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
+	public @ResponseBody Result delete(HttpServletRequest request, @PathVariable("id") Integer id) throws Exception {
+		Role role = roleService.findRoleOneByUserId(id);
+		if(role!=null&&role.getRoleId().intValue()==1) {
+			return new Result("无法删除超级管理员", FAIL);
+		}
+		userService.deleteByPk(id);
 		return new Result(SUCCESS);
 	}
 

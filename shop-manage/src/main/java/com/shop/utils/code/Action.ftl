@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import ${package_name}.service.${package_last_name}.I${table_name}Service;
 import ${package_name}.dto.${package_last_name}.${table_name}DTO;
+import ${package_name}.domain.${package_last_name}.${table_name};
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

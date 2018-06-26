@@ -36,6 +36,7 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
 	@Transactional(value = "manageTransactionManager")
 	public void deleteByPk(Integer userId) {
 
+		userDao.deleteUserRole(userId);
 		userDao.deleteByPrimaryKey(userId);
 	}
 

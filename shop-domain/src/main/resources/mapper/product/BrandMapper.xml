@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shop.dao.product.BrandDao">
+  <resultMap id="BaseResultMap" type="com.shop.domain.product.Brand">
+  	<id column="id" jdbcType="INTEGER" property="id" />
+  	<result column="name" jdbcType="VARCHAR" property="name" />
+  	<result column="banner" jdbcType="VARCHAR" property="banner" />
+  	<result column="logo" jdbcType="VARCHAR" property="logo" />
+  	<result column="description" jdbcType="LONGVARCHAR" property="description" />
+  	<result column="url" jdbcType="VARCHAR" property="url" />
+  	<result column="status" jdbcType="BIT" property="status" />
+  	<result column="recommend" jdbcType="BIT" property="recommend" />
+  	<result column="sort" jdbcType="INTEGER" property="sort" />
+  	<result column="cat_ids" jdbcType="VARCHAR" property="catIds" />
+  </resultMap>
+  <sql id="Base_Column_List">
+   id,name,banner,logo,description,url,status,recommend,sort,cat_ids
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="Map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_brand
+   <where>  
+  	and id = #{id,jdbcType=INTEGER}
+  </where>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="Map">
+    delete from t_brand
+    <where>  
+  	and id = #{id,jdbcType=INTEGER}
+  </where>
+  </delete>
+  
+  <insert id="insertSelective" parameterType="com.shop.domain.product.Brand">
+    insert into t_brand
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+	  <if test="id != null">
+        id,
+      </if>
+  	  <if test="name != null">
+  		name,
+  	  </if>
+  	  <if test="banner != null">
+  		banner,
+  	  </if>
+  	  <if test="logo != null">
+  		logo,
+  	  </if>
+  	  <if test="description != null">
+  		description,
+  	  </if>
+  	  <if test="url != null">
+  		url,
+  	  </if>
+  	  <if test="status != null">
+  		status,
+  	  </if>
+  	  <if test="recommend != null">
+  		recommend,
+  	  </if>
+  	  <if test="sort != null">
+  		sort,
+  	  </if>
+  	  <if test="catIds != null">
+  		cat_ids,
+  	  </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+	  <if test="id != null">
+		#{id,jdbcType=INTEGER},
+      </if>
+	  <if test="name != null">
+		#{name,jdbcType=VARCHAR},
+      </if>
+	  <if test="banner != null">
+		#{banner,jdbcType=VARCHAR},
+      </if>
+	  <if test="logo != null">
+		#{logo,jdbcType=VARCHAR},
+      </if>
+	  <if test="description != null">
+		#{description,jdbcType=LONGVARCHAR},
+      </if>
+	  <if test="url != null">
+		#{url,jdbcType=VARCHAR},
+      </if>
+	  <if test="status != null">
+		#{status,jdbcType=BIT},
+      </if>
+	  <if test="recommend != null">
+		#{recommend,jdbcType=BIT},
+      </if>
+	  <if test="sort != null">
+		#{sort,jdbcType=INTEGER},
+      </if>
+	  <if test="catIds != null">
+		#{catIds,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.shop.domain.product.Brand">
+    update t_brand
+    <set>
+	  <if test="name != null">
+		name = #{name,jdbcType=VARCHAR},
+      </if>
+	  <if test="banner != null">
+		banner = #{banner,jdbcType=VARCHAR},
+      </if>
+	  <if test="logo != null">
+		logo = #{logo,jdbcType=VARCHAR},
+      </if>
+	  <if test="description != null">
+		description = #{description,jdbcType=LONGVARCHAR},
+      </if>
+	  <if test="url != null">
+		url = #{url,jdbcType=VARCHAR},
+      </if>
+	  <if test="status != null">
+		status = #{status,jdbcType=BIT},
+      </if>
+	  <if test="recommend != null">
+		recommend = #{recommend,jdbcType=BIT},
+      </if>
+	  <if test="sort != null">
+		sort = #{sort,jdbcType=INTEGER},
+      </if>
+	  <if test="catIds != null">
+		cat_ids = #{catIds,jdbcType=VARCHAR},
+      </if>
+    </set>
+   <where>  
+  	and id = #{id,jdbcType=INTEGER}
+  </where>
+  </update>
+  
+  <select id="findSplitPage" parameterType="Map" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" /> from t_brand
+    <where>  
+	  <if test="name != null">
+		and name = #{name,jdbcType=VARCHAR}
+      </if>
+	  <if test="banner != null">
+		and banner = #{banner,jdbcType=VARCHAR}
+      </if>
+	  <if test="logo != null">
+		and logo = #{logo,jdbcType=VARCHAR}
+      </if>
+	  <if test="description != null">
+		and description = #{description,jdbcType=LONGVARCHAR}
+      </if>
+	  <if test="url != null">
+		and url = #{url,jdbcType=VARCHAR}
+      </if>
+	  <if test="status != null">
+		and status = #{status,jdbcType=BIT}
+      </if>
+	  <if test="recommend != null">
+		and recommend = #{recommend,jdbcType=BIT}
+      </if>
+	  <if test="sort != null">
+		and sort = #{sort,jdbcType=INTEGER}
+      </if>
+	  <if test="catIds != null">
+		and cat_ids = #{catIds,jdbcType=VARCHAR}
+      </if>
+	  <if test="id != null">
+	  	and id = #{id,jdbcType=INTEGER}
+	  </if>
+  </where>
+  </select>
+  
+  <select id="findAll" parameterType="Map" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" /> from t_brand
+    <where>  
+	  <if test="name != null">
+		and name = #{name,jdbcType=VARCHAR}
+      </if>
+	  <if test="banner != null">
+		and banner = #{banner,jdbcType=VARCHAR}
+      </if>
+	  <if test="logo != null">
+		and logo = #{logo,jdbcType=VARCHAR}
+      </if>
+	  <if test="description != null">
+		and description = #{description,jdbcType=LONGVARCHAR}
+      </if>
+	  <if test="url != null">
+		and url = #{url,jdbcType=VARCHAR}
+      </if>
+	  <if test="status != null">
+		and status = #{status,jdbcType=BIT}
+      </if>
+	  <if test="recommend != null">
+		and recommend = #{recommend,jdbcType=BIT}
+      </if>
+	  <if test="sort != null">
+		and sort = #{sort,jdbcType=INTEGER}
+      </if>
+	  <if test="catIds != null">
+		and cat_ids = #{catIds,jdbcType=VARCHAR}
+      </if>
+	  <if test="id != null">
+	  	and id = #{id,jdbcType=INTEGER}
+	  </if>
+  </where>
+  </select>
+  
+</mapper>

@@ -4,8 +4,8 @@ public class GeneratorCodeMainV2 {
 
 	public static void main(String[] args) throws Exception {
 		final String packageLastName = "product";
-		String[] tables = new String[] {"product"};
-		String[] annotation = new String[] {"部门"};
+		String[] tables = new String[] {"brand","goods","category"};
+		String[] annotation = new String[] {"品牌表","商品表","商品分类表"};
 		for (int i = 0;i<tables.length;i++) {
 
 			GenerateDomain domain = new GenerateDomain();
