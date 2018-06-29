@@ -62,6 +62,7 @@
 										<td><#if (user.createTime)??>${user.createTime?string("yyyy-MM-dd HH:mm:ss")}</#if></td>
 										<td>
 											<a href="#"  class="btn btn-danger" onclick="del('${user.userId!}')">删除</a>
+											<a href="${basePath}/user/edit/${user.userId!}"   class="btn btn-info">编辑</a>
 											<a href="#"  class="btn btn-primary" onclick="doRight('${user.userId!}','${user.username!}')">分配角色</a>
 										</td>
 									</tr>

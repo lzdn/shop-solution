@@ -104,6 +104,7 @@ $(function () {
             $(this).attr('data-index', index);
         }
     });
+    
 
     function menuItem() {
         // 获取标识数据
@@ -111,6 +112,13 @@ $(function () {
             dataIndex = $(this).data('index'),
             menuName = $.trim($(this).text()),
             flag = true;
+        
+       /* $('#side-menu').find('li.j_item').each(function(){
+        	$(this).removeClass('active');
+        });
+        $($(this).parent()).addClass("active");*/
+        
+        
         if (dataUrl == undefined || $.trim(dataUrl).length == 0)return false;
 
         // 选项卡菜单已存在
@@ -125,6 +133,16 @@ $(function () {
                             $(this).show().siblings('.J_iframe').hide();
                             return false;
                         }
+                    });
+                }else{
+                	//刷新
+                    var target = $('.J_iframe[data-id="' + $(this).data('id') + '"]');
+                    var url = target.attr('src');
+//                    //显示loading提示
+                    var loading = layer.load();
+                    target.attr('src', url).load(function () {
+//                        //关闭loading提示
+                        layer.close(loading);
                     });
                 }
                 flag = false;
@@ -142,16 +160,18 @@ $(function () {
             $('.J_mainContent').find('iframe.J_iframe').hide().parents('.J_mainContent').append(str1);
 
             //显示loading提示
-//            var loading = layer.load();
+            var loading = layer.load();
 //
-//            $('.J_mainContent iframe:visible').load(function () {
+            $('.J_mainContent iframe:visible').load(function () {
 //                //iframe加载完成后隐藏loading提示
-//                layer.close(loading);
-//            });
+               layer.close(loading);
+            });
             // 添加选项卡
             $('.J_menuTabs .page-tabs-content').append(str);
             scrollToTab($('.J_menuTab.active'));
+            //#39aef5;
         }
+       
         return false;
     }
 
@@ -279,11 +299,11 @@ $(function () {
         var target = $('.J_iframe[data-id="' + $(this).data('id') + '"]');
         var url = target.attr('src');
 //        //显示loading提示
-//        var loading = layer.load();
-//        target.attr('src', url).load(function () {
+        var loading = layer.load();
+        target.attr('src', url).load(function () {
 //            //关闭loading提示
-//            layer.close(loading);
-//        });
+            layer.close(loading);
+       });
     }
 
     $('.J_menuTabs').on('dblclick', '.J_menuTab', refreshTab);

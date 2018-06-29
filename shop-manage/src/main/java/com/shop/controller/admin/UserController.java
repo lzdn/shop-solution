@@ -66,6 +66,14 @@ public class UserController extends BaseController {
 		userService.deleteByPk(id);
 		return new Result(SUCCESS);
 	}
+	
+	@RequestMapping(value = "/edit/{userId}", method = RequestMethod.GET)
+	public String edit(HttpServletResponse response, Model model, @PathVariable("userId") Integer userId) {
+		User user = userService.selectUserRoleByPk(userId);
+		model.addAttribute("user", user);
+		model.addAttribute("roles", roleService.findAll(null));
+		return "admin/user/edit";
+	}
 
 	@RequestMapping(value = "/grant/{userId}", method = RequestMethod.GET)
 	public String allot(HttpServletResponse response, Model model, @PathVariable("userId") Integer userId) {

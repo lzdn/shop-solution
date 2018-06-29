@@ -1,5 +1,5 @@
 <#global basePath=springMacroRequestContext.contextPath>
-<#global version="1.0.0">
+<#global version="1.0.6">
 <#import "/theme.html" as theme />
 <#import "/chat.html" as chat />
 <!DOCTYPE html>
@@ -44,10 +44,10 @@
 			                    </a>
 			                    <ul class="dropdown-menu animated fadeInRight m-t-xs">
 			                        <li>
-			                            <a class="J_menuItem"  href="/user/avatar">修改头像</a>
+			                            <a class="J_menuItem"  href="${basePath}/user/avatar">修改头像</a>
 			                        </li>
 			                        <li>
-			                            <a class="J_menuItem"  href="/user/profile">个人资料</a>
+			                            <a class="J_menuItem"  href="${basePath}/user/profile">个人资料</a>
 			                        </li>
 			                      <!--   <li>
 			                            <a class="J_menuItem"  href="/user/mailbox">信箱</a>
@@ -63,12 +63,12 @@
 			            <li>
 			                <a href="javascript:void(0);">
 			                    <i class="fa fa-home"></i>
-			                    <span class="nav-label">主页</span>
+			                    <span class="nav-label">欢迎</span>
 			                    <span class="fa arrow"></span>
 			                </a>
 			                <ul class="nav nav-second-level">
 			                    <li>
-			                        <a class="J_menuItem" href="${basePath}/index" data-index="0">HOME</a>
+			                        <a class="J_menuItem" href="${basePath}/index" data-index="0">Home</a>
 			                    </li>
 			                </ul> 
 			            </li>
@@ -96,14 +96,14 @@
 							                    					<li>
 							                    						<a href="javascript:void(0)">${sub.resourceValue!}<span class="fa arrow"></span></a>
 							                    						 <ul class="nav nav-third-level">
-										                                    <li>
+										                                    <li class="j_item">
 																				<a class="J_menuItem" href="${basePath}${ssub.url!}" data-index="0">${ssub.resourceValue!}</a>
 										                                    </li>
 										                                </ul>
 							                    					</li>
 										                        </#list>
 										                    <#else>
-										                    	<li><a class="J_menuItem" href="${basePath}${sub.url!}" data-index="0">${sub.resourceValue!}</a></li>    
+										                    	<li class="j_item"><a class="J_menuItem" href="${basePath}${sub.url!}" data-index="0">${sub.resourceValue!}</a></li>    
 					                    					</#if>
 								                        </ul>
 						                        	</#list>
@@ -122,7 +122,7 @@
 	        		<nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
 			            <div class="navbar-header">
 			                <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="javascript:void(0);"><i class="fa fa-bars"></i> </a>
-			                <form role="search" class="navbar-form-custom" method="post" action="#">
+			                <form role="search" class="navbar-form-custom" method="post" action="${basePath}/search">
 			                    <div class="form-group">
 			                        <input type="text" placeholder="请输入您需要查找的内容 …" class="form-control" name="top-search" id="top-search">
 			                    </div>
@@ -189,12 +189,12 @@
 			                            </div>
 			                        </li>
 		                    	</ul>
-		                	</li> -->
+		                	</li> 
 			                <li class="dropdown hidden-xs">
 			                    <a class="right-sidebar-toggle" aria-expanded="false">
 			                        <i class="fa fa-tasks"></i> 主题
 			                    </a>
-			                </li>
+			                </li>-->
 		            	</ul>
 		        	</nav>
 	   			</div>
@@ -203,7 +203,7 @@
 			        <nav class="page-tabs J_menuTabs">
 			            <div class="page-tabs-content">
 			            <!-- data-id="/dashboard"   -->
-			                <a href="javascript:;" class="active J_menuTab" data-id="${basePath}/index">HOME</a>
+			                <a href="javascript:;" class="active J_menuTab" data-id="${basePath}/index">Home</a>
 			            </div>
 			        </nav>
 		        	<button class="roll-nav roll-right J_tabRight"><i class="fa fa-forward"></i> </button>

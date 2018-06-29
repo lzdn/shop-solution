@@ -43,5 +43,11 @@ public class HomeController extends BaseController {
 		logger.info("进入HOME");
 		return "/homeV2";
 	}
+	
+	
+	@RequestMapping(value = "/search")
+	public String search(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+		return "/search/index";
+	}
 
 }
