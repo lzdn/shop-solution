@@ -224,7 +224,7 @@ locations=["资源管理","资源列表"]>
                         <div class="col-sm-8">
              				<select class="form-control" name="parentId" data-parsley-required="true" data-parsley-required-message="资源级别不可为空" data-parsley-errors-container="#parentIdError"  >
                    	 			<option value="">请选择资源级别</option>
-                   	 			<option value="0">默认</option>
+                   	 			<option value="0">无</option>
                    	 			<#if (resources)?? && (resources)?size gt 0>
                              		<#list resources as resource>
                              	 		<#if resource.level lt 3 >
