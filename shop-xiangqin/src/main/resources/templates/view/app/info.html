@@ -1,0 +1,70 @@
+<#import "/app/frameV2.html" as frame />
+<@frame.frame csss=["info.css"] scripts=[]>
+<header class="mui-bar mui-bar-nav">
+	<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"
+		style="color: #f7e9e9;"></a>
+	<h1 class="mui-title">${person.name!}的信息</h1>
+	<a href="/letter/edit/${person.id!}" class="mui-icon mui-icon-email mui-pull-right"
+		style="color: #f7e9e9;"></a>
+	<!--style="color:#f7e9e9;"-->
+</header>
+<div class="mui-content">
+	<form class="mui-input-group">
+		<div class="mui-input-row">
+			<label>姓名</label> <input type="text" class="mui-input-clear"
+				value="${person.name!}" disabled="disabled">
+		</div>
+		<div class="mui-input-row">
+			<label>年龄</label> <input type="text" id="shengri"
+				class="mui-input-clear" value="${person.age!}岁" disabled="disabled">
+		</div>
+		<div class="mui-input-row ">
+			<label>性别</label> <input type="text" class="mui-input-clear"
+				value="${person.sexName!}" disabled="disabled">
+		</div>
+		<div class="mui-input-row ">
+			<label>身高</label> <input type="text" class="mui-input-clear"
+				value="${person.height!}cm" disabled="disabled">
+		</div>
+		<div class="mui-input-row">
+			<label>住址</label> <input type="text" id="address"
+				class="mui-input-clear" value="${person.address!}" disabled="disabled">
+		</div>
+		<div class="mui-input-row">
+			<label>手机</label> <input type="text" class="mui-input-clear"
+				value="${person.phone!}" disabled="disabled">
+		</div>
+		<div class="mui-input-row">
+			<label>微信号</label> <input type="text" class="mui-input-clear"
+				value="${person.weixin!}" disabled="disabled">
+		</div>
+		<div class="mui-input-row">
+			<textarea class="mui-input-clear" placeholder="个性签名..."
+				disabled="disabled">个性签名:${person.signature!}</textarea>
+		</div>
+		<div class="mui-input-row">
+			<textarea class="mui-input-clear" placeholder="个人简介..."
+				disabled="disabled">个人简介:${person.introduction!}</textarea>
+		</div>
+		<#if (photos)??>
+			<div style="height: auto; width: 100%; margin: 5px 0; text-align: center;">
+				<div style="height: auto; width: 100%; padding: 2px 15px;">
+					<div style="height: auto; width: 100%;">
+						<img src="images/2.jpg" style="height: auto; width: 100%;" />
+					</div>
+					<div style="height: auto; width: 100%;">
+						<img src="images/1.jpg" style="height: auto; width: 100%;" />
+					</div>
+				</div>
+			</div>
+		</#if>
+	</form>
+</div>
+</@frame.frame>
+<@frame.script>
+<script type="text/javascript" charset="utf-8">
+	mui.init({
+		swipeBack: true //启用右滑关闭功能
+	});
+</script>
+</@frame.script>

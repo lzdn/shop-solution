@@ -1,0 +1,31 @@
+<#import "/app/frameV2.html" as frame />
+<@frame.frame csss=["static.css"] scripts=[]>
+<header class="mui-bar mui-bar-nav">
+	<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color: #f7e9e9;"></a>
+	<h1 id="title" class="mui-title">已发私信</h1>
+</header>
+
+<div class="mui-content">
+<#if (letters)?? && (letters?size gt 0)>
+	<#list letters as letter>
+		<div class="mui-card">
+			<div class="mui-card-header">收件人：<#if (letter.toAccount)??>${letter.toAccount.nickName!}</#if></div>
+			<div class="mui-card-content">
+				<div class="mui-card-content-inner">
+					${letter.content!}
+				</div>
+			</div>
+			<div class="mui-card-footer">日期：${letter.updateTime?string('yyyy-MM-dd HH:mm:ss')}</div>
+		</div>
+	</#list>
+</#if>
+</div>
+</@frame.frame>
+<@frame.script>
+<script type="text/javascript" charset="utf-8">
+	mui.init({
+		swipeBack : true
+	//启用右滑关闭功能
+	});
+</script>
+</@frame.script>

@@ -1,0 +1,36 @@
+<#global basePath=springMacroRequestContext.contextPath>
+<#macro master bodyclass="" csss=[] scripts=[] title="">
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="${basePath}/static/css/mui.min.css" rel="stylesheet" />
+		<!--CSS -->
+		<#if csss?exists && csss?size gt 0>
+			 <#list csss as css>
+				<link href="${basePath}/static/css/${css!}" rel="stylesheet" type="text/css"/>
+			 </#list>
+		</#if>
+		<!--CSS -->
+		
+		<!--JAVASCRIPT -->
+		<#if scripts?exists && scripts?size gt 0>
+			 <#list scripts as script>
+			 	<script src="${basePath}/static/js/${script!}" type="text/javascript"></script>  
+			 </#list>
+		</#if>
+		<!--JAVASCRIPT -->
+		
+		<script language="javascript">
+			var global_basePath = "${basePath}";
+		</script>
+  </head>
+ 
+  <body class="${bodyclass!}" >
+		<#nested>
+  </body>
+</html>
+</#macro>
+

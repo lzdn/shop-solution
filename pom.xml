@@ -38,5 +38,7 @@
 		<module>shop-data</module>
 		<module>shop-crawler</module>
 		<module>shop-plugin</module>
+		<module>shop-study</module>
+		<module>shop-xiangqin</module>
 	</modules>
 </project>

@@ -1,0 +1,17 @@
+.mui-bar {
+	background-color: #853390 !important;
+}
+
+.mui-title {
+	color: #f7e9e9 !important;
+}
+
+.mui-input-group .mui-input-row {
+	height: 100%;
+}
+
+.mui-input-row textarea {
+	height: 100px;
+	margin-bottom: 0 !important;
+	padding-bottom: 0 !important;
+}

@@ -1,0 +1,62 @@
+/*
+ *这是单独为hello mui准备的个性化css，可以覆盖标准mui的css定义；
+ * 在实际项目开发时，建议为App单独写一个css文件，从而实现项目的自定义皮肤功能；
+ * 
+ * */
+
+.mui-plus header.mui-bar {
+	display: none;
+}
+
+.mui-plus .mui-bar-nav~.mui-content {
+	padding: 0;
+}
+
+
+/*hm开头的表示仅为 Hello MUI示例定义*/
+
+.hm-description {
+	margin: .5em 0;
+}
+
+.hm-description>li {
+	font-size: 14px;
+	color: #8f8f94;
+}
+
+/*wd*/
+
+.site-wd-title {
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	position: relative;
+}
+
+.site-wd-title img {
+	height: 70px;
+	width: 70px;
+	border: 0;
+	margin-right: 20px;
+	border-radius: 50%;
+}
+
+.site-wd-cell {
+	position: relative;
+	overflow: hidden;
+	padding: 11px 15px;
+	-webkit-touch-callout: none;
+}
+
+.site-wd-cell p {
+	text-align: right;
+	font-size: 12px;
+	margin: 0;
+	color: #8f8f94;
+}
+
+.site-wd-nr {}
+
+
+/*wd*/

@@ -1,0 +1,471 @@
+<#import "/app/frame.html" as frame />
+<@frame.frame csss=["iconfont.css","mui.picker.min.css","mui.poppicker.css","index.css","parsley/parsley.css"] scripts=[]> 
+<div class="mui-content">
+	<div id="love" class="mui-control-content  mui-active"></div>
+	<div id="fabu" class="mui-control-content">
+	<header class="mui-bar mui-bar-nav"><h1 id="title" class="mui-title">我要征婚</h1><a href="javascript:void(0);" class="mui-icon mui-icon-navigate mui-pull-right" style="color:#f7e9e9;" id="save"></a></header>
+	<div class="mui-content">
+			<h5>请填写您的个人信息，点击右上角保存：</h5>
+			<form class="mui-input-group" id="fabufm">
+				<input type="hidden" name="id" />
+				<div class="mui-input-row">
+					<label>姓名 <font color="red">*</font></label>
+					<input type="text" class="mui-input-clear" name="name" id="name" placeholder="请输入姓名"  
+					data-parsley-required="true" 
+					data-parsley-required-message="请输入姓名"
+					data-parsley-maxlength="50"
+					data-parsley-maxlength-message="姓名不能超过50字"
+					data-parsley-minlength="2"
+					data-parsley-minlength-message="姓名最少2字"
+					>
+				</div>
+				<div class="mui-input-row">
+					<label>生日<font color="red">*</font></label>
+					<input type="text" name="birthday" id="birthday" placeholder="请输入生日" readonly="readonly" data-options='{"type":"date"}' unselectable="on" onfocus="this.blur();"  
+					data-parsley-required="true" 
+					data-parsley-required-message="请输入生日"
+					>
+				</div>
+				<div class="mui-input-row">
+					<label>身高(cm)<font color="red">*</font></label>
+					<input type="number" name="height" id="height" placeholder="请输入身高" data-parsley-required="true"  data-parsley-required-message="请输入身高" >
+				</div>
+				<div class="mui-input-row mui-radio ">
+					<label>男<font color="red">*</font></label>
+					<input name="sex" type="radio" data-parsley-required="true"  data-parsley-required-message="请选择性别" checked value="1">
+				</div>
+				<div class="mui-input-row mui-radio">
+					<label>女<font color="red">*</font></label>
+					<input name="sex" type="radio" data-parsley-required="true"  data-parsley-required-message="请选择性别" value="2">
+				</div>
+				<div class="mui-input-row">
+					<label>住址<font color="red">*</font></label>
+					<input type="text" id="address" placeholder="请输入住址" readonly="readonly"  unselectable="on" onfocus="this.blur();"
+					data-parsley-required="true" 
+					data-parsley-required-message="请输入住址"
+					data-parsley-id=""
+					>
+					<input type="hidden" name="provinceId" id="provinceId"/>
+					<input type="hidden" name="cityId" id="cityId"/>
+					<input type="hidden" name="countyId" id="countyId"/>
+					
+					<input type="hidden" name="provinceName" id="provinceName"/>
+					<input type="hidden" name="cityName" id="cityName"/>
+					<input type="hidden" name="countyName" id="countyName"/>
+				</div>
+				<div class="mui-input-row">
+					<label>手机<font color="red">*</font></label>
+					<input type="text" name="phone" class="mui-input-clear" placeholder="请输入手机"  maxlength="16"
+					data-parsley-required="true" 
+					data-parsley-required-message="请输入手机"
+					data-parsley-pattern="^1[0-9]{10,10}$" 
+					data-parsley-trigger="change"
+					>
+				</div>
+				<div class="mui-input-row">
+					<label>微信号</label>
+					<input type="text" name="weixin" class="mui-input-clear" placeholder="微信号" 
+					data-parsley-maxlength="25"
+					data-parsley-maxlength-message="微信号不能超过25字">
+				</div>
+				<div class="mui-input-row" style="margin: 10px 5px;">
+					<textarea name="signature" class="mui-input-clear" placeholder="签名..."
+					data-parsley-required="true" 
+					data-parsley-required-message="请输入签名"
+					data-parsley-maxlength="100"
+					data-parsley-maxlength-message="签名不能超过100字"
+					></textarea>
+				</div>
+				<div class="mui-input-row" style="margin: 10px 5px;">
+					<textarea name="introduction" class="mui-input-clear" placeholder="个人简介..." 
+					data-parsley-required="true" 
+					data-parsley-required-message="请输入个人简介"
+					data-parsley-maxlength="500"
+					data-parsley-maxlength-message="个人简介不能超过500字"
+					></textarea>
+				</div>
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell">
+						联系方式是否保密
+						<div class="mui-switch mui-active mui-switch-mini" for="contactWay">
+							<div class="mui-switch-handle"></div>
+						</div>
+						<input type="hidden" name="contactWay" id="contactWay" value="1"/>
+					</li>
+					<li class="mui-table-view-cell">
+						生日日期是否保密
+						<div class="mui-switch mui-active mui-switch-mini" for="birthdayWay">
+							<div class="mui-switch-handle"></div>
+						</div>
+						<input type="hidden" name="birthdayWay" id="birthdayWay" value="1"/>
+					</li>
+					<li class="mui-table-view-cell">
+						仅展示第一张照片
+						<div class="mui-switch mui-active mui-switch-mini" for="oneShowWay">
+							<div class="mui-switch-handle"></div>
+						</div>
+						<input type="hidden" name="oneShowWay" id="oneShowWay" value="1"/>
+					</li>
+				</ul>
+				<div style="height: auto;width: 100%;margin: 5px 0;text-align: center;">
+					<button id="upload" type="button" class="mui-btn mui-icon mui-icon-camera">上传照片</button>
+					<h5>(<small>请上传真实的生活照,最多上传3张照片。</small>) </h5>
+					<div style="height: auto;width: 100%;padding: 2px 15px;" id="imagesContainer">
+					<!-- <div style="height:auto;width: 100%;">
+							<img src="${basePath}/static/images/a2.jpg" style="height:auto;width: 100%;" />
+							<a href="#" class="mui-icon mui-icon-trash"></a>
+							<input type="hidden" name="imgId"/>
+							<input type="hidden" name="imgUrl"/>
+						</div> -->
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div id="mine" class="mui-control-content"> </div>
+</div>
+</@frame.frame>
+<@frame.script>
+	<script type="text/javascript" src="${basePath}/static/js/mui.picker.min.js"></script>
+	<script src="${basePath}/static/js/mui.poppicker.js"></script>
+	<script src="${basePath}/static/js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
+	<script src="${basePath}/static/js/app.js"></script>
+	<!-- <script src="${basePath}/static/js/validate/jquery.validate.min.js"></script>
+	<script src="${basePath}/static/js/validate.js"></script> -->
+	<!-- Parsley -->
+	<script src="${basePath}/static/js/parsley.min.js"></script>
+	
+	<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+	<script type="template" id="fabuTemplate"> </script>
+	<script type="template" id="loveTemplate">
+	<%
+	for(var i = 0;i<list.length;i++){
+		var person = list[i];
+	%>
+	<div class="mui-content">
+		<div class="mui-card">
+			<div class="mui-card-header mui-card-media" style="height:80vw;background-image:url(<%=person.coverUrl%>)"></div>
+			<div class="mui-card-content">
+				<div class="mui-card-content-inner">
+					<p>姓名：<%=person.name%>&nbsp;&nbsp;年龄：<%=person.age%>岁</p>
+					<p style="color: #333;">签名：<%=person.signature%></p>
+				</div>
+			</div>
+			<div class="mui-card-footer">
+				<a class="mui-card-link">
+					<!--<i class="mui-icon mui-icon-eye"></i>-->关注(12)</a>
+				<a class="mui-card-link" href="${basePath}/info/person/<%=person.id%>">查看</a>
+			</div>
+		</div>
+	</div>
+	<%}%>
+	</script>
+	<script type="template" id="mineTemplate">
+		<div class="mui-content">
+			<div class="site-wd-title">
+				<div class="site-wd-cell mui-media">
+					<div>
+						<img class="mui-pull-left" src="${basePath}/static/images/tx.png">
+						<div class="site-wd-nr">
+							<span style="font-size: 14px;">
+								123456
+							</span>
+							<p class="mui-ellipsis" style="height: 20px;line-height: 20px;">
+								个人信息 <span class="mui-icon iconfont icon-zhanghu"></span>
+							</p>
+							<span style="font-size: 12px;height: 20px;line-height: 20px; color: red;">
+								<span class="mui-icon icon iconfont icon-huiyuan"></span>25&nbsp;魅力值
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="mui-card">
+				<ul class="mui-table-view">
+					<li class="mui-table-view-divider">动态</li>
+					<!--	<li class="mui-table-view-cell">已购买<span class="mui-badge mui-badge-primary">14</span></li>-->
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right" href="/mine/sletter/1">
+							<span class="mui-badge mui-badge-danger">0</span>收到私信
+						</a>
+					</li>
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right" href="/mine/mletter/1">
+							<span class="mui-badge mui-badge-danger">0</span>已发私信
+						</a>
+					</li>
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right" href="focus.html">
+							<span class="mui-badge mui-badge-danger">0</span>已关注
+						</a>
+					</li>
+					<li class="mui-table-view-divider">我要反馈</li>
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right" href="words.html">
+							留言
+						</a>
+					</li>
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right">
+							关于
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</script>
+	<script type="template" id="finishTemplate">
+		<div class="mui-content">
+			<div class="mui-card">
+			<div class="mui-card-header mui-card-media" style="height:60vw;background-image:url(${basePath}/static/images/a1.jpg)"></div>
+			<div class="mui-card-content">
+				<div class="mui-card-content-inner">
+					<p style="color: #333;">温馨提示：填写真实详细的个人信息，能帮助到你征婚。</p>
+				</div>
+			</div>
+			<div class="mui-card-footer">
+				<a class="mui-card-link" href="##"><i class="mui-icon mui-icon-compose"></i>我要修改</a>
+			</div>
+			</div>
+		</div>
+	</script>
+	<script type="text/javascript" charset="utf-8">
+		//http://www.jb51.net/article/99479.htm http://blog.csdn.net/sun2015_07_24/article/details/51445844
+		var appId = "${weiXinDto.appId!}";    // 微信平台唯一标识  
+	    var timestamp = "${weiXinDto.timestamp!}"; // 生成signature所使用的timestamp  
+	    var nonceStr = "${weiXinDto.nonceStr!}"; // 生成signature所使用的nonceStr  
+	    var signature = "${weiXinDto.signature!}";  // 数字签名，生成参照：微信JSSDK接口 - 生成签名  
+	    var serverIds = "" ;
+	    // 后台生成的signature所使用的url应该和它相同  
+	    // alert(location.href.split('#')[0])  
+	    wx.config({
+	        debug: false,  
+	        appId: appId,  
+	        timestamp: timestamp,  
+	        nonceStr: nonceStr,  
+	        signature: signature,  
+	        jsApiList: [
+	              "chooseImage", "previewImage", "uploadImage", "downloadImage"  
+	        ]
+	    });
+	  	$(function(){
+	        $('#upload').click(function(){
+	        	 wx.chooseImage({  
+	                 count: 3,  //最多9张照片
+	                 sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有  
+	                 sourceType: ['album', 'camera'],      // 可以指定来源是相册还是相机，默认二者都有  
+	                 success: function (res) {  
+	                     var localIds = res.localIds;      // 返回选定照片的本地ID列表  
+	                     alert(localIds);
+	                    // syncUpload(localIds);             // localId可作为img标签的src属性显示图片  
+	                 }  
+	             });
+	        });
+	    });
+	  	
+	  	
+		//mui初始化
+		function loadlove(){
+			var header ='<header class="mui-bar mui-bar-nav"> <h1 id="title" class="mui-title">一见钟情</h1></header>';
+			$("#love").html(header);
+			$.ajax({
+				cache: false,
+				type: "GET",
+				url: "${basePath}/info/list",
+				async: false,
+				error: function(request) {
+					mui.toast('由于网络等原因请求失败！');
+				},
+				success: function(data) {
+					if(data.success) {
+						var htmlTem = tmpl("loveTemplate",data);
+						$("#love").append(htmlTem);
+					}  
+				}
+			});
+		 
+		}
+ 		function loadmine(){
+ 			var htmlTem = tmpl("mineTemplate","");
+			var header ='<header class="mui-bar mui-bar-nav"> <h1 id="title" class="mui-title">个人中心</h1> </header>';
+			$("#mine").html(header);
+			$("#mine").append(htmlTem);
+ 		}
+ 	/* 	function loadfabu(){
+ 			var htmlTem = tmpl("fabuTemplate","");
+			var header ='<header class="mui-bar mui-bar-nav"><h1 id="title" class="mui-title">我要征婚</h1><a href="#" class="mui-icon mui-icon-navigate mui-pull-right" style="color:#f7e9e9;"></a></header>';
+			$("#fabu").html(header);
+			$("#fabu").append(htmlTem);
+			initfabu(mui,document);
+ 		} */
+ 		function loadfinish(){
+ 			var htmlTem = tmpl("finishTemplate","");
+			var header ='<header class="mui-bar mui-bar-nav"><h1 id="title" class="mui-title">我要征婚</h1></header>';
+			$("#fabu").html(header);
+			$("#fabu").append(htmlTem);
+ 		}
+ 		function showCityError(){
+ 			var id = $('#address').attr('data-parsley-id');
+ 	 		if(id!="") $('#parsley-id-'+id).remove();
+ 	 	}
+ 		function showBirthdayError(){
+ 			var id = $('#birthday').attr('data-parsley-id');
+ 	 		if(id!="") $('#parsley-id-'+id).remove();
+ 	 	}
+ 		$(function(){
+ 			mui.init();
+ 			loadlove();
+ 			
+ 		  $("#save").bind("click", function() {
+ 			 if($('#fabufm').parsley().validate()) {
+ 				$.ajax({
+					cache: true,
+					type: "POST",
+					url: "${basePath}/info/save",
+					data: $('#fabufm').serialize(),
+					async: false,
+					error: function(request) {
+						mui.toast('由于网络等原因保存失败！');
+					},
+					success: function(data) {
+						if(data.code==1) {
+							mui.toast(data.message);
+						//	window.location.href="";
+						} else {
+							mui.toast(data.message);
+						}
+					}
+				});
+ 	  		  }
+ 		  });
+ 		 
+ 		});
+ 	 
+ 		(function($, doc) {
+			$.init();
+			var result = $('#birthday')[0];
+			var btns = $('#birthday');
+			btns.each(function(i, btn) {
+				btn.addEventListener('tap', function() {
+					var _self = this;
+					if(_self.picker) {
+						_self.picker.show(function(rs) {
+							result.value = rs.text;
+							_self.picker.dispose();
+							_self.picker = null;
+						});
+					} else {
+						var optionsJson = this.getAttribute('data-options') || '{}';
+						var options = JSON.parse(optionsJson);
+						var id = this.getAttribute('id');
+						/*
+						 * 首次显示时实例化组件
+						 * 示例为了简洁，将 options 放在了按钮的 dom 上
+						 * 也可以直接通过代码声明 optinos 用于实例化 DtPicker
+						 */
+						 
+						
+						 
+						_self.picker = //new $.DtPicker(options);
+							 new mui.DtPicker({
+								    type: "date",//设置日历初始视图模式 
+								    beginDate: new Date(1950, 01, 01),//设置开始日期 
+								    endDate: new Date(),//设置结束日期 
+								});
+						_self.picker.show(function(rs) {
+							/*
+							 * rs.value 拼合后的 value
+							 * rs.text 拼合后的 text
+							 * rs.y 年，可以通过 rs.y.vaue 和 rs.y.text 获取值和文本
+							 * rs.m 月，用法同年
+							 * rs.d 日，用法同年
+							 * rs.h 时，用法同年
+							 * rs.i 分（minutes 的第二个字母），用法同年
+							 */
+							result.value = rs.text;
+							/* 
+							 * 返回 false 可以阻止选择框的关闭
+							 * return false;
+							 */
+							/*
+							 * 释放组件资源，释放后将将不能再操作组件
+							 * 通常情况下，不需要示放组件，new DtPicker(options) 后，可以一直使用。
+							 * 当前示例，因为内容较多，如不进行资原释放，在某些设备上会较慢。
+							 * 所以每次用完便立即调用 dispose 进行释放，下次用时再创建新实例。
+							 */
+							_self.picker.dispose();
+							_self.picker = null;
+						});
+					}
+					showBirthdayError();
+
+				}, false);
+			});
+
+			$.ready(function() {
+				var _getParam = function(obj, param) {
+					return obj[param] || '';
+				};
+
+				//					//级联示例
+				var cityPicker3 = new $.PopPicker({
+					layer: 3
+				});
+				cityPicker3.setData(cityData3);
+				var showCityPickerButton = doc.getElementById('address');
+				var cityResult3 = doc.getElementById('address');
+				showCityPickerButton.addEventListener('tap', function(event) {
+					cityPicker3.show(function(items) {
+						cityResult3.value = _getParam(items[0], 'text') + " " + _getParam(items[1], 'text') + " " + _getParam(items[2], 'text');
+						//返回 false 可以阻止选择框的关闭
+						//return false;
+						setAddressValue(items);
+						showCityError();
+					});
+				}, false);
+			})
+		})(mui, document);
+		mui('.mui-bar-tab').on('tap', 'a', function(e) {
+			var targetTab = this.getAttribute('href');
+			if("#love"==targetTab){
+				loadlove();
+			}else if("#mine"==targetTab){
+				loadmine();
+			}else if("#fabu"==targetTab){
+			//	loadfabu();
+				//loadfinish();
+			} 
+		});
+		mui('.mui-content .mui-switch').each(function() { //循环所有toggle
+			this.addEventListener('toggle', function(event) {
+				//event.detail.isActive 可直接获取当前状态
+				var value = (event.detail.isActive ? '1' : '0');
+				var id = $(this).attr('for');
+				$('#'+id).val(value);
+			});
+		});
+		
+		function setAddressValue(items){
+			var _getParam = function(obj, param) {
+				return obj[param] || '';
+			};
+			$('#provinceId').val(_getParam(items[0], 'value'));
+			$('#provinceName').val(_getParam(items[0], 'text'));
+			$('#cityId').val(_getParam(items[1], 'value'));
+			$('#cityName').val(_getParam(items[1], 'text'));
+			$('#countyId').val(_getParam(items[2], 'value'));
+			$('#countyName').val(_getParam(items[2], 'text'));
+		}
+		function insertImg(url){
+			//imagesContainer
+			if(url=="")url="${basePath}/static/images/a2.jpg";
+			var html='<div style="height:auto;width: 100%;"><img src="'+url+'" style="height:auto;width: 100%;" /><a href="javascript:void(0)" class="mui-icon mui-icon-trash" onclick="removeImg(this,0)"></a><input type="hidden" name="imgId"/><input type="hidden" name="imgUrl" value="'+url+'"/></div>';
+			$('#imagesContainer').append(html);
+		}
+		function removeImg(obj,id){
+			mui.toast("删除成功");
+			$(obj).parent().remove();
+		}
+	</script>
+</@frame.script>
+ 
