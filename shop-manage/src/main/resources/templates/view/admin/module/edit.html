@@ -1,0 +1,101 @@
+<#import "/frameV2.html" as frame />
+<@frame.frame csss=[] scripts=[] locations=["模块管理","编辑模块"]>
+<div class="wrapper wrapper-content  animated fadeInRight">
+	<div class="row">
+		<div class="col-sm-12">
+			<form class="form-horizontal m-t" id="moduleForm">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">模块名称：<span id="moduleNameError"></span></label>
+                        <div class="col-sm-8">
+                            <input id="moduleName" name="moduleName" class="form-control" type="text"
+                            	 placeholder="请输入模块名称" data-parsley-required="true"
+								 data-parsley-required-message="模块名称不可为空"
+								 data-parsley-maxlength="50"
+								 data-parsley-maxlength-message="模块名称不能超过50"
+								 data-parsley-errors-container="#moduleNameError"
+								 value="${module.moduleName!}"
+                            >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">模块icon：<span id="iconError"></span></label>
+                        <div class="col-sm-8">
+                            <input  name="icon" class="form-control" type="text"
+                             	placeholder="请输入模块icon" data-parsley-required="true"
+								 data-parsley-required-message="模块icon不可为空"
+								 data-parsley-maxlength="50"
+								 data-parsley-maxlength-message="模块icon不能超过50" 
+								 data-parsley-errors-container="#iconError"
+								 value="${module.icon!}"
+							>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">排序：<span id="orderByError"></span></label>
+                        <div class="col-sm-8">
+                            <input  name="orderBy" class="form-control" type="text"
+                             	 placeholder="请输入模块排序" 
+                             	 data-parsley-required="true"
+								 data-parsley-required-message="模块排序不可为空"
+								 data-parsley-pattern="^\d*$"
+								 data-parsley-pattern-message="只能输入整数"
+								 data-parsley-errors-container="#orderByError"
+								 value="${module.orderBy!}"
+							>
+                        </div>
+                    </div>
+                     <div class="form-group">
+                        <label class="col-sm-3 control-label">模块描述：<span id="descriptionError"></span></label>
+                        <div class="col-sm-8">
+                        <textarea class="form-control"
+								  name="description" rows="5"
+								  placeholder="输入模块描述"
+								  data-parsley-maxlength="1000"
+								  data-parsley-maxlength-message="模块描述不能超过1000字"
+								  data-parsley-required="true"
+								  data-parsley-required-message="模块描述不可为空">${module.description!}</textarea>
+                        </div>
+                    </div>
+                  	<div class="form-group">
+				        <div class="text-center">
+				            <a class="btn btn-primary" href="javascript:void(0);" onclick="submitFm()">提交</a>
+				            <a class="btn btn-default" href="javascript:history.go(-1);" >返回</a>
+				        </div>
+				    </div>
+	    			<input type="hidden" name="moduleId" value="${module.moduleId!}"/>
+                </form>		
+		</div>
+	</div>
+</div>
+</@frame.frame> 
+<@frame.script>
+<script>
+	function submitFm() {
+		if ($('#moduleForm').parsley().validate()) {
+			$.ajax({
+				cache : true,
+				type : "POST",
+				url : "${basePath}/module/save",
+				data : $('#moduleForm').serialize(),
+				async : true,
+				error : function(request) {
+					parent.layer.alert("服务器异常！");
+				},
+				success : function(data) {
+					if (systemshop.toJson(data).success) {
+						parent.layer.alert('保存成功！', {
+							icon : 1,
+							skin : 'layer-ext-moon'
+						},function(e){
+							parent.layer.closeAll();
+							window.location.href="${basePath}/module/main";
+						});
+					} else {
+						parent.layer.alert('保存失败！');
+					}
+				}
+			});
+		}
+	}
+</script>
+</@frame.script>

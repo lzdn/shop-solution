@@ -1,0 +1,297 @@
+<#import "/frameV2.html" as frame />
+<#import "/splitPage.html" as splitPage />
+<@frame.frame csss=["plugins/pager/pager.css"] scripts=[] locations=["模块管理","资源列表","${levelName!}"]>
+<div class="wrapper wrapper-content  animated fadeInRight">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="ibox">
+				<div class="ibox-content">
+					<div class="ibox-dowith">
+						<a class="btn btn-default" href="javascript:history.go(-1);" >返回</a>
+                        <a href="#addResourceModal" class="btn btn-primary" data-toggle="modal">新增资源</a>
+                     </div>
+                     <div class="ibox-form">
+                     	<form id="searchForm" class="form-inline">
+                     		<div class="form-group">
+	                             <label class="control-label">资源ID</label>
+	                             <input type="text" name="id"
+									placeholder="请输入资源ID" class="form-control"
+									value="${resourceDto.id!}">
+	                         </div>
+	                         <div class="form-group">
+	                             <label class="control-label">资源名称</label>
+	                             <input type="text" name="resourceValue"
+									placeholder="请输入资源名称" class="form-control"
+									value="${resourceDto.resourceValue!}">
+	                         </div>
+	                         <div class="form-group">
+	                             <label class="control-label">资源代码</label>
+	                             <input type="text" name="resourceKey"
+									placeholder="请输入资源代码" class="form-control"
+									value="${resourceDto.resourceKey!}">
+	                         </div>
+	                         <div class="form-group">
+	                             <label class="control-label">资源类型</label>
+	                             <select class="form-control" name="type">
+	                             	 <option value="">全部</option>
+                                     <option value="1"<#if (resourceDto.type)??&&resourceDto.type == 1>selected</#if>>菜单</option>
+                                     <option value="2" <#if (resourceDto.type)??&&resourceDto.type == 2>selected</#if>>功能</option>
+                                 </select>
+	                         </div>
+	                        <input type="hidden" name="parentId" value="${resourceDto.parentId!}"/> 
+                   <input type="hidden" name="moduleId" value="${resourceDto.moduleId!}"/>
+	                         <button class="btn btn-white" type="submit">搜索</button>
+	                     </form>
+                     </div>
+					<table class="table table-bordered table-condensed table-hover table-striped">
+						<thead>
+							<tr>
+								<th>资源ID</th>
+								<th>资源代码</th>
+								<th>资源名称</th>
+								<th>资源图标</th>
+								<th>资源URL</th>
+								<th>资源类型</th>
+								<th>资源级别</th>
+								<th>状态</th>
+								<th>#</th>
+							</tr>
+						</thead>
+						<tbody>
+							<#if (resourceSplitPages)?? && (resourceSplitPages.list)?size gt 0>
+								<#list resourceSplitPages.list as resource>
+									<tr>
+										<td>${resource.id!}</td>
+										<td>${resource.resourceKey!}</td>
+										<td>${resource.resourceValue!}</td>
+										<td>
+											<#if (resource.menuIcon)??><span class="label label-info"><i class="${resource.menuIcon!}"></i></span>${resource.menuIcon!}</#if>
+										</td>
+										<td>${resource.url!}</td>
+										<td>
+											<#if resource.type == 1><span class="label label-info">菜单</span></#if>
+											<#if resource.type == 2><span class="label label-primary">功能</span></#if>
+										</td>
+										<td>
+											<#if resource.level == 1><span class="label label-primary">一级菜单</span></#if>
+											<#if resource.level == 2><span class="label label-primary">二级菜单</span></#if>
+											<#if resource.level == 3><span class="label label-primary">三级菜单</span></#if>
+											<#if resource.level == 4><span class="label label-primary">四级功能</span></#if>
+										</td>
+										<td>
+											<#if resource.available><span class="label label-info">有效</span><#else><span class="label label-warning">无效</span></#if>
+										</td>
+										<td>
+											<a class="btn btn-info" href="${basePath}/resource/edit?id=${resource.id!}">编辑</a> 
+											<a class="btn btn-danger" href="javascript:void(0)"  onclick="deleteById('${resource.id!}')">删除</a>
+											<#if resource.level != 4>
+												<a class="btn btn-info" href="${basePath}/resource/list?parentId=${resource.id!}">查看资源</a>
+											</#if>
+										</td>
+									</tr>
+								</#list>
+							<#else>
+								<tr>
+									<td colspan="9" align="center">
+										没有数据
+									</td>
+								</tr>
+							</#if>
+						</tbody>
+						<#if (resourceSplitPages)?? && (resourceSplitPages.list)?size gt 0>
+							<tfoot>
+								<tr>
+									<td colspan="9" >
+										<@splitPage.splitPage pageCount=resourceSplitPages.pages pageNo=resourceSplitPages.pageNum formId="searchForm" recordCount=resourceSplitPages.total />
+									</td>
+								</tr>
+							</tfoot>
+						</#if>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal inmodal fade" id="addResourceModal" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h5 class="modal-title">新增资源</h5>
+            </div>
+            <div class="modal-body">
+	           <form class="form-horizontal m-t" id="resourceForm">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">资源名称：<span id="resourceValueError"></span></label>
+                        <div class="col-sm-8">
+                            <input id="resourceValue" name="resourceValue" class="form-control" type="text"
+                            	 placeholder="请输入资源名称" 
+                            	 data-parsley-required="true"
+								 data-parsley-required-message="资源名称不可为空"
+								 data-parsley-maxlength="50"
+								 data-parsley-maxlength-message="资源名称不能超过50"
+								 data-parsley-errors-container="#resourceValueError"
+                            >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">资源代码：<span id="resourceKeyError"></span></label>
+                        <div class="col-sm-8">
+                            <input id="resourceKey" name="resourceKey" class="form-control" type="text"
+                             	 placeholder="请输入资源代码"
+                             	 data-parsley-required-message="资源代码不能为空"
+                             	 data-parsley-required="true"
+								 data-parsley-maxlength="50"
+								 data-parsley-maxlength-message="资源代码不能超过50" 
+								 data-parsley-errors-container="#resourceKeyError"
+							>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">资源URL：<span id="urlError"></span></label>
+                        <div class="col-sm-8">
+                            <input id="url" name="url" class="form-control" type="text"
+                             	 placeholder="请输入资源URL" 
+								 data-parsley-maxlength="50"
+								 data-parsley-maxlength-message="资源URL不能超过50" 
+								 data-parsley-errors-container="#urlError"
+							>
+                        </div>
+                    </div>
+                     <div class="form-group">
+                        <label class="col-sm-3 control-label">资源Icon：<span id="menuIconError"></span></label>
+                        <div class="col-sm-8">
+	                        <input id="menuIcon" name="menuIcon" class="form-control" type="text"
+	                             	 placeholder="请输入资源Icon" 
+									 data-parsley-maxlength="50"
+									 data-parsley-maxlength-message="资源Icon不能超过50" 
+									 data-parsley-errors-container="#menuIconError"
+								>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">资源排序：<span id="orderByError"></span></label>
+                        <div class="col-sm-8">
+	                        <input id="orderBy" name="orderBy" class="form-control" type="text"
+	                             	 placeholder="请输入排序" 
+	                             	 data-parsley-required="true"
+									 data-parsley-maxlength="50"
+									 data-parsley-maxlength-message="排序" 
+									 data-parsley-errors-container="#orderByError"
+								>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">资源类型：<span id="typeError"></span></label>
+                        <div class="col-sm-8">
+             				<select class="form-control" name="type" 
+             				data-parsley-required="true" 
+             				data-parsley-required-message="资源类型不可为空" 
+             				data-parsley-errors-container="#typeError"
+             				onchange="changeLevel(this)">
+                          		<option value="1" >菜单</option>
+                          		<option value="2" >功能</option>
+                     	    </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">资源级别：<span id="levelError"></span></label>
+                        <div class="col-sm-8">
+             				<select class="form-control" name="level" id="selectLevel"
+             				data-parsley-required="true" 
+             				data-parsley-required-message="资源级别不可为空" 
+             				data-parsley-errors-container="#levelError" 
+             				>
+             					<option value="">请选择资源级别</option>
+             					<option value="1" >一级（菜单）</option>
+                          		<option value="2" >二级（菜单）</option>
+                          		<option value="3" >三级（菜单）</option>
+                   	 			 
+                     	    </select>
+                        </div>
+                    </div>
+                   <input type="hidden" name="parentId" value="${resourceDto.parentId!}"/> 
+                   <input type="hidden" name="moduleId" value="${resourceDto.moduleId!}"/>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal" id="closeModal">关闭</button>
+                <button type="button" class="btn btn-primary" onclick="submitFm()">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 新增用户 -->
+</@frame.frame> 
+<@frame.script>
+<script>
+	function changeLevel(t){
+		var obj=document.getElementById('selectLevel'); 
+		obj.options.length=0;
+		if(t.value == 1){
+			obj.options.add(new Option("一级（菜单）","1"));
+			obj.options.add(new Option("二级（菜单）","2"));
+			obj.options.add(new Option("三级（菜单）","3"));
+		}else{
+			obj.options.add(new Option("四级（功能）","4"));
+		}
+	}
+	function submitFm() {
+		if ($('#resourceForm').parsley().validate()) {
+			$.ajax({
+				cache : true,
+				type : "POST",
+				url : "${basePath}/resource/save",
+				data : $('#resourceForm').serialize(),
+				async : true,
+				error : function(request) {
+					parent.layer.alert("服务器异常！");
+				},
+				success : function(data) {
+					if (systemshop.toJson(data).success) {
+						parent.layer.alert('保存成功！', {
+							icon : 1,
+							skin : 'layer-ext-moon'
+						},function(e){
+							parent.layer.close(e);
+							window.location.reload();
+						});
+					} else {
+						parent.layer.alert('保存失败！提示：'+systemshop.toJson(data).message);
+					}
+				}
+			});
+		}
+	}
+
+	function deleteById(id) {
+		var postdata = {
+			id : id
+		}
+		$.ajax({
+			cache : true,
+			type : "POST",
+			url : "${basePath}/resource/delete",
+			data : postdata,
+			async : true,
+			error : function(request) {
+				parent.layer.alert("服务器异常！");
+			},
+			success : function(data) {
+				if (systemshop.toJson(data).success) {
+					parent.layer.alert('删除成功！', {
+						icon : 1,
+						skin : 'layer-ext-moon'
+					},function(e){
+						parent.layer.close(e);
+						window.location.reload();
+					});
+				} else {
+					parent.layer.alert('删除失败！');
+				}
+			}
+		});
+	}
+</script>
+</@frame.script>

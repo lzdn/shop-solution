@@ -1,0 +1,30 @@
+<#global basePath=springMacroRequestContext.contextPath> 
+<#global version="1.0.0"> 
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>系统提示页面</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<link rel="shortcut icon" href="favicon.ico">
+<link href="${basePath}/static/css/bootstrap.min.css?v=${version}" rel="stylesheet">
+<link href="${basePath}/static/css/font-awesome.css?v=${version}" rel="stylesheet">
+<link href="${basePath}/static/css/animate.css" rel="stylesheet">
+<link href="${basePath}/static/css/style.css?v=${version}" rel="stylesheet">
+</head>
+<body class="gray-bg">
+	<div class="middle-box text-center animated fadeInDown">
+		<h2 class="text-danger"><i class="glyphicon glyphicon-exclamation-sign"></i>系统提示</h2>
+		<h3 class="font-bold">Not Found Data！</h3>
+		<div class="error-desc">
+			抱歉，${message}~
+		</div>
+		<a class="btn btn-info" href="javascript:history.go(-1)">返回</a>
+	</div>
+	<!-- 全局js -->
+	<script src="${basePath}/static/js/jquery.min.js?v=${version}"></script>
+	<script src="${basePath}/static/js/bootstrap.min.js?v=${version}"></script>
+</body>
+</html>
