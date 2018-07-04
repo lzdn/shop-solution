@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -32,7 +33,15 @@ public class ResourceServiceImpl extends BaseServiceImpl implements IResourceSer
 
     @Transactional(value = "manageTransactionManager")
 	public void deleteByPk(Integer id){
-	
+    	//删除子项
+    	Map<String, Object> map = new HashMap<String, Object>();
+    	map.put("parentId", id);
+    	List<Resource> list = resourceDao.findAll(map);
+    	if(!CollectionUtils.isEmpty(list)) {
+    		for (Resource resource : list) {
+    			resourceDao.deleteByPrimaryKey(resource.getId());
+			}
+    	}
 		resourceDao.deleteByPrimaryKey(id);
 	}
 

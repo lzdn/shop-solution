@@ -7,11 +7,15 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.shop.dao.admin.ModuleDao;
+import com.shop.dao.admin.ResourceDao;
+import com.shop.dao.admin.RoleDao;
 import com.shop.domain.admin.Module;
+import com.shop.domain.admin.Resource;
 import com.shop.dto.admin.ModuleDTO;
 import com.shop.service.BaseServiceImpl;
 import com.shop.service.admin.IModuleService;
@@ -29,11 +33,25 @@ public class ModuleServiceImpl extends BaseServiceImpl implements IModuleService
 
     @Autowired
     private ModuleDao moduleDao;
-
+    
+    @Autowired
+    private ResourceDao resourceDao;
+    
+    @Autowired
+    private RoleDao roleDao;
   
     @Transactional(value = "manageTransactionManager")
 	public void deleteByPk(Integer moduleId){
-	
+    	//删除模块下面的权限和资源
+    	Map<String,Object> map = new HashMap<String,Object>();
+    	map.put("moduleId", moduleId);
+    	List<Resource> list = resourceDao.findAll(map);
+    	if(!CollectionUtils.isEmpty(list)) {
+    		for (Resource resource : list) {
+    			roleDao.deleteRightByResourceId(resource.getId());
+    			resourceDao.deleteByPrimaryKey(resource.getId());
+			}
+    	}
 		moduleDao.deleteByPrimaryKey(moduleId);
 	}
 

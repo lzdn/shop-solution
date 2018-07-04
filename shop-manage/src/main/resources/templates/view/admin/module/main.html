@@ -43,7 +43,11 @@
 										<td>
 											<#if module.status == 1><span class="label label-info">有效</span><#else><span class="label label-warning">无效</span></#if>
 										</td>
-										<td></td>
+										<td>
+											<a class="btn btn-info" href="${basePath}/module/edit?moduleId=${module.moduleId!}">编辑</a> 
+											<a class="btn btn-danger" href="javascript:void(0);" onclick="deleteById('${module.moduleId!}');">删除</a> 
+											<a class="btn btn-info" href="${basePath}/resource/list?moduleId=${module.moduleId!}&parentId=0">查看资源</a> 
+										</td>
 									</tr>
 								</#list>
 							<#else>
@@ -108,10 +112,11 @@
                         <label class="col-sm-3 control-label">排序：<span id="orderByError"></span></label>
                         <div class="col-sm-8">
                             <input  name="orderBy" class="form-control" type="text"
-                             	 placeholder="请输入模块排序" data-parsley-required="true"
+                             	 placeholder="请输入模块排序" 
+                             	 data-parsley-required="true"
 								 data-parsley-required-message="模块排序不可为空"
-								 data-parsley-maxlength="50"
-								 data-parsley-maxlength-message="模块排序不能超过50" 
+								 data-parsley-pattern="^\d*$"
+								 data-parsley-pattern-message="只能输入整数"
 								 data-parsley-errors-container="#orderByError"
 							>
 							<!--  <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 账户用于登录</span> -->
@@ -149,7 +154,7 @@ function submitFm(){
 		$.ajax({
 			cache: true,
 			type: "POST",
-			url:"${basePath}/module/add",
+			url:"${basePath}/module/save",
 			data:$('#moduleForm').serialize(),
 			async: true,
 			error: function(request) {
@@ -157,15 +162,46 @@ function submitFm(){
 			},
 			success: function(data) {
 				if(systemshop.toJson(data).success){
-					parent.layer.alert('保存成功！', {icon: 1, skin: 'layer-ext-moon'});
-					window.location.href=window.location.href;
+					parent.layer.alert('保存成功！', {icon: 1, skin: 'layer-ext-moon'},function(e){
+						parent.layer.closeAll();
+						window.location.reload();
+					});
 				} else{
 					parent.layer.alert('保存失败！');
 				}
 			}
 		});
-	///	$('#closeModal').click();
 	}
 } 
+
+function deleteById(id){
+	parent.layer.confirm('您确定要删除吗？', {
+	    btn: ['确定','取消'], //按钮
+	    shade: false //不显示遮罩
+	}, function(){
+		$.ajax({
+			cache: true,
+			type: "POST",
+			url:"${basePath}/module/delete",
+			data:{"moduleId":id},
+			async: true,
+			error: function(request) {
+				parent.layer.alert("服务器异常！");
+			},
+			success: function(data) {
+				if(systemshop.toJson(data).success){
+					parent.layer.alert('删除成功！', {icon: 1, skin: 'layer-ext-moon'},function(e){
+						parent.layer.closeAll();
+						window.location.reload();
+					});
+				} else{
+					parent.layer.alert('删除失败！');
+				}
+			}
+		});
+	}, function(){
+		
+	});
+}
 </script>
 </@frame.script>

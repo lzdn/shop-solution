@@ -32,7 +32,7 @@ public class ExceptionHandler {
 			if (isAjax) {
 				response.setCharacterEncoding("utf-8");
 				response.setContentType("application/json;charset=utf-8");
-				response.getWriter().write(JSON.toJSONString(new Result("系统异常："+out.toString(), false), SerializerFeature.WriteMapNullValue));
+				response.getWriter().write(JSON.toJSONString(new Result(false,"系统异常："+out.toString()), SerializerFeature.WriteMapNullValue));
 			} else {
 				request.setAttribute("errorMessage", out.toString());
 				request.getRequestDispatcher("/error").forward(request, response);

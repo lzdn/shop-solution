@@ -23,7 +23,7 @@ public class Result {
 		this.success = success;
 	}
 
-	public Result(String message, boolean success) {
+	public Result( boolean success,String message) {
 		this.message = message;
 		this.success = success;
 	}

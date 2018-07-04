@@ -39,7 +39,7 @@ locations=["资源管理","资源列表"]>
 	                             <label class="control-label">资源类型</label>
 	                             <select class="form-control" name="type">
 	                             	 <option value="">全部</option>
-                                     <option value="1"<#if (resourceDto.type)??&&resourceDto.type == 1>selected</#if>>菜单</option>
+                                     <option value="1" <#if (resourceDto.type)??&&resourceDto.type == 1>selected</#if>>菜单</option>
                                      <option value="2" <#if (resourceDto.type)??&&resourceDto.type == 2>selected</#if>>功能</option>
                                  </select>
 	                         </div>

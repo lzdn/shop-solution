@@ -189,6 +189,9 @@
   <delete id="deleteRightRoleId" parameterType="Map">
 	delete from t_role_resource_relation where role_id = #{roleId,jdbcType=INTEGER}
  </delete>
+ <delete id="deleteRightByResourceId" parameterType="Map">
+	delete from t_role_resource_relation where resource_id = #{resourceId,jdbcType=INTEGER}
+ </delete>
  
  <insert id="insertRightBatch" parameterType="java.util.List">
 	insert into t_role_resource_relation (role_id, resource_id) values

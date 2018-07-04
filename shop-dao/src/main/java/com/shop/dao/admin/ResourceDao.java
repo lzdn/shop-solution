@@ -1,6 +1,8 @@
 package com.shop.dao.admin;
 
 import java.util.Map;
+
+
 import java.util.List;
 import com.shop.dao.BaseDao;
 import com.shop.domain.admin.Resource;
@@ -25,4 +27,5 @@ public interface ResourceDao extends BaseDao {
 	List<Resource> findSplitPage(Map<String, Object> map); 
 	
 	List<Resource> findAll(Map<String, Object> map);
+	
 }

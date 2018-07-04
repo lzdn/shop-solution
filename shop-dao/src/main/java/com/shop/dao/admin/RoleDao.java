@@ -33,6 +33,8 @@ public interface RoleDao extends BaseDao {
 	List<Role> findRoleResource(@Param("userId") Integer userId);
 	
 	int deleteRightRoleId(@Param("roleId") Integer roleId);
+	
+	int deleteRightByResourceId(@Param("resourceId") Integer resourceId);
 	    
 	int insertRightBatch(List<GrantDto> grants);
 	

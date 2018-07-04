@@ -55,9 +55,9 @@ public class RoleController extends BaseController {
 		Role role = roleService.findRoleOneByRoleKey(roleDTO.getRoleKey());
 		if (role == null) {
 			roleService.insertRole(roleDTO);
-			return new Result("成功", SUCCESS);
+			return new Result(SUCCESS,"成功");
 		} else {
-			return new Result("已经存在roleKey为：" + roleDTO.getRoleKey() + "的角色了", FAIL);
+			return new Result(FAIL,"已经存在roleKey为：" + roleDTO.getRoleKey() + "的角色了");
 		}
 	}
 
@@ -74,8 +74,8 @@ public class RoleController extends BaseController {
 		if (roleId != null) {
 			roleService.grant(resourceId, roleId);
 			customInvocationSecurityMetadataSourceService.resetResourceRight();
-			return new Result("成功", SUCCESS);
+			return new Result(SUCCESS,"成功");
 		}
-		return new Result("roleId不能为空", FAIL);
+		return new Result(FAIL,"roleId不能为空");
 	}
 }

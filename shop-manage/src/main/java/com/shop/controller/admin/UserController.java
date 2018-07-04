@@ -49,7 +49,7 @@ public class UserController extends BaseController {
 	public @ResponseBody Result add(HttpServletRequest request, UserDTO userDTO) throws Exception {
 		User account = userService.findByAccount(userDTO.getAccount());
 		if (account != null) {
-			return new Result("已经存在账户：" + userDTO.getAccount(), FAIL);
+			return new Result(FAIL,"已经存在账户：" + userDTO.getAccount());
 		}
 		userDTO.setSalt(MD5Util.SALT);
 		userDTO.setPassword(MD5Util.encode(userDTO.getPassword()));
@@ -61,7 +61,7 @@ public class UserController extends BaseController {
 	public @ResponseBody Result delete(HttpServletRequest request, @PathVariable("id") Integer id) throws Exception {
 		Role role = roleService.findRoleOneByUserId(id);
 		if(role!=null&&role.getRoleId().intValue()==1) {
-			return new Result("无法删除超级管理员", FAIL);
+			return new Result(FAIL,"无法删除超级管理员");
 		}
 		userService.deleteByPk(id);
 		return new Result(SUCCESS);
