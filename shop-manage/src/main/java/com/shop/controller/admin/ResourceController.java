@@ -18,7 +18,6 @@ import com.shop.domain.admin.Resource;
 import com.shop.dto.admin.ResourceDTO;
 import com.shop.service.admin.IModuleService;
 import com.shop.service.admin.IResourceService;
-import com.shop.utils.IntegerUtil;
 import com.shop.web.BaseController;
 import com.shop.web.Result;
 
@@ -41,25 +40,21 @@ public class ResourceController extends BaseController {
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(HttpServletResponse response, Model model, ResourceDTO resourceDTO) {
+		
+		Integer moduleId = resourceDTO.getModuleId();
+		if(resourceDTO.getParentId()!=null&&resourceDTO.getParentId().intValue()!=0) {
+			Resource resource = resourceService.findByPk(resourceDTO.getParentId());
+			model.addAttribute("resourceValue", resource.getResourceValue());
+			if(moduleId==null) moduleId = resource.getModuleId();
+		}
+		if(moduleId!=null) {
+			Module module = moduleService.findByPk(resourceDTO.getModuleId());
+			model.addAttribute("moduleName", module.getModuleName());
+		}		
 		PageInfo<Resource> splitPage = resourceService.findSplitPage(resourceDTO);
 		model.addAttribute("resourceSplitPages", splitPage);
 		model.addAttribute("resourceDto", resourceDTO);
 		model.addAttribute("resources", resourceService.findAll(null));
-		String levelName = "一级菜单";
-		if(IntegerUtil.isNotNullAndNotZero(resourceDTO.getParentId())) {
-			Resource parentResource = resourceService.findByPk(resourceDTO.getParentId());
-			model.addAttribute("parentResource", parentResource);
-			switch(parentResource.getLevel().intValue()) {
-			case 1:
-				levelName ="一级菜单";
-			case 2:
-				levelName ="二级菜单";
-			case 3:
-				levelName ="三级菜单";
-			}
-		}
-		model.addAttribute("levelName", levelName);
-		
 		return "admin/resource/list";
 	}
 
