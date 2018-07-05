@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
+import com.shop.annotation.Verification;
 import com.shop.domain.admin.Module;
 import com.shop.domain.admin.Resource;
 import com.shop.dto.admin.ResourceDTO;
@@ -36,21 +37,9 @@ public class ResourceController extends BaseController {
 
 	@Autowired
 	private IResourceService resourceService;
-	
-	
+
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(HttpServletResponse response, Model model, ResourceDTO resourceDTO) {
-		
-		Integer moduleId = resourceDTO.getModuleId();
-		if(resourceDTO.getParentId()!=null&&resourceDTO.getParentId().intValue()!=0) {
-			Resource resource = resourceService.findByPk(resourceDTO.getParentId());
-			model.addAttribute("resourceValue", resource.getResourceValue());
-			if(moduleId==null) moduleId = resource.getModuleId();
-		}
-		if(moduleId!=null) {
-			Module module = moduleService.findByPk(resourceDTO.getModuleId());
-			model.addAttribute("moduleName", module.getModuleName());
-		}		
 		PageInfo<Resource> splitPage = resourceService.findSplitPage(resourceDTO);
 		model.addAttribute("resourceSplitPages", splitPage);
 		model.addAttribute("resourceDto", resourceDTO);
@@ -69,63 +58,28 @@ public class ResourceController extends BaseController {
 		return "admin/resource/main";
 	}
 
+	@Verification
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public @ResponseBody Result add(HttpServletRequest request, ResourceDTO resourceDTO) throws Exception {
-		
-		//校验
-		if(resourceDTO.getParentId()==null) {
-			return new Result(FAIL);
-		}
-		switch(resourceDTO.getParentId().intValue()) {
-		case 0:
-			if(resourceDTO.getType().intValue()==2) {
-				return new Result(FAIL,"资源类型必须为菜单");
-			}
-			if(resourceDTO.getLevel().intValue()!=1) {
-				return new Result(FAIL,"资源级别必须为一级菜单");
-			}
-			break;
-		case 1:
-			if(resourceDTO.getType().intValue()==2) {
-				return new Result(FAIL,"资源类型必须为菜单");
-			}
-			if(resourceDTO.getLevel().intValue()!=2) {
-				return new Result(FAIL,"资源级别必须为二级菜单");
-			}
-			break;
-		case 2:
-			if(resourceDTO.getLevel().intValue()<=2) {
-				return new Result(FAIL,"资源级别必须为三级菜单或四级功能");
-			}
-			break;
-		case 3:
-			if(resourceDTO.getType().intValue()==1) {
-				return new Result(FAIL,"资源类型必须为功能");
-			}
-			if(resourceDTO.getLevel().intValue()!=4) {
-				return new Result(FAIL,"资源级别必须为四级功能");
-			}
-			break;
-		}
-		
-		if(resourceDTO.getId()!=null) {
+	public @ResponseBody Result save(HttpServletRequest request, ResourceDTO resourceDTO) throws Exception {
+
+		if (resourceDTO.getId() != null) {
 			resourceService.updateResource(resourceDTO);
-		}else {
-			if(resourceDTO.getModuleId()==null) {
+		} else {
+			if (resourceDTO.getModuleId() == null) {
 				Resource res = resourceService.findByPk(resourceDTO.getParentId());
 				resourceDTO.setModuleId(res.getModuleId());
 			}
-			resourceService.insertResource(resourceDTO);	
+			resourceService.insertResource(resourceDTO);
 		}
-		
+
 		return new Result(SUCCESS);
 	}
-	
+
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public String edit(HttpServletResponse response, Model model, Integer id) {
 		Resource dto = resourceService.findByPk(id);
-		if(dto == null) {
-			model.addAttribute("message", "不存在：["+id+"]");
+		if (dto == null) {
+			model.addAttribute("message", "不存在：[" + id + "]");
 			return "admin/common/notice";
 		}
 		model.addAttribute("resources", resourceService.findAll(null));

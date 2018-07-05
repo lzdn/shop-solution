@@ -32,17 +32,28 @@ public class ExceptionHandler {
 			if (isAjax) {
 				response.setCharacterEncoding("utf-8");
 				response.setContentType("application/json;charset=utf-8");
-				response.getWriter().write(JSON.toJSONString(new Result(false,"系统异常："+out.toString()), SerializerFeature.WriteMapNullValue));
+				response.getWriter().write(JSON.toJSONString(new Result(false, "系统异常：" + out.toString()),
+						SerializerFeature.WriteMapNullValue));
 			} else {
 				request.setAttribute("errorMessage", out.toString());
 				request.getRequestDispatcher("/error").forward(request, response);
 			}
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} catch (ServletException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
+		}
+
+	}
+
+	@org.springframework.web.bind.annotation.ExceptionHandler(ValidationException.class)
+	public void validationException(ValidationException ve, HttpServletResponse response) {
+		try {
+			response.setCharacterEncoding("utf-8");
+			response.setContentType("application/json;charset=utf-8");
+			response.getWriter().write(ve.getMessage());
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 
 	}

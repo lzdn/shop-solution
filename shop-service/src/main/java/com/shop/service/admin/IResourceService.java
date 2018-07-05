@@ -25,7 +25,7 @@ public interface IResourceService extends IBaseService {
 	 * @date 20180602
 	 * @author 张林 描述：根据主键查询Resource
 	 */
-    Resource findByPk(Integer id);
+	Resource findByPk(Integer id);
 
 	/**
 	 * @date 20180602
@@ -50,4 +50,5 @@ public interface IResourceService extends IBaseService {
 	 * @author 张林 描述：查看全部
 	 */
 	List<Resource> findAll(ResourceDTO resourceDTO);
+
 }
