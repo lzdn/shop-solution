@@ -187,7 +187,10 @@
 			<version>15.0</version>
 			<optional>true</optional>
 		</dependency>
-		
+		<dependency>
+			<groupId>io.netty</groupId>
+			<artifactId>netty-all</artifactId>
+		</dependency>
 		<!-- 爬虫 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

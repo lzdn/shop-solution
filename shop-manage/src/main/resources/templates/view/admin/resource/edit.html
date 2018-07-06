@@ -175,7 +175,7 @@
 							window.location.href="${basePath}/resource/list?parentId=${resource.parentId!}";
 						});
 					} else {
-						parent.layer.alert('保存失败！');
+						parent.layer.alert('保存失败！提示：'+systemshop.toJson(data).message);
 					}
 				}
 			});

@@ -16,7 +16,7 @@ import org.springframework.web.context.request.RequestContextListener;
 @SpringBootApplication(exclude = { DataSourceAutoConfiguration.class })
 @Configuration
 @ServletComponentScan
-@ComponentScan(basePackages = { "com.shop"/*,"com.data"*/ })
+@ComponentScan(basePackages = { "com.shop"})
 @EnableAutoConfiguration
 public class App extends org.springframework.boot.web.servlet.support.SpringBootServletInitializer {
 
