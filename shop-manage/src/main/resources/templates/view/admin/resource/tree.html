@@ -1,0 +1,79 @@
+<#global basePath=springMacroRequestContext.contextPath> 
+<#global version="1.0.0">
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="renderer" content="webkit">
+<title></title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<link rel="shortcut icon" href="${basePath}/static/favicon.ico">
+<link href="${basePath}/static/css/bootstrap.min.css?v=${version}" rel="stylesheet">
+<link href="${basePath}/static/css/font-awesome.min.css?v=${version}" rel="stylesheet">
+<link href="${basePath}/static/css/animate.css" rel="stylesheet">
+<link href="${basePath}/static/css/style.css?v=${version}" rel="stylesheet">
+<link href="${basePath}/static/css/plugins/zTree/zTreeStyle/zTreeStyle.css?v=${version}" rel="stylesheet">
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+ <ul id="resourceTree" class="ztree"></ul>
+</div>
+<input type = "hidden" id="iframeId" value=""/>
+<!-- 全局js -->
+<script src="${basePath}/static/js/jquery.min.js?v=${version}"></script>
+<script src="${basePath}/static/js/plugins/zTree/jquery.ztree.core.js?v=${version}"></script>
+<script src="${basePath}/static/js/plugins/layer/layer.min.js?v=${version}"></script>
+<!-- 自定义js -->
+<script src="${basePath}/static/js/shopframework.js"></script>
+<script>
+var setting = {
+	view: {
+		dblClickExpand: false,
+		selectedMulti: false,
+		showIcon: false
+	},
+	data: {
+		simpleData: {
+			enable: true
+		}
+	},
+	callback: {
+		onClick: onClick
+	}
+};
+function onClick(e, treeId, treeNode) {
+	var zTree = $.fn.zTree.getZTreeObj("resourceTree"),
+	nodes = zTree.getSelectedNodes(),
+	v = "", id = "";
+	
+	nodes.sort(function compare(a,b){return a.id-b.id;});
+	for (var i=0, l=nodes.length; i<l; i++) {
+		v += nodes[i].name + ",";
+		id += nodes[i].id + ",";
+	}
+	
+	if (v.length > 0 ) v = v.substring(0, v.length-1);
+	if (id.length > 0 ) id = id.substring(0, id.length-1);
+	
+	var data ={"name":v,"id":id};
+	var iframeId = $('#iframeId').val();
+	parent.window.frames[iframeId].contentWindow.callbackTree(data);
+	parent.layer.closeAll();
+}	
+
+var zNodes = new Array();
+var jsonstr = {};
+<#if (resourceTree)??&&resourceTree?size gt 0>
+<#list resourceTree as tree>
+	jsonstr = systemshop.toJson('${tree!}');
+	zNodes.push(jsonstr);
+</#list>
+</#if>
+$(document).ready(function(){
+	$.fn.zTree.init($("#resourceTree"), setting, zNodes);
+});
+</script>
+</body>
+</html>
