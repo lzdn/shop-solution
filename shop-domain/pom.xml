@@ -16,6 +16,11 @@
 	</properties>
 	<dependencies>
 		<dependency>
+			<groupId>com.shop</groupId>
+			<artifactId>shop-utils</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>test</scope>

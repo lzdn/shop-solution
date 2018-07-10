@@ -150,6 +150,9 @@
 	  <if test="menuIcon != null">
 		menu_icon = #{menuIcon,jdbcType=VARCHAR},
       </if>
+      <if test="menuIcon == null">
+		menu_icon = null,
+      </if>
 	  <if test="orderBy != null">
 		order_by = #{orderBy,jdbcType=INTEGER},
       </if>
@@ -255,5 +258,42 @@
 	  	and id = #{id,jdbcType=INTEGER}
 	  </if>
   </where>
+  </select>
+  
+  <resultMap id="treeResult" type="com.shop.dto.admin.ResourceDTO" extends="BaseResultMap">
+	    <collection property="children" ofType="com.shop.dto.admin.ResourceDTO">
+			<id column="sub_id" jdbcType="INTEGER" property="id" />
+		    <result column="sub_resource_key" jdbcType="VARCHAR" property="resourceKey" />
+		    <result column="sub_resource_value" jdbcType="VARCHAR" property="resourceValue" />
+		    <result column="sub_menu_icon" jdbcType="VARCHAR" property="menuIcon" />
+		    <result column="sub_url" jdbcType="VARCHAR" property="url" />
+		    <result column="sub_available" jdbcType="BIT" property="available" />
+		    <result column="sub_type" jdbcType="INTEGER" property="type" />
+		    <result column="sub_parent_id" jdbcType="INTEGER" property="parentId" />
+		    <collection property="children" ofType="com.shop.dto.admin.ResourceDTO">
+				<id column="children_id" jdbcType="INTEGER" property="id" />
+			    <result column="children_resource_key" jdbcType="VARCHAR" property="resourceKey" />
+			    <result column="children_resource_value" jdbcType="VARCHAR" property="resourceValue" />
+			    <result column="children_menu_icon" jdbcType="VARCHAR" property="menuIcon" />
+			    <result column="children_url" jdbcType="VARCHAR" property="url" />
+			    <result column="children_available" jdbcType="BIT" property="available" />
+			    <result column="children_type" jdbcType="INTEGER" property="type" />
+			    <result column="children_parent_id" jdbcType="INTEGER" property="parentId" />
+			</collection>
+		</collection>
+  </resultMap>
+	
+  <select id="resourceTree" resultMap="treeResult" parameterType="Map">
+		SELECT 
+ 			t.id,t.resource_key,t.resource_value,t.url,t.menu_icon,t.type,t.available,t.parent_id,
+			t4.id as sub_id,t4.resource_key as sub_resource_key,t4.resource_value as sub_resource_value,t4.parent_id as sub_parent_id,
+			t4.url as sub_url,t4.menu_icon as sub_menu_icon,t4.type as sub_type,t4.available as sub_available,
+			t5.id as children_id,t5.resource_key as children_resource_key,t5.resource_value as children_resource_value,t5.parent_id as children_parent_id,
+			t5.url as children_url,t5.menu_icon as children_menu_icon,t5.type as children_type,t5.available as children_available
+		from t_resource t  
+		LEFT JOIN t_resource t4 on t4.parent_id = t.id
+		LEFT JOIN t_resource t5 on t5.parent_id = t4.id
+		where 1=1 and t.level = 1
+	order by t.order_by,t4.order_by,t5.order_by
   </select>
 </mapper>

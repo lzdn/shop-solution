@@ -6,6 +6,7 @@ import com.github.pagehelper.PageInfo;
 import com.shop.domain.admin.Resource;
 import com.shop.dto.admin.ResourceDTO;
 import com.shop.service.IBaseService;
+import com.shop.web.ZtreeNode;
 
 /**
  * @date 20180602
@@ -51,4 +52,5 @@ public interface IResourceService extends IBaseService {
 	 */
 	List<Resource> findAll(ResourceDTO resourceDTO);
 
+	List<ZtreeNode> getZtreeNode();
 }

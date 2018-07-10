@@ -102,20 +102,23 @@
                      	    </select>
                         </div>
                     </div>
-                     <div class="form-group">
-                        <label class="col-sm-3 control-label">上级资源：<span id="parentIdError"></span></label>
-                        <div class="col-sm-8">
-             				<select class="form-control" name="parentId" data-parsley-required="true" data-parsley-required-message="资源级别不可为空" data-parsley-errors-container="#parentIdError"  >
-                   	 			<option value="">请选择资源级别</option>
-                   	 			<option value="0" <#if (resource.parentId)??&&resource.parentId == 0>selected</#if>>无</option>
-                   	 			<#if (resources)?? && (resources)?size gt 0>
-                             		<#list resources as res>
-                             	 		<option value="${res.id!}" <#if (resource.parentId)??&&resource.parentId == res.id>selected</#if>>${res.resourceValue!}</option>
-                             	 	</#list>
-                             	</#if>
-                     	    </select>
-                        </div>
-                    </div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">上级资源：<span id="parentIdError"></span></label>
+						<div class="col-sm-8">
+							<select class="form-control" name="parentId" data-parsley-required="true" data-parsley-required-message="上级资源不可为空" data-parsley-errors-container="#parentIdError"  >
+								<option value="">请选择上级资源</option>
+								<option value="0">无</option>
+									<#if (resources)?? && (resources)?size gt 0>
+										<#list resources as resource>
+											<#if resource.level lt 4 >
+												<option value="${resource.id!}" >${resource.resourceValue!}</option>
+											</#if>
+										</#list>
+									</#if>
+							</select>
+							<!--  <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 账户用于登录</span> -->
+						</div>
+					</div>
                     <div class="form-group">
                         <label class="col-sm-3 control-label">系统模块：<span id="moduleIdError"></span></label>
                         <div class="col-sm-8">
@@ -139,6 +142,9 @@
                 </form>
 		</div>
 	</div>
+</div>
+<div class="dialogBox" id="dialogBox">
+ <ul id="resourceTree" class="ztree"></ul>
 </div>
 </@frame.frame> 
 <@frame.script>
@@ -172,7 +178,7 @@
 							skin : 'layer-ext-moon'
 						},function(e){
 							parent.layer.close(e);
-							window.location.href="${basePath}/resource/list?parentId=${resource.parentId!}";
+							window.location.href="${basePath}/resource/list?moduleId=${resource.moduleId!}&parentId=${resource.parentId!}";
 						});
 					} else {
 						parent.layer.alert('保存失败！提示：'+systemshop.toJson(data).message);
@@ -181,5 +187,7 @@
 			});
 		}
 	}
+ 
+
 </script>
 </@frame.script>

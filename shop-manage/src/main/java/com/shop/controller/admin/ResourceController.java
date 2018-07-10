@@ -1,5 +1,6 @@
 package com.shop.controller.admin;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageInfo;
 import com.shop.annotation.Verification;
 import com.shop.domain.admin.Module;
@@ -21,6 +23,7 @@ import com.shop.service.admin.IModuleService;
 import com.shop.service.admin.IResourceService;
 import com.shop.web.BaseController;
 import com.shop.web.Result;
+import com.shop.web.ZtreeNode;
 
 /**
  * @date 20180602
@@ -57,6 +60,19 @@ public class ResourceController extends BaseController {
 		model.addAttribute("modules", modules);
 		return "admin/resource/main";
 	}
+	
+	@RequestMapping(value = "/tree", method = RequestMethod.GET)
+	public String tree(HttpServletResponse response, Model model, ResourceDTO resourceDTO) {
+		
+		List<String> tree = new ArrayList<String>();
+		List<ZtreeNode> list = resourceService.getZtreeNode();
+		for (ZtreeNode ztreeNode : list) {
+			tree.add(JSON.toJSONString(ztreeNode));
+		}
+		model.addAttribute("resourceTree", tree);
+	 
+		return "admin/resource/tree";
+	}
 
 	@Verification
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
@@ -82,7 +98,14 @@ public class ResourceController extends BaseController {
 			model.addAttribute("message", "不存在：[" + id + "]");
 			return "admin/common/notice";
 		}
-		model.addAttribute("resources", resourceService.findAll(null));
+
+		List<String> tree = new ArrayList<String>();
+		List<ZtreeNode> list = resourceService.getZtreeNode();
+		for (ZtreeNode ztreeNode : list) {
+			tree.add(JSON.toJSONString(ztreeNode));
+		}
+		model.addAttribute("resourceTree", tree);
+		
 		List<Module> modules = moduleService.findAll(null);
 		model.addAttribute("modules", modules);
 		model.addAttribute("resource", dto);
@@ -94,5 +117,8 @@ public class ResourceController extends BaseController {
 		resourceService.deleteByPk(id);
 		return new Result(SUCCESS);
 	}
+	
+	
+	
 
 }

@@ -33,9 +33,9 @@
         	}
         }
         
-        shop.initUpload = function(uploadParams) {
+        shop.initFrame = function(frame) {
 			//初始化iframeId
-			$($(uploadParams.layFrame).find("iframe")[0].contentWindow.document.getElementById("iframeId")).val(location.pathname);
+			$($(frame.layFrame).find("iframe")[0].contentWindow.document.getElementById("iframeId")).val(frame.frameId);
 		}
     };
     window.systemshop = new shopframework({});

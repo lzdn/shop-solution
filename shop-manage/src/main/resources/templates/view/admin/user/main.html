@@ -286,12 +286,10 @@ function upload(){
 	    maxmin: false, //开启最大化最小化按钮
 	    area: ['800px', '52%'],
 	    content: "${basePath}/file/prefile", //iframe的url
-	   // closeBtn: true,
 	    cancel: function(index){
-	     // alert(index)
 	    },
 	    success: function (layero, index) {
-	    	systemshop.initUpload({layFrame:layero});
+	    	systemshop.initFrame({layFrame:layero,frameId:"${basePath}/user/main"});
         }
 	});
 }

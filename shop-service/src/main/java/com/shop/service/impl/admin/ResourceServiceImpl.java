@@ -1,5 +1,6 @@
 package com.shop.service.impl.admin;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,7 @@ import com.shop.domain.admin.Resource;
 import com.shop.dto.admin.ResourceDTO;
 import com.shop.service.BaseServiceImpl;
 import com.shop.service.admin.IResourceService;
+import com.shop.web.ZtreeNode;
 
 /**
  * @date 20180602
@@ -153,6 +155,37 @@ public class ResourceServiceImpl extends BaseServiceImpl implements IResourceSer
 		}
 		List<Resource> list = resourceDao.findAll(map);
 		return list;
+	}
+
+	public ZtreeNode node(Resource resource) {
+		ZtreeNode node = new ZtreeNode();
+		node.setId(resource.getId());
+		node.setpId(resource.getParentId());
+		node.setName(resource.getResourceValue());
+		node.setOpen(resource.getParentId().intValue()==0?true:false);
+		return node;
+	}
+	
+	public List<ZtreeNode> treeNode(List<Resource> list,List<ZtreeNode> treeList){
+		if(!CollectionUtils.isEmpty(list)) {
+			for (Resource resource : list) {
+				treeList.add(node(resource));
+				if(!CollectionUtils.isEmpty(resource.getChildren())) {
+					treeNode(resource.getChildren(),treeList);
+				}
+			}
+		}
+		return null;
+	}
+	
+	@Override
+	public List<ZtreeNode> getZtreeNode() {
+		List<ZtreeNode> treeList = new ArrayList<ZtreeNode>();
+		List<Resource> list = resourceDao.resourceTree();
+		if(!CollectionUtils.isEmpty(list)) {
+			treeNode(list, treeList);
+		}
+		return treeList;
 	}
 
 }
