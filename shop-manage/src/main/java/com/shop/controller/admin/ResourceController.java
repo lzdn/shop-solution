@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -62,7 +63,7 @@ public class ResourceController extends BaseController {
 	}
 	
 	@RequestMapping(value = "/tree", method = RequestMethod.GET)
-	public String tree(HttpServletResponse response, Model model, ResourceDTO resourceDTO) {
+	public String tree(HttpServletResponse response, Model model, Integer id) {
 		
 		List<String> tree = new ArrayList<String>();
 		List<ZtreeNode> list = resourceService.getZtreeNode();
@@ -70,7 +71,7 @@ public class ResourceController extends BaseController {
 			tree.add(JSON.toJSONString(ztreeNode));
 		}
 		model.addAttribute("resourceTree", tree);
-	 
+		model.addAttribute("checkId", id);
 		return "admin/resource/tree";
 	}
 
@@ -98,17 +99,18 @@ public class ResourceController extends BaseController {
 			model.addAttribute("message", "不存在：[" + id + "]");
 			return "admin/common/notice";
 		}
-
-		List<String> tree = new ArrayList<String>();
-		List<ZtreeNode> list = resourceService.getZtreeNode();
-		for (ZtreeNode ztreeNode : list) {
-			tree.add(JSON.toJSONString(ztreeNode));
-		}
-		model.addAttribute("resourceTree", tree);
-		
+		ResourceDTO target = new ResourceDTO();
+		BeanUtils.copyProperties(dto,target);
 		List<Module> modules = moduleService.findAll(null);
 		model.addAttribute("modules", modules);
-		model.addAttribute("resource", dto);
+		//
+		if(target.getParentId()!=null&&target.getParentId().intValue()==0){
+			target.setParentName("无");
+		}else {
+			Resource parent = resourceService.findByPk(target.getParentId());
+			if(parent!=null) target.setParentName(parent.getResourceValue());
+		}
+		model.addAttribute("resource", target);
 		return "admin/resource/edit";
 	}
 

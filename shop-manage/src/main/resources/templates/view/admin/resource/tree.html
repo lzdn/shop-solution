@@ -72,7 +72,13 @@ var jsonstr = {};
 </#list>
 </#if>
 $(document).ready(function(){
-	$.fn.zTree.init($("#resourceTree"), setting, zNodes);
+	var ztree = $.fn.zTree.init($("#resourceTree"), setting, zNodes);
+	<#if (checkId)??>
+	var node = ztree.getNodeByParam("id","${checkId!}" );
+     ztree.cancelSelectedNode();//先取消所有的选中状态
+     ztree.selectNode(node,true);//将指定ID的节点选中
+     ztree.expandNode(node, true, false);//将指定ID节点展开
+	</#if>
 });
 </script>
 </body>

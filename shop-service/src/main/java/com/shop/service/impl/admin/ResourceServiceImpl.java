@@ -169,9 +169,11 @@ public class ResourceServiceImpl extends BaseServiceImpl implements IResourceSer
 	public List<ZtreeNode> treeNode(List<Resource> list,List<ZtreeNode> treeList){
 		if(!CollectionUtils.isEmpty(list)) {
 			for (Resource resource : list) {
-				treeList.add(node(resource));
-				if(!CollectionUtils.isEmpty(resource.getChildren())) {
-					treeNode(resource.getChildren(),treeList);
+				if(resource.getLevel().intValue() < 4){
+					treeList.add(node(resource));
+					if(!CollectionUtils.isEmpty(resource.getChildren())) {
+						treeNode(resource.getChildren(),treeList);
+					}
 				}
 			}
 		}

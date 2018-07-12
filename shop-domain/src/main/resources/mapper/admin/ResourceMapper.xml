@@ -270,6 +270,7 @@
 		    <result column="sub_available" jdbcType="BIT" property="available" />
 		    <result column="sub_type" jdbcType="INTEGER" property="type" />
 		    <result column="sub_parent_id" jdbcType="INTEGER" property="parentId" />
+			<result column="sub_level" jdbcType="INTEGER" property="level" />
 		    <collection property="children" ofType="com.shop.dto.admin.ResourceDTO">
 				<id column="children_id" jdbcType="INTEGER" property="id" />
 			    <result column="children_resource_key" jdbcType="VARCHAR" property="resourceKey" />
@@ -279,16 +280,17 @@
 			    <result column="children_available" jdbcType="BIT" property="available" />
 			    <result column="children_type" jdbcType="INTEGER" property="type" />
 			    <result column="children_parent_id" jdbcType="INTEGER" property="parentId" />
+				<result column="children_level" jdbcType="INTEGER" property="level" />
 			</collection>
 		</collection>
   </resultMap>
 	
   <select id="resourceTree" resultMap="treeResult" parameterType="Map">
 		SELECT 
- 			t.id,t.resource_key,t.resource_value,t.url,t.menu_icon,t.type,t.available,t.parent_id,
-			t4.id as sub_id,t4.resource_key as sub_resource_key,t4.resource_value as sub_resource_value,t4.parent_id as sub_parent_id,
+ 			t.id,t.resource_key,t.resource_value,t.url,t.menu_icon,t.type,t.available,t.parent_id,t.level,
+			t4.id as sub_id,t4.resource_key as sub_resource_key,t4.resource_value as sub_resource_value,t4.parent_id as sub_parent_id,t4.level as sub_level,
 			t4.url as sub_url,t4.menu_icon as sub_menu_icon,t4.type as sub_type,t4.available as sub_available,
-			t5.id as children_id,t5.resource_key as children_resource_key,t5.resource_value as children_resource_value,t5.parent_id as children_parent_id,
+			t5.id as children_id,t5.resource_key as children_resource_key,t5.resource_value as children_resource_value,t5.parent_id as children_parent_id,t5.level as children_level,
 			t5.url as children_url,t5.menu_icon as children_menu_icon,t5.type as children_type,t5.available as children_available
 		from t_resource t  
 		LEFT JOIN t_resource t4 on t4.parent_id = t.id
