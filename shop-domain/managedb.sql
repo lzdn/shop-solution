@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50718
 File Encoding         : 65001
 
-Date: 2018-06-04 17:27:04
+Date: 2018-07-13 22:52:51
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -233,7 +233,7 @@ CREATE TABLE `qrtz_triggers` (
 -- ----------------------------
 -- Records of qrtz_triggers
 -- ----------------------------
-INSERT INTO `qrtz_triggers` VALUES ('SchedulerFactory', 'com.shop.job.impl.MyJob', 'test', '测试JOB', 'test', null, '1528103640000', '1528103580000', '5', 'WAITING', 'CRON', '1528096103000', '0', null, '0', '');
+INSERT INTO `qrtz_triggers` VALUES ('SchedulerFactory', 'com.shop.job.impl.MyJob', 'test', '测试JOB', 'test', null, '1528161900000', '1528161840000', '5', 'PAUSED', 'CRON', '1528096103000', '0', null, '0', '');
 
 -- ----------------------------
 -- Table structure for t_dept
@@ -286,7 +286,7 @@ CREATE TABLE `t_job_log` (
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8 COMMENT='任务日志表';
+) ENGINE=InnoDB AUTO_INCREMENT=102 DEFAULT CHARSET=utf8 COMMENT='任务日志表';
 
 -- ----------------------------
 -- Records of t_job_log
@@ -352,6 +352,46 @@ INSERT INTO `t_job_log` VALUES ('58', 'MyJob', '执行任务：MyJob 成功', '2
 INSERT INTO `t_job_log` VALUES ('59', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 17:11:05', null, null);
 INSERT INTO `t_job_log` VALUES ('60', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 17:12:00', null, null);
 INSERT INTO `t_job_log` VALUES ('61', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 17:13:00', null, null);
+INSERT INTO `t_job_log` VALUES ('62', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 17:31:49', null, null);
+INSERT INTO `t_job_log` VALUES ('63', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 17:32:00', null, null);
+INSERT INTO `t_job_log` VALUES ('64', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 17:33:00', null, null);
+INSERT INTO `t_job_log` VALUES ('65', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 17:34:00', null, null);
+INSERT INTO `t_job_log` VALUES ('66', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 17:35:00', null, null);
+INSERT INTO `t_job_log` VALUES ('67', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 17:36:00', null, null);
+INSERT INTO `t_job_log` VALUES ('68', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 17:37:00', null, null);
+INSERT INTO `t_job_log` VALUES ('69', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 17:38:00', null, null);
+INSERT INTO `t_job_log` VALUES ('70', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 17:39:00', null, null);
+INSERT INTO `t_job_log` VALUES ('71', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 17:40:00', null, null);
+INSERT INTO `t_job_log` VALUES ('72', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 17:41:00', null, null);
+INSERT INTO `t_job_log` VALUES ('73', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 17:42:00', null, null);
+INSERT INTO `t_job_log` VALUES ('74', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 17:43:00', null, null);
+INSERT INTO `t_job_log` VALUES ('75', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 17:44:00', null, null);
+INSERT INTO `t_job_log` VALUES ('76', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 17:45:06', null, null);
+INSERT INTO `t_job_log` VALUES ('77', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 17:46:00', null, null);
+INSERT INTO `t_job_log` VALUES ('78', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 17:47:00', null, null);
+INSERT INTO `t_job_log` VALUES ('79', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 17:48:00', null, null);
+INSERT INTO `t_job_log` VALUES ('80', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 17:49:00', null, null);
+INSERT INTO `t_job_log` VALUES ('81', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 17:50:00', null, null);
+INSERT INTO `t_job_log` VALUES ('82', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 17:51:00', null, null);
+INSERT INTO `t_job_log` VALUES ('83', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 17:52:00', null, null);
+INSERT INTO `t_job_log` VALUES ('84', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 17:53:00', null, null);
+INSERT INTO `t_job_log` VALUES ('85', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 17:54:00', null, null);
+INSERT INTO `t_job_log` VALUES ('86', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 17:55:00', null, null);
+INSERT INTO `t_job_log` VALUES ('87', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 17:56:00', null, null);
+INSERT INTO `t_job_log` VALUES ('88', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 17:57:00', null, null);
+INSERT INTO `t_job_log` VALUES ('89', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 18:17:44', null, null);
+INSERT INTO `t_job_log` VALUES ('90', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 18:18:00', null, null);
+INSERT INTO `t_job_log` VALUES ('91', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 18:19:00', null, null);
+INSERT INTO `t_job_log` VALUES ('92', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 18:20:33', null, null);
+INSERT INTO `t_job_log` VALUES ('93', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 18:22:19', null, null);
+INSERT INTO `t_job_log` VALUES ('94', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 18:23:00', null, null);
+INSERT INTO `t_job_log` VALUES ('95', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 18:24:00', null, null);
+INSERT INTO `t_job_log` VALUES ('96', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 18:25:00', null, null);
+INSERT INTO `t_job_log` VALUES ('97', 'MyJob', '执行任务：MyJob 成功', '2018-06-04 18:26:00', null, null);
+INSERT INTO `t_job_log` VALUES ('98', 'MyJob', '执行任务：MyJob 成功', '2018-06-05 09:21:02', null, null);
+INSERT INTO `t_job_log` VALUES ('99', 'MyJob', '执行任务：MyJob 成功', '2018-06-05 09:22:00', null, null);
+INSERT INTO `t_job_log` VALUES ('100', 'MyJob', '执行任务：MyJob 成功', '2018-06-05 09:23:00', null, null);
+INSERT INTO `t_job_log` VALUES ('101', 'MyJob', '执行任务：MyJob 成功', '2018-06-05 09:24:00', null, null);
 
 -- ----------------------------
 -- Table structure for t_module
@@ -367,7 +407,7 @@ CREATE TABLE `t_module` (
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`module_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='菜单组表';
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COMMENT='菜单组表';
 
 -- ----------------------------
 -- Records of t_module
@@ -395,21 +435,21 @@ CREATE TABLE `t_resource` (
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_resource
 -- ----------------------------
-INSERT INTO `t_resource` VALUES ('1', '', '系统', null, '0', '2', '0', '1', '1', 'fa fa-power-off', '1', null, null);
-INSERT INTO `t_resource` VALUES ('2', '', '模块管理', '/module/main', '1', '2', '1', '1', '1', null, '1', null, null);
-INSERT INTO `t_resource` VALUES ('3', '', '资源管理', '/resource/main', '1', '2', '1', '1', '1', null, '1', null, null);
-INSERT INTO `t_resource` VALUES ('4', '', '博客', null, '0', '2', '0', '1', '1', 'fa fa-gg-circle', '1', null, null);
-INSERT INTO `t_resource` VALUES ('5', '', '文章', '', '4', '2', '1', '1', '1', null, '1', null, null);
-INSERT INTO `t_resource` VALUES ('6', '', '文章列表', '/article/list', '5', '2', '2', '1', '1', null, '1', null, null);
-INSERT INTO `t_resource` VALUES ('7', '', '角色管理', '/role/main', '1', '2', '1', '1', '1', 'fa fa-group', '1', null, null);
-INSERT INTO `t_resource` VALUES ('8', '', '新增模块', '/module/add', '2', '2', '3', '1', '2', null, '1', null, null);
-INSERT INTO `t_resource` VALUES ('19', '', '用户管理', '/user/main', '1', '2', '1', '1', '1', null, '4', null, null);
-INSERT INTO `t_resource` VALUES ('20', '', '定时任务', '/job/main', '1', '2', '1', '1', '1', null, '5', null, null);
+INSERT INTO `t_resource` VALUES ('1', 'system', '系统', null, '0', '2', '1', '1', '1', 'fa fa-power-off', '1', null, null);
+INSERT INTO `t_resource` VALUES ('2', 'mr', '模块资源', '/module/main', '1', '2', '2', '1', '1', null, '1', null, null);
+INSERT INTO `t_resource` VALUES ('7', 'role', '角色管理', '/role/main', '1', '2', '2', '1', '1', null, '1', null, null);
+INSERT INTO `t_resource` VALUES ('8', 'addModule', '新增模块', '/module/add', '2', '2', '4', '1', '2', null, '1', null, null);
+INSERT INTO `t_resource` VALUES ('19', 'user', '用户管理', '/user/main', '1', '2', '2', '1', '1', null, '4', null, null);
+INSERT INTO `t_resource` VALUES ('20', 'job', '定时任务', '/job/main', '1', '2', '2', '1', '1', null, '5', null, null);
+INSERT INTO `t_resource` VALUES ('24', 'test', '测试', null, '0', '2', '1', '1', '1', 'fa fa-gg-circle', '11', null, null);
+INSERT INTO `t_resource` VALUES ('25', 'test2', 'test2', null, '24', '2', '2', '1', '1', null, '1', null, null);
+INSERT INTO `t_resource` VALUES ('26', 'test3', 'test3', null, '25', '2', '3', '1', '1', null, '1', null, null);
+INSERT INTO `t_resource` VALUES ('28', '系统1', '系统1', '系统1系统1', '0', '1', '1', '1', '1', '系统1', '11', null, null);
 
 -- ----------------------------
 -- Table structure for t_role
@@ -424,7 +464,7 @@ CREATE TABLE `t_role` (
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`role_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COMMENT='角色表';
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COMMENT='角色表';
 
 -- ----------------------------
 -- Records of t_role
@@ -433,6 +473,7 @@ INSERT INTO `t_role` VALUES ('1', 'super', '超级管理员', '', '1', null, nul
 INSERT INTO `t_role` VALUES ('2', 'admin', '管理员', '', '1', null, null);
 INSERT INTO `t_role` VALUES ('3', 'vip', '普通会员', '', '1', null, null);
 INSERT INTO `t_role` VALUES ('4', 'gust', '游客', '', '1', null, null);
+INSERT INTO `t_role` VALUES ('11', '123', 'super', '123', '1', null, null);
 
 -- ----------------------------
 -- Table structure for t_role_resource_relation
@@ -452,8 +493,11 @@ INSERT INTO `t_role_resource_relation` VALUES ('1', '2');
 INSERT INTO `t_role_resource_relation` VALUES ('2', '1');
 INSERT INTO `t_role_resource_relation` VALUES ('3', '1');
 INSERT INTO `t_role_resource_relation` VALUES ('4', '1');
+INSERT INTO `t_role_resource_relation` VALUES ('4', '4');
 INSERT INTO `t_role_resource_relation` VALUES ('5', '1');
+INSERT INTO `t_role_resource_relation` VALUES ('5', '4');
 INSERT INTO `t_role_resource_relation` VALUES ('6', '1');
+INSERT INTO `t_role_resource_relation` VALUES ('6', '4');
 INSERT INTO `t_role_resource_relation` VALUES ('7', '1');
 INSERT INTO `t_role_resource_relation` VALUES ('8', '1');
 INSERT INTO `t_role_resource_relation` VALUES ('19', '1');
@@ -483,7 +527,7 @@ CREATE TABLE `t_user` (
   `login_time` datetime DEFAULT NULL COMMENT '登录时间',
   `last_login_time` datetime DEFAULT NULL COMMENT '上次登录时间',
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1009 DEFAULT CHARSET=utf8 COMMENT='用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=1014 DEFAULT CHARSET=utf8 COMMENT='用户表';
 
 -- ----------------------------
 -- Records of t_user
@@ -493,8 +537,11 @@ INSERT INTO `t_user` VALUES ('1003', null, null, 'zhanglin', '42f6bfd8e35a280d7a
 INSERT INTO `t_user` VALUES ('1004', null, null, 'wang', '42f6bfd8e35a280d7a212cb76ae76280', '@ad902s^$', '汪峰', '2018-06-21 00:00:00', '1', null, null, '1', '2018-06-04 14:23:04', null, null, null);
 INSERT INTO `t_user` VALUES ('1005', null, null, 'zhou', '42f6bfd8e35a280d7a212cb76ae76280', '@ad902s^$', '周润发', '2018-06-14 00:00:00', '1', null, null, '1', '2018-06-04 14:27:06', null, null, null);
 INSERT INTO `t_user` VALUES ('1006', null, null, 'liang', '42f6bfd8e35a280d7a212cb76ae76280', '@ad902s^$', '梁朝伟', '2018-06-13 00:00:00', '1', null, null, '1', '2018-06-04 14:27:59', null, null, null);
-INSERT INTO `t_user` VALUES ('1007', null, null, 'fanbb', '42f6bfd8e35a280d7a212cb76ae76280', '@ad902s^$', '范冰冰', '2018-06-08 00:00:00', '2', null, null, '1', '2018-06-04 14:28:56', null, null, null);
 INSERT INTO `t_user` VALUES ('1008', null, null, 'zulan', '42f6bfd8e35a280d7a212cb76ae76280', '@ad902s^$', '王祖蓝', '2018-06-20 00:00:00', '1', null, null, '1', '2018-06-04 14:30:40', null, null, null);
+INSERT INTO `t_user` VALUES ('1009', null, null, 'xueyou', 'b0879eb244becec3325298738a5a9a11', '@ad902s^$', '张学友', '2018-06-13 00:00:00', '1', null, null, '1', '2018-06-04 17:50:52', null, null, null);
+INSERT INTO `t_user` VALUES ('1011', null, null, 'zhangweijian', 'bf48919a076547ecc77b99ad8bae3569', '@ad902s^$', '张卫健', '2018-06-22 00:00:00', '1', null, null, '1', '2018-06-04 17:52:10', null, null, null);
+INSERT INTO `t_user` VALUES ('1012', null, null, 'licheng', '42f6bfd8e35a280d7a212cb76ae76280', '@ad902s^$', '李晨', '2018-06-07 00:00:00', '1', null, null, '1', '2018-06-04 17:52:36', null, null, null);
+INSERT INTO `t_user` VALUES ('1013', null, 'http://127.0.0.1:8888/upload/aa6f02db05414a7491669df633433556.jpeg', 'james', '42f6bfd8e35a280d7a212cb76ae76280', '@ad902s^$', '詹姆斯', '2018-07-25 00:00:00', '1', null, null, '1', '2018-07-06 12:25:11', null, null, null);
 
 -- ----------------------------
 -- Table structure for t_user_role_relation
