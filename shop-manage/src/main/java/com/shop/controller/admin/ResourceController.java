@@ -63,12 +63,14 @@ public class ResourceController extends BaseController {
 	}
 	
 	@RequestMapping(value = "/tree", method = RequestMethod.GET)
-	public String tree(HttpServletResponse response, Model model, Integer id) {
+	public String tree(HttpServletResponse response, Model model, Integer id , Integer currentId) {
 		
 		List<String> tree = new ArrayList<String>();
 		List<ZtreeNode> list = resourceService.getZtreeNode();
 		for (ZtreeNode ztreeNode : list) {
-			tree.add(JSON.toJSONString(ztreeNode));
+			if(currentId!=null&&ztreeNode.getId()!=currentId.intValue()){
+				tree.add(JSON.toJSONString(ztreeNode));
+			}
 		}
 		model.addAttribute("resourceTree", tree);
 		model.addAttribute("checkId", id);
@@ -119,8 +121,5 @@ public class ResourceController extends BaseController {
 		resourceService.deleteByPk(id);
 		return new Result(SUCCESS);
 	}
-	
-	
-	
 
 }

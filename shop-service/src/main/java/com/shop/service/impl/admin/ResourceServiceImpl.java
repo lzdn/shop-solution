@@ -183,6 +183,11 @@ public class ResourceServiceImpl extends BaseServiceImpl implements IResourceSer
 	@Override
 	public List<ZtreeNode> getZtreeNode() {
 		List<ZtreeNode> treeList = new ArrayList<ZtreeNode>();
+		Resource resource = new Resource();
+		resource.setId(0);
+		resource.setParentId(0);
+		resource.setResourceValue("默认");
+		treeList.add(node(resource));
 		List<Resource> list = resourceDao.resourceTree();
 		if(!CollectionUtils.isEmpty(list)) {
 			treeNode(list, treeList);

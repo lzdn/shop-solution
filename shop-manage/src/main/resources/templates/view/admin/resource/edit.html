@@ -128,7 +128,7 @@
 				            <a class="btn btn-default" href="javascript:history.go(-1);" >返回</a>
 				        </div>
 				    </div>
-				    <input type="hidden" name="id" value="${resource.id!}"/> 
+				    <input type="hidden" name="id" id="currentId" value="${resource.id!}"/>
                 </form>
 		</div>
 	</div>
@@ -184,7 +184,8 @@
 		});
     });
     function openResource(id){
-        var path = "${basePath}/resource/tree?id="+id;
+        var currentId = $('#currentId').val();
+        var path = "${basePath}/resource/tree?id="+id+"&currentId="+currentId;
 		parent.layer.open({
 		    type: 2,
 		    title: '选择上级资源',
