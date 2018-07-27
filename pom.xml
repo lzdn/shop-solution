@@ -40,5 +40,6 @@
 		<module>shop-plugin</module>
 		<module>shop-study</module>
 		<module>shop-xiangqin</module>
+		<module>shop-resource</module>
 	</modules>
 </project>
