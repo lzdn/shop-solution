@@ -26,6 +26,7 @@ public class FtpChannelInitializer extends ChannelInitializer<SocketChannel> {
 		channel.pipeline().addLast("http-chunked", new ChunkedWriteHandler());
 		// HttpFileServerHandler用于文件服务器的业务逻辑处理
 		channel.pipeline().addLast("fileServerHandler", new HttpFtpServerHandler("/upload"));
+		
 
 	}
 

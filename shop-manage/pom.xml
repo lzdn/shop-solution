@@ -22,7 +22,7 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-aop</artifactId>
-			<!-- <exclusions>
+		<!-- 	 <exclusions>
 				<exclusion>
 					<groupId>org.springframework.boot</groupId>
 					<artifactId>spring-boot-starter-logging</artifactId>
@@ -32,12 +32,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-freemarker</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-starter-logging</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -123,7 +117,8 @@
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 		</dependency>
-		<!-- <dependency> <groupId>org.apache.camel</groupId> <artifactId>camel-spring-boot-starter</artifactId> 
+		<!-- <dependency> 
+			<groupId>org.apache.camel</groupId> <artifactId>camel-spring-boot-starter</artifactId> 
 			<version>2.20.1</version> </dependency> -->
 		<dependency>
 			<groupId>org.apache.camel</groupId>

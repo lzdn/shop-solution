@@ -1,0 +1,23 @@
+2018-07-27 22:21:58,447 [INFO] [restartedMain] com.shop.App [StartupInfoLogger.java : 50] Starting App on zhanglin-PC with PID 7688 (C:\Users\zhanglin\Desktop\project\shop-solution\shop-resource\target\classes started by zhanglin in C:\Users\zhanglin\Desktop\project\shop-solution\shop-resource)
+2018-07-27 22:21:58,447 [INFO] [restartedMain] com.shop.App [SpringApplication.java : 659] No active profile set, falling back to default profiles: default
+2018-07-27 22:21:58,494 [INFO] [restartedMain] o.s.context.annotation.AnnotationConfigApplicationContext [AbstractApplicationContext.java : 590] Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@ac6477e: startup date [Fri Jul 27 22:21:58 CST 2018]; root of context hierarchy
+2018-07-27 22:21:59,149 [INFO] [restartedMain] com.shop.ftp.FTPService [FTPService.java : 34] 启动文件系统： 0.0.0.0/0.0.0.0:8888
+2018-07-27 22:21:59,618 [INFO] [restartedMain] o.s.boot.devtools.autoconfigure.OptionalLiveReloadServer [OptionalLiveReloadServer.java : 57] LiveReload server is running on port 35729
+2018-07-27 22:21:59,633 [INFO] [restartedMain] o.s.jmx.export.annotation.AnnotationMBeanExporter [MBeanExporter.java : 433] Registering beans for JMX exposure on startup
+2018-07-27 22:21:59,649 [INFO] [restartedMain] com.shop.App [StartupInfoLogger.java : 59] Started App in 1.499 seconds (JVM running for 1.896)
+2018-07-27 22:22:17,677 [INFO] [nioEventLoopGroup-3-1] com.shop.ftp.HttpFtpServerHandler [HttpFtpServerHandler.java : 136] Transfer progress: 8192 / 107089
+2018-07-27 22:22:17,678 [INFO] [nioEventLoopGroup-3-1] com.shop.ftp.HttpFtpServerHandler [HttpFtpServerHandler.java : 136] Transfer progress: 16384 / 107089
+2018-07-27 22:22:17,679 [INFO] [nioEventLoopGroup-3-1] com.shop.ftp.HttpFtpServerHandler [HttpFtpServerHandler.java : 136] Transfer progress: 24576 / 107089
+2018-07-27 22:22:17,680 [INFO] [nioEventLoopGroup-3-1] com.shop.ftp.HttpFtpServerHandler [HttpFtpServerHandler.java : 136] Transfer progress: 32768 / 107089
+2018-07-27 22:22:17,681 [INFO] [nioEventLoopGroup-3-1] com.shop.ftp.HttpFtpServerHandler [HttpFtpServerHandler.java : 136] Transfer progress: 40960 / 107089
+2018-07-27 22:22:17,682 [INFO] [nioEventLoopGroup-3-1] com.shop.ftp.HttpFtpServerHandler [HttpFtpServerHandler.java : 136] Transfer progress: 49152 / 107089
+2018-07-27 22:22:17,683 [INFO] [nioEventLoopGroup-3-1] com.shop.ftp.HttpFtpServerHandler [HttpFtpServerHandler.java : 136] Transfer progress: 57344 / 107089
+2018-07-27 22:22:17,683 [INFO] [nioEventLoopGroup-3-1] com.shop.ftp.HttpFtpServerHandler [HttpFtpServerHandler.java : 136] Transfer progress: 65536 / 107089
+2018-07-27 22:22:17,684 [INFO] [nioEventLoopGroup-3-1] com.shop.ftp.HttpFtpServerHandler [HttpFtpServerHandler.java : 136] Transfer progress: 73728 / 107089
+2018-07-27 22:22:17,685 [INFO] [nioEventLoopGroup-3-1] com.shop.ftp.HttpFtpServerHandler [HttpFtpServerHandler.java : 136] Transfer progress: 81920 / 107089
+2018-07-27 22:22:17,686 [INFO] [nioEventLoopGroup-3-1] com.shop.ftp.HttpFtpServerHandler [HttpFtpServerHandler.java : 136] Transfer progress: 90112 / 107089
+2018-07-27 22:22:17,687 [INFO] [nioEventLoopGroup-3-1] com.shop.ftp.HttpFtpServerHandler [HttpFtpServerHandler.java : 136] Transfer progress: 98304 / 107089
+2018-07-27 22:22:17,688 [INFO] [nioEventLoopGroup-3-1] com.shop.ftp.HttpFtpServerHandler [HttpFtpServerHandler.java : 136] Transfer progress: 106496 / 107089
+2018-07-27 22:22:17,689 [INFO] [nioEventLoopGroup-3-1] com.shop.ftp.HttpFtpServerHandler [HttpFtpServerHandler.java : 136] Transfer progress: 107089 / 107089
+2018-07-27 22:22:17,690 [INFO] [nioEventLoopGroup-3-1] com.shop.ftp.HttpFtpServerHandler [HttpFtpServerHandler.java : 136] Transfer progress: 107089 / 107089
+2018-07-27 22:22:17,690 [INFO] [nioEventLoopGroup-3-1] com.shop.ftp.HttpFtpServerHandler [HttpFtpServerHandler.java : 142] Transfer complete.

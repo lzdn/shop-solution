@@ -190,3 +190,22 @@ html #layui_layer_skinlayerextcss {
 	padding-left: 10px;
 	font-style: normal
 }
+
+.layui-tab {
+    margin: 10px 0;
+    text-align: left!important;
+}
+.dblclick-tab tr td i {
+    position: relative;
+    top: 2px;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.layui-icon {
+    font-family: layui-icon!important;
+    font-size: 16px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}

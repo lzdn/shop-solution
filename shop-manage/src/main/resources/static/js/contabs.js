@@ -34,6 +34,7 @@ $(function () {
         $('.page-tabs-content').animate({
             marginLeft: 0 - scrollVal + 'px'
         }, "fast");
+      //  refresh($(element));
     }
     //查看左侧隐藏的选项卡
     function scrollTabLeft() {
@@ -107,6 +108,7 @@ $(function () {
     
 
     function menuItem() {
+    	try{layer.closeAll();}catch(e){}
         // 获取标识数据
         var dataUrl = $(this).attr('href'),
             dataIndex = $(this).data('index'),
@@ -171,7 +173,7 @@ $(function () {
             scrollToTab($('.J_menuTab.active'));
             //#39aef5;
         }
-       
+        contextmenu($('.J_menuTab.active'));
         return false;
     }
 
@@ -179,17 +181,21 @@ $(function () {
 
     // 关闭选项卡菜单
     function closeTab() {
-        var closeTabId = $(this).parents('.J_menuTab').data('id');
-        var currentWidth = $(this).parents('.J_menuTab').width();
+    	return close(this);
+    }
+
+    function close(current){
+        var closeTabId = $(current).parents('.J_menuTab').data('id');
+        var currentWidth = $(current).parents('.J_menuTab').width();
 
         // 当前元素处于活动状态
-        if ($(this).parents('.J_menuTab').hasClass('active')) {
+        if ($(current).parents('.J_menuTab').hasClass('active')) {
 
             // 当前元素后面有同辈元素，使后面的一个元素处于活动状态
-            if ($(this).parents('.J_menuTab').next('.J_menuTab').size()) {
+            if ($(current).parents('.J_menuTab').next('.J_menuTab').size()) {
 
-                var activeId = $(this).parents('.J_menuTab').next('.J_menuTab:eq(0)').data('id');
-                $(this).parents('.J_menuTab').next('.J_menuTab:eq(0)').addClass('active');
+                var activeId = $(current).parents('.J_menuTab').next('.J_menuTab:eq(0)').data('id');
+                $(current).parents('.J_menuTab').next('.J_menuTab:eq(0)').addClass('active');
 
                 $('.J_mainContent .J_iframe').each(function () {
                     if ($(this).data('id') == activeId) {
@@ -206,7 +212,7 @@ $(function () {
                 }
 
                 //  移除当前选项卡
-                $(this).parents('.J_menuTab').remove();
+                $(current).parents('.J_menuTab').remove();
 
                 // 移除tab对应的内容区
                 $('.J_mainContent .J_iframe').each(function () {
@@ -218,9 +224,9 @@ $(function () {
             }
 
             // 当前元素后面没有同辈元素，使当前元素的上一个元素处于活动状态
-            if ($(this).parents('.J_menuTab').prev('.J_menuTab').size()) {
-                var activeId = $(this).parents('.J_menuTab').prev('.J_menuTab:last').data('id');
-                $(this).parents('.J_menuTab').prev('.J_menuTab:last').addClass('active');
+            if ($(current).parents('.J_menuTab').prev('.J_menuTab').size()) {
+                var activeId = $(current).parents('.J_menuTab').prev('.J_menuTab:last').data('id');
+                $(current).parents('.J_menuTab').prev('.J_menuTab:last').addClass('active');
                 $('.J_mainContent .J_iframe').each(function () {
                     if ($(this).data('id') == activeId) {
                         $(this).show().siblings('.J_iframe').hide();
@@ -229,7 +235,7 @@ $(function () {
                 });
 
                 //  移除当前选项卡
-                $(this).parents('.J_menuTab').remove();
+                $(current).parents('.J_menuTab').remove();
 
                 // 移除tab对应的内容区
                 $('.J_mainContent .J_iframe').each(function () {
@@ -243,7 +249,7 @@ $(function () {
         // 当前元素不处于活动状态
         else {
             //  移除当前选项卡
-            $(this).parents('.J_menuTab').remove();
+            $(current).parents('.J_menuTab').remove();
 
             // 移除相应tab对应的内容区
             $('.J_mainContent .J_iframe').each(function () {
@@ -256,7 +262,7 @@ $(function () {
         }
         return false;
     }
-
+    
     $('.J_menuTabs').on('click', '.J_menuTab i', closeTab);
 
     //关闭其他选项卡
@@ -290,13 +296,19 @@ $(function () {
             $(this).addClass('active').siblings('.J_menuTab').removeClass('active');
             scrollToTab(this);
         }
+        try{layer.closeAll();}catch(e){}
     }
 
     $('.J_menuTabs').on('click', '.J_menuTab', activeTab);
 
     //刷新iframe
     function refreshTab() {
-        var target = $('.J_iframe[data-id="' + $(this).data('id') + '"]');
+    	refresh(this);
+    }
+    
+    function refresh(current){
+
+        var target = $('.J_iframe[data-id="' + $(current).data('id') + '"]');
         var url = target.attr('src');
 //        //显示loading提示
         var loading = layer.load();
@@ -304,6 +316,7 @@ $(function () {
 //            //关闭loading提示
             layer.close(loading);
        });
+    
     }
 
     $('.J_menuTabs').on('dblclick', '.J_menuTab', refreshTab);
@@ -314,9 +327,12 @@ $(function () {
     // 右移按扭
     $('.J_tabRight').on('click', scrollTabRight);
 
+    $('.J_menuTab').bind("contextmenu",function(e){
+ 	   return false;
+	 });
     // 关闭全部
     $('.J_tabCloseAll').on('click', function () {
-        $('.page-tabs-content').children("[data-id]").not(":first").each(function () {
+      /*  $('.page-tabs-content').children("[data-id]").not(":first").each(function () {
             $('.J_iframe[data-id="' + $(this).data('id') + '"]').remove();
             $(this).remove();
         });
@@ -324,7 +340,75 @@ $(function () {
             $('.J_iframe[data-id="' + $(this).data('id') + '"]').show();
             $(this).addClass("active");
         });
-        $('.page-tabs-content').css("margin-left", "0");
+        $('.page-tabs-content').css("margin-left", "0");*/
+    	closeAllTab()
     });
+    function closeAllTab(){
+    	 $('.page-tabs-content').children("[data-id]").not(":first").each(function () {
+             $('.J_iframe[data-id="' + $(this).data('id') + '"]').remove();
+             $(this).remove();
+         });
+         $('.page-tabs-content').children("[data-id]:first").each(function () {
+             $('.J_iframe[data-id="' + $(this).data('id') + '"]').show();
+             $(this).addClass("active");
+         });
+         $('.page-tabs-content').css("margin-left", "0");
+    }
+    var current_tab ;
+    function rigthMenu(){
+    	if($(this).hasClass('card-refresh')){
+    		refresh(current_tab);
+    	}else if($(this).hasClass('card-close')){
+    		close($(current_tab).find('i:first').eq(0));
+    	}else if($(this).hasClass('card-close-all')){
+    		closeAllTab()
+    	}else if($(this).hasClass('card-close-other')){
+    		//closeOtherTabs()
+    		   $('.page-tabs-content').children("[data-id]").not(":first").each(function () {
+    			   if($(this).is($(current_tab))){
+    				   $(current_tab).addClass("active");
+    				   $('.J_mainContent .J_iframe').each(function () {
+    	                    if ($(this).data('id') == $(current_tab).data('id')) {
+    	                        $(this).show();
+    	                        return false;
+    	                    }
+    	                });
+    			   }else{
+    				   $('.J_iframe[data-id="' + $(this).data('id') + '"]').remove();
+       	            $(this).remove();
+    			   }
+    	          
+    	        });
+    	        $('.page-tabs-content').css("margin-left", "0");
+    	}
+    	 try{layer.closeAll();}catch(e){}
+    }
+   
+    var html_menu= "<div class=\"my-dblclick-box none\"><table class=\"layui-tab dblclick-tab\">"+
+        "<tr class=\"card-refresh\" ><td><i class=\"glyphicon glyphicon-repeat\"></i>刷新当前标签</td></tr>"+
+        "<tr class=\"card-close\"><td><i class=\"glyphicon glyphicon-remove-sign\"></i>关闭当前标签</td></tr>"+
+        "<tr class=\"card-close-other\"><td><i class=\"glyphicon glyphicon-adjust\"></i>关闭其他标签</td></tr>"+
+        "<tr class=\"card-close-all\" ><td><i class=\"glyphicon glyphicon-remove\"></i>关闭所有标签</td></tr></table></div>";
+    
+    function contextmenu(obj){
+    	 $(obj).bind("contextmenu",function(e){
+    	 	   return false;
+    		 });
+        $(obj).mousedown(function(e){
+            if(3 == e.which){
+            	layer.tips(html_menu, obj, {
+            		  tips: [3, '#0FA6D8'],
+            		  time:3000,
+            		  tipsMore: false
+            		});
+            	current_tab = obj;
+            	$('.card-refresh,.card-close,.card-close-all,.card-close-other').on('click', rigthMenu);
+            	return false;
+            }else if(1 == e.which){
+               return false;
+            }
+        })
+    }
+ 
 
 });
