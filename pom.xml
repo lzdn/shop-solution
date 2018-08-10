@@ -31,13 +31,13 @@
 	<modules>
 		<module>shop-manage</module>
 		<module>shop-service</module>
-		<module>shop-website</module>
+		
 		<module>shop-dao</module>
 		<module>shop-domain</module>
 		<module>shop-utils</module>
-		<module>shop-data</module>
+		
 		<module>shop-crawler</module>
-		<module>shop-plugin</module>
+		
 		<module>shop-study</module>
 		<module>shop-xiangqin</module>
 		<module>shop-resource</module>
