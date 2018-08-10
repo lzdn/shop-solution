@@ -185,6 +185,7 @@ $(function () {
     }
 
     function close(current){
+    	try{layer.closeAll();}catch(e){}
         var closeTabId = $(current).parents('.J_menuTab').data('id');
         var currentWidth = $(current).parents('.J_menuTab').width();
 
@@ -260,6 +261,7 @@ $(function () {
             });
             scrollToTab($('.J_menuTab.active'));
         }
+        
         return false;
     }
     
